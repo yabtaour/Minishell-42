@@ -44,9 +44,7 @@ t_lexer	*ft_add_lexer_back(t_lexer *lexer, char *str, int type)
 		return (node);
 	lexer_clone = lexer;
 	while (lexer_clone->next != NULL)
-	{
 		lexer_clone = lexer_clone->next;
-	}
 	lexer_clone->next = node;
 	node->prev = lexer_clone;
 	return (lexer);

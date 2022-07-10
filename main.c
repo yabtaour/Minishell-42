@@ -92,12 +92,13 @@ int	main(int argc, char **argv, char **env)
 			data.cmd = ft_trim(data.cmd);
 			add_history(data.cmd);
 			ft_lexer(&data);
-			ft_expanding(&data);
-			data.error = ft_syntax_analyzer(&data);
-			if (data.error)
-				continue;
-			// ft_print_lexer(data.lst_lexer);
-			ft_parsing(&data);
+			free(data.cmd);
+			// ft_expanding(&data);
+			// data.error = ft_syntax_analyzer(&data);
+			// if (data.error)
+			// 	continue;
+			ft_print_lexer(data.lst_lexer);
+			// ft_parsing(&data);
 			// ft_print_lexer(data.lst_lexer);
 			// ft_print_cmd(data.lst_cmd);
 			// if (data.lst_cmd)
@@ -112,7 +113,7 @@ int	main(int argc, char **argv, char **env)
 			// printf("%d\n", export(&data, data.lst_cmd, 1));
 			// exe(&data);
 			ft_free_lexer(data.lst_lexer);
-			ft_free_cmd(data.lst_cmd);
+			// ft_free_cmd(data.lst_cmd);
 		}
 	}
 	return (0);
