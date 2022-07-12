@@ -172,14 +172,22 @@ int	ft_add_redirection(t_data *data, int i)
 		i++;
 		len++;
 	}
+	HERE
 	command = malloc(sizeof(char) * len + 1);
+	if (!command)
+	{
+		HERE
+		exit(1);
+	}
 	len = 0;
 	while (data->cmd[origin] && ft_is_redirection(data->cmd[origin]))
 	{
+		HERE
 		command[len] = data->cmd[origin];
 		len++;
 		origin++;
 	}
+	HERE
 	command[len] = '\0';
 	data->lst_lexer = ft_add_lexer_back(data->lst_lexer, command, 3);
 	ft_print_lexer(data->lst_lexer);

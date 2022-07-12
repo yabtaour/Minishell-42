@@ -93,7 +93,7 @@ int	main(int argc, char **argv, char **env)
 			add_history(data.cmd);
 			ft_lexer(&data);
 			free(data.cmd);
-			// ft_expanding(&data);
+			ft_expanding(&data);
 			// data.error = ft_syntax_analyzer(&data);
 			// if (data.error)
 			// 	continue;
