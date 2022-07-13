@@ -205,7 +205,6 @@ int	ft_len_before(char *var)
 
 	while (var[len] && var[len] != '$')
 	{
-		HERE
 		len++;
 	}
 	return (len);
@@ -218,8 +217,7 @@ int	ft_len_after(char *var)
 
 	while (var[i] && var[i] != '$')
 	{
-		HERE
-		i++;
+				i++;
 	}
 	if (var[i] && var[i] == '$')
 	{
@@ -227,14 +225,14 @@ int	ft_len_after(char *var)
 		while (var[i] && var[i] != ' ' && var[i] != '$'
 			&& var[i] != '\\' && var[i] != '\'' && var[i] != '"')
 			{
-				HERE
 				i++;
 			}
+		HERE
+		printf("[%c]\n", var[i]);
 		if (var[i])
 		{
 			while (var[i++])
 			{
-				HERE
 				len++;
 			}
 		}
@@ -250,7 +248,6 @@ int	ft_len_var(char *var)
 	while (var[i] && var[i] != '$')
 	{
 		i++;
-		HERE
 	}
 	if (var[i] && var[i] == '$')
 	{
@@ -258,7 +255,6 @@ int	ft_len_var(char *var)
 		while (var[i] && var[i] != ' ' && var[i] != '$'
 			&& var[i] != '\\' && var[i] != '"')
 		{
-			HERE
 			i++;
 			len++;
 		}
@@ -273,7 +269,6 @@ int	ft_check_var_env(t_data *data, char *var)
 	env_clone = data->lst_env;
 	while (env_clone)
 	{
-		HERE
 		if (!strcmp(env_clone->name, var))	
 			return (1);
 		env_clone = env_clone->next;
@@ -303,7 +298,6 @@ char	*ft_get_value(t_data *data, char *var)
 	env_clone = data->lst_env;
 	while (env_clone)
 	{
-		HERE
 		if (!strcmp(env_clone->name, var))
 			return (env_clone->value);
 		env_clone = env_clone->next;
@@ -335,7 +329,7 @@ void	ft_expanding(t_data *data)
 	t_lexer	*lexer_clone;
 	t_env	*env_clone;
 	char	*new_var = NULL;
-	char	*var;
+	char	*var = NULL;
 	int		i = 0;
 	char	*before_var = NULL;
 
@@ -345,30 +339,56 @@ void	ft_expanding(t_data *data)
 		HERE
 		if (lexer_clone->type == WORD)
 		{
-			before_var = ft_substr(lexer_clone->value, 0, ft_len_before(lexer_clone->value));
-			new_var = ft_strjoin(new_var, before_var);
+			i = 0;
+			// before_var = ft_substr(lexer_clone->value, 0, ft_len_before(lexer_clone->value));
+			// printf("%s\n", lexer_clone->value);
+			// printf("%d\n", ft_len_before(lexer_clone->value));
+			// printf("%s\n", ft_substr(lexer_clone->value, 0, ft_len_before(lexer_clone->value)));
+			new_var = ft_strjoin(new_var, ft_substr(lexer_clone->value, 0, ft_len_before(lexer_clone->value)));
+			// printf("%s\n", new_var);
+			printf("%s\n", lexer_clone->value);
 			while (lexer_clone->value[i] && lexer_clone->value[i] != '$')
 				i++;
+			printf("clone : %s\n", lexer_clone->value);
 			if (lexer_clone->value[i] && lexer_clone->value[i + 1])
+			{
+				HERE
 				var = ft_substr(lexer_clone->value, i + 1, ft_len_var(lexer_clone->value));
+			}
+			else
+			{
+				free (lexer_clone->value);
+				lexer_clone->value = ft_substr(new_var, 0, strlen(new_var));
+			}
+			printf("clone : %s\n", lexer_clone->value);
 			if (var)
 			{
+				HERE
+				printf("clone : %s\n", lexer_clone->value);
 				if (ft_check_var_env(data, var))
 				{
+					HERE
 					new_var = ft_strjoin(new_var, ft_get_value(data, var));
+					printf("%s\n", lexer_clone->value);
+					printf("%s\n", new_var);
 					i++;
 					while (lexer_clone->value[i] && lexer_clone->value[i] != ' ' && lexer_clone->value[i] != '$'
-						&& lexer_clone->value[i] != '\\' && lexer_clone->value[i] != '\'')
+						&& lexer_clone->value[i] != '\\' && lexer_clone->value[i] != '\'' && lexer_clone->value[i] != '"')
+					{
+						printf("[%c]\n", lexer_clone->value[i]);
 						i++;
+					}
+					printf("[%c]\n", lexer_clone->value[i]);
 					if (lexer_clone->value[i])
 						new_var = ft_strjoin(new_var, ft_substr(lexer_clone->value, i, ft_len_after(lexer_clone->value)));
 				}
 				else
 					new_var = ft_strjoin(new_var, ft_delete_var(data, lexer_clone->value));
+				free (lexer_clone->value);
+				lexer_clone->value = ft_substr(new_var, 0, strlen(new_var));				
 			}
+			new_var = NULL;
 		}
-		HERE
-		printf("new var is : %s\n", new_var);
 		lexer_clone = lexer_clone->next;
 	}
 }
