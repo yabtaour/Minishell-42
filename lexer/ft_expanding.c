@@ -203,7 +203,7 @@ int	ft_len_before(char *var)
 {
 	int	len = 0;
 
-	while (var[len] && var[len] != '$')
+	while ((var[len] && var[len] != '$'))
 	{
 		len++;
 	}
@@ -318,77 +318,102 @@ char	*ft_delete_var(t_data *data, char *var)
 		while (var[i] && var[i] != ' ' && var[i] != '$'
 			&& var[i] != '\\' && var[i] != '"')
 			i++;
-		if (var[i])
+		if (var[i] && var[i + 1] && var[i + 1] != '"')
+		{
+			HERE
 			new_var = ft_substr(var, i, ft_len_after(var));
+		}
 	}
 	return (new_var);
+}
+
+int	ft_check_still_dollar(t_data *data)
+{
+	t_lexer	*lexer_clone;
+	int		i = 0;
+
+	HERE
+	lexer_clone = data->lst_lexer;
+	while (lexer_clone)
+	{
+		if (lexer_clone->type == WORD)
+		{
+			i = 0;
+			while (lexer_clone->value[i])
+			{
+				if (lexer_clone->value[i] == '$' && lexer_clone->value[i + 1]
+					&& lexer_clone->value[i + 1] != '"')
+					return (1);
+				i++;
+			}
+		}
+		lexer_clone = lexer_clone->next;
+	}
+	return (0);
 }
 
 void	ft_expanding(t_data *data)
 {
 	t_lexer	*lexer_clone;
 	t_env	*env_clone;
-	char	*new_var = NULL;
+	char	*new_var;
 	char	*var = NULL;
 	int		i = 0;
 	char	*before_var = NULL;
 
 	lexer_clone = data->lst_lexer;
-	while (lexer_clone)
+	while (ft_check_still_dollar(data))
 	{
-		HERE
-		if (lexer_clone->type == WORD)
+	lexer_clone = data->lst_lexer;
+
+		while (lexer_clone)
 		{
-			i = 0;
-			// before_var = ft_substr(lexer_clone->value, 0, ft_len_before(lexer_clone->value));
-			// printf("%s\n", lexer_clone->value);
-			// printf("%d\n", ft_len_before(lexer_clone->value));
-			// printf("%s\n", ft_substr(lexer_clone->value, 0, ft_len_before(lexer_clone->value)));
-			new_var = ft_strjoin(new_var, ft_substr(lexer_clone->value, 0, ft_len_before(lexer_clone->value)));
-			// printf("%s\n", new_var);
-			printf("%s\n", lexer_clone->value);
-			while (lexer_clone->value[i] && lexer_clone->value[i] != '$')
-				i++;
-			printf("clone : %s\n", lexer_clone->value);
-			if (lexer_clone->value[i] && lexer_clone->value[i + 1])
-			{
-				HERE
-				var = ft_substr(lexer_clone->value, i + 1, ft_len_var(lexer_clone->value));
-			}
-			else
-			{
-				free (lexer_clone->value);
-				lexer_clone->value = ft_substr(new_var, 0, strlen(new_var));
-			}
-			printf("clone : %s\n", lexer_clone->value);
-			if (var)
-			{
-				HERE
-				printf("clone : %s\n", lexer_clone->value);
-				if (ft_check_var_env(data, var))
-				{
-					HERE
-					new_var = ft_strjoin(new_var, ft_get_value(data, var));
-					printf("%s\n", lexer_clone->value);
-					printf("%s\n", new_var);
-					i++;
-					while (lexer_clone->value[i] && lexer_clone->value[i] != ' ' && lexer_clone->value[i] != '$'
-						&& lexer_clone->value[i] != '\\' && lexer_clone->value[i] != '\'' && lexer_clone->value[i] != '"')
-					{
-						printf("[%c]\n", lexer_clone->value[i]);
-						i++;
-					}
-					printf("[%c]\n", lexer_clone->value[i]);
-					if (lexer_clone->value[i])
-						new_var = ft_strjoin(new_var, ft_substr(lexer_clone->value, i, ft_len_after(lexer_clone->value)));
-				}
-				else
-					new_var = ft_strjoin(new_var, ft_delete_var(data, lexer_clone->value));
-				free (lexer_clone->value);
-				lexer_clone->value = ft_substr(new_var, 0, strlen(new_var));				
-			}
+			var = NULL;
 			new_var = NULL;
+			printf("%s\n", lexer_clone->value);
+			ft_print_lexer(data->lst_lexer);
+					
+			if (lexer_clone->type == WORD)
+			{
+				i = 0;
+				printf("new var : %s\n", new_var);
+				new_var = ft_strjoin(new_var, ft_substr(lexer_clone->value, 0, ft_len_before(lexer_clone->value)));
+				printf("new var : %s\n", new_var);
+				while ((lexer_clone->value[i] && lexer_clone->value[i] != '$'))
+					i++;
+				if (lexer_clone->value[i] && lexer_clone->value[i + 1])
+					var = ft_substr(lexer_clone->value, i + 1, ft_len_var(lexer_clone->value));
+				else
+				{
+					if (var)
+					{
+						free (lexer_clone->value);
+						lexer_clone->value = ft_substr(new_var, 0, strlen(new_var));
+					}
+				}
+				printf("var : %s\n", var);
+
+				if (var)
+				{
+					if (ft_check_var_env(data, var))
+					{
+						new_var = ft_strjoin(new_var, ft_get_value(data, var));
+						i++;
+						while (lexer_clone->value[i] && lexer_clone->value[i] != ' ' && lexer_clone->value[i] != '$'
+							&& lexer_clone->value[i] != '\\' && lexer_clone->value[i] != '\'' && lexer_clone->value[i] != '"')
+							i++;
+						if (lexer_clone->value[i])
+							new_var = ft_strjoin(new_var, ft_substr(lexer_clone->value, i, ft_len_after(lexer_clone->value)));
+					}
+					else
+						new_var = ft_strjoin(new_var, ft_delete_var(data, lexer_clone->value));
+					free (lexer_clone->value);
+					lexer_clone->value = ft_substr(new_var, 0, strlen(new_var));				
+				}
+				free(new_var);
+			}
+			ft_print_lexer(data->lst_lexer);
+			lexer_clone = lexer_clone->next;
 		}
-		lexer_clone = lexer_clone->next;
 	}
 }

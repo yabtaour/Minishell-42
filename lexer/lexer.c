@@ -109,11 +109,9 @@ int	ft_add_word(t_data *data, int i)
 	int		flag_s = 0;
 	int		flag_d = 0;
 
-	HERE
 	origin = i;
 	while (data->cmd[i] && ft_is_word(data->cmd[i]))
 	{
-		HERE
 		if (data->cmd[i] == '"' || data->cmd[i] == '\'')
 		{
 			c = data->cmd[i];
@@ -128,13 +126,10 @@ int	ft_add_word(t_data *data, int i)
 		len++;
 		i++;
 	}
-	printf("input command = %s\n", data->cmd);
-	printf("len = %d\n", len);
 	command = malloc (sizeof(char) * len + 1);
 	len = 0;
 	while (data->cmd[origin] && ft_is_word(data->cmd[origin]))
 	{
-		HERE
 		if (data->cmd[origin] == '"' || data->cmd[origin] == '\'')
 		{
 			c = data->cmd[origin];
@@ -153,9 +148,39 @@ int	ft_add_word(t_data *data, int i)
 		origin++;
 	}
 	command[len] = '\0';
-	data->lst_lexer = ft_add_lexer_back(data->lst_lexer, command, 1);
+	data->lst_lexer = ft_add_lexer_back(data->lst_lexer, command, WORD);
 	ft_print_lexer(data->lst_lexer);
 	free(command);
+	return (i);
+}
+
+int	ft_add_and(t_data *data, int i)
+{
+	int		origin = i;
+	int		len = 0;
+	char	*command = NULL;
+	
+	while (data->cmd[i] && data->cmd[i] == '&')
+	{
+		i++;
+		len++;
+	}
+	command = malloc(sizeof(char) * len + 1);
+	if (!command)
+	{
+		HERE
+		exit(1);
+	}
+	len = 0;
+	while (data->cmd[origin] && data->cmd[origin] == '&')
+	{
+		command[len] = data->cmd[origin];
+		origin++;
+		len++;
+	}
+	command[len] = '\0';
+	data->lst_lexer = ft_add_lexer_back(data->lst_lexer, command, AND);
+	ft_print_lexer(data->lst_lexer);	
 	return (i);
 }
 
@@ -166,13 +191,11 @@ int	ft_add_redirection(t_data *data, int i)
 	int		origin;
 
 	origin = i;
-	HERE
 	while (data->cmd[i] && ft_is_redirection(data->cmd[i]))
 	{
 		i++;
 		len++;
 	}
-	HERE
 	command = malloc(sizeof(char) * len + 1);
 	if (!command)
 	{
@@ -182,15 +205,43 @@ int	ft_add_redirection(t_data *data, int i)
 	len = 0;
 	while (data->cmd[origin] && ft_is_redirection(data->cmd[origin]))
 	{
-		HERE
 		command[len] = data->cmd[origin];
 		len++;
 		origin++;
 	}
-	HERE
 	command[len] = '\0';
 	data->lst_lexer = ft_add_lexer_back(data->lst_lexer, command, 3);
 	ft_print_lexer(data->lst_lexer);
+	free(command);
+	return (i);
+}
+
+int	ft_add_pipe(t_data *data, int i)
+{
+	int		origin = i;
+	char	*command = NULL;
+	int		len = 0;
+
+	while (data->cmd[i] && data->cmd[i] == '|')
+	{
+		i++;
+		len++;
+	}
+	command = malloc (sizeof(char) * len + 1);
+	if (!command)
+	{
+		HERE
+		exit (1);
+	}
+	len = 0;
+	while (data->cmd[origin] && data->cmd[origin] == '|')
+	{
+		command[len] = data->cmd[origin];
+		origin++;
+		len++;
+	}
+	command[len] = '\0';
+	ft_add_lexer_back(data->lst_lexer, command, PIPE);
 	free(command);
 	return (i);
 }
@@ -199,25 +250,18 @@ void	ft_lexer(t_data *data)
 {
 	int		i = 0;
 
-	HERE
 	while (data->cmd[i])
 	{
-		HERE
 		while (data->cmd[i] == ' ')
-		{
-			HERE
 			i++;
-		}
 		if (data->cmd[i] != '&' && data->cmd[i] != '|'
 			&& !ft_is_redirection(data->cmd[i]))
-		{
-			HERE
 			i = ft_add_word(data, i);
-		}
 		if (ft_is_redirection(data->cmd[i]))
-		{
-			HERE
 			i = ft_add_redirection(data, i);
-		}
+		if (data->cmd[i] == '&')
+			i = ft_add_and(data, i);
+		if (data->cmd[i] == '|')
+			i = ft_add_pipe(data, i);
 	}
 }

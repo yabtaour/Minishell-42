@@ -272,8 +272,6 @@ void	ft_handle_herdoc(t_data *data)
 		if (strcmp(lexer_clone->value, "<<") == 0)
 		{
 			lexer_clone = lexer_clone->next;
-			while (lexer_clone->type == SPACE)
-				lexer_clone = lexer_clone->next;
 			if (lexer_clone->type == DOUBLE_QUOTES || lexer_clone->type == SINGLE_QUOTES)
 				data->eof[i++] = ft_substr(lexer_clone->value, 1, strlen(lexer_clone->value) - 2);
 			else

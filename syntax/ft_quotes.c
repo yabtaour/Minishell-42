@@ -62,14 +62,53 @@ static int	ft_check_single(t_data *data)
 	return (data->error);
 }
 
+int	ft_change_flag(int flag)
+{
+	if (flag == 0)
+		flag = 1;
+	if (flag == 1)
+		flag = 0;
+	return (flag);
+}
+
+int	ft_check_inside_double(char *value, int index)
+{
+	int	i = 0;
+	int	flag_before = 0;
+	int	flag_after = 0;
+
+	while (value[i] && i < index)
+	{
+		if (value[i] == '"')
+			flag_before = ft_change_flag(flag_before);
+	}
+	if (i == index)
+	{
+		i++;
+		while (value[i])
+		{
+			
+		}
+	}
+}
+
+int	ft_check_the_quotes(t_data *data)
+{
+
+}
+
 int	ft_check_quotes(t_data *data)
 {
 	ft_print_lexer(data->lst_lexer);
-	data->error = ft_check_double(data);
+	HERE
+	data->error = ft_check_the_quotes(data);
 	if (data->error)
 		return (data->error);
-	data->error = ft_check_single(data);
-	if (data->error)
-		return (data->error);
+	// data->error = ft_check_double(data);
+	// if (data->error)
+	// 	return (data->error);
+	// data->error = ft_check_single(data);
+	// if (data->error)
+	// 	return (data->error);
 	return (data->error);
 }

@@ -7,7 +7,7 @@ static int	ft_check_start_end(t_data *data)
 
 	flag = 0;
 	lexer_clone = data->lst_lexer;
-	if (lexer_clone->type == AND || lexer_clone->type == PIPE)
+	if (lexer_clone->type == PIPE)
 	{
 		flag = 1;
 		printf("Syntax error near unexpected token `%s'\n", lexer_clone->value);
@@ -15,7 +15,7 @@ static int	ft_check_start_end(t_data *data)
 	}
 	while (lexer_clone->next)
 		lexer_clone = lexer_clone->next;
-	if ((lexer_clone->type == PIPE || lexer_clone->type == AND)  && !flag)
+	if ((lexer_clone->type == PIPE)  && !flag)
 	{
 		printf("Syntax error near unexpected token `%s'\n", lexer_clone->value);
 		data->error = 258;
@@ -56,9 +56,9 @@ int	ft_syntax_analyzer(t_data *data)
 		data->error = ft_check_start_end(data);
 		if (data->error)
 			return (data->error);
-		data->error = ft_check_quotes(data);
-		if (data->error)
-			return (data->error);
+		// data->error = ft_check_quotes(data);
+		// if (data->error)
+		// 	return (data->error);
 		data->error = ft_check_between_pipes(data);
 		if (data->error)
 			return (data->error);
