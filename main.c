@@ -1,30 +1,5 @@
 #include "minishell.h"
 
-int	ft_check_dollar(t_data *data)
-{
-	t_lexer	*lexer_clone;
-	int		i;
-
-	lexer_clone = data->lst_lexer;
-	while (lexer_clone)
-	{
-		if (lexer_clone->type == DOLLAR)
-			return (1);
-		if (lexer_clone->type == DOUBLE_QUOTES)
-		{
-			i = 0;
-			while (lexer_clone->value[i])
-			{
-				if (lexer_clone->value[i] == '$')
-					return (1);
-				i++;
-			}
-		}
-		lexer_clone = lexer_clone->next;
-	}
-	return (0);
-}
-
 char	*ft_trim(char *str)
 {
 	int		i;
@@ -99,12 +74,13 @@ int	main(int argc, char **argv, char **env)
 				ft_free_lexer(data.lst_lexer);
 				continue;
 			}
+			data.error = ft_syntax_analyzer(&data);
+			if (data.error)
+				continue;
 			ft_expanding(&data);
-			// data.error = ft_syntax_analyzer(&data);
-			// if (data.error)
-			// 	continue;
 			ft_print_lexer(data.lst_lexer);
-			// ft_parsing(&data);
+			ft_parsing(&data);
+			ft_print_lexer(data.lst_lexer);
 			// ft_print_lexer(data.lst_lexer);
 			// ft_print_cmd(data.lst_cmd);
 			// if (data.lst_cmd)
@@ -115,7 +91,6 @@ int	main(int argc, char **argv, char **env)
 			// comment this if you want to edit the parsing to avoid segfaults
 			// also you can run single cmnts right now
 			// unset(&data, "zzz");
-			HERE
 			// printf("%d\n", export(&data, data.lst_cmd, 1));
 			// exe(&data);
 			ft_free_lexer(data.lst_lexer);

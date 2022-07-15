@@ -15,6 +15,10 @@ PARSING = ./parsing/parsing.c ./parsing/parsing_utils.c \
 
 LEXER = ./lexer/lexer.c ./lexer/lexer_utils.c \
 		./lexer/ft_lexer_list.c ./lexer/ft_expanding.c \
+		./lexer/ft_add_and.c ./lexer/ft_add_semi.c \
+		./lexer/ft_add_parenth.c ./lexer/ft_add_word.c \
+		./lexer/ft_add_pipe.c ./lexer/ft_add_redirection.c
+
 
 SYNTAX = ./syntax/syntax_analyzer.c ./syntax/ft_pipe.c \
 	 	 ./syntax/ft_redirection.c ./syntax/ft_quotes.c \

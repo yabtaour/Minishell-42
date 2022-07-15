@@ -5,11 +5,11 @@ static int	ft_check_red(t_data *data)
 	t_lexer	*lexer_clone;
 
 	lexer_clone = data->lst_lexer;
-	if (strcmp(lexer_clone->value, "<") == 0)
-	{
-		data->error = 258;
-		return (data->error);
-	}
+	// if (strcmp(lexer_clone->value, "<") == 0)
+	// {
+	// 	data->error = 258;
+	// 	return (data->error);
+	// }
 	while (lexer_clone->next)
 		lexer_clone = lexer_clone->next;
 	if (lexer_clone->type == REDIRECTION)
@@ -34,9 +34,7 @@ static int	ft_check_red(t_data *data)
 
 static int	ft_check_type(int lexer_clone_type)
 {
-	if (lexer_clone_type == PARENTHESIS || lexer_clone_type == PIPE
-		|| lexer_clone_type == CURLY_BRACKET
-		|| lexer_clone_type == REDIRECTION)
+	if (lexer_clone_type == PIPE || lexer_clone_type == REDIRECTION)
 		return (1);
 	return (0);
 }
@@ -53,14 +51,12 @@ static int	ft_check_after_red(t_data *data)
 			lexer_clone = lexer_clone->next;
 			while (lexer_clone->next)
 			{
-				if (lexer_clone->type == SPACE)
-					lexer_clone = lexer_clone->next;
 				if (ft_check_type(lexer_clone->type))
-					{
-						data->error = 258;
-						printf("Suntax error near unexpected token `%s'\n", lexer_clone->value);
-						return (data->error);
-					}
+				{
+					data->error = 258;
+					printf("Syntax error near unexpected token `%s'\n", lexer_clone->value);
+					return (data->error);
+				}
 				else
 					break;
 				lexer_clone = lexer_clone->next;
@@ -73,6 +69,7 @@ static int	ft_check_after_red(t_data *data)
 
 int	ft_check_redirection(t_data *data)
 {
+	HERE
 	data->error = ft_check_red(data);
 	if (data->error)
 		return (data->error);

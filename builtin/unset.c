@@ -20,9 +20,6 @@ int unset(t_data *data, char *name)
             if (env_clone->prev)
                 env_clone->prev->next = env_clone->next;
             free(env_clone);
-            // printf("name : %s | value : %s\n", env_clone->next->name, env_clone->next->value);
-            // printf("name : %s | value : %s\n", env_clone->next->name, env_clone->next->value);
-            HERE
             ft_print_env(data->lst_env, 0, 1);
             return (0);
         }

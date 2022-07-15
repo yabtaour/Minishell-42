@@ -14,19 +14,11 @@
 # include <readline/history.h>
 # define WORD 1
 # define PIPE 2
-# define SPACE 4
-# define DOUBLE_QUOTES 5
-# define SINGLE_QUOTES 6
-# define OPERATION 7
-# define CURLY_BRACKET 8
-# define PARENTHESIS 9
-# define REDIRECTION 3
-# define DOLLAR 11
-# define AND 4
-# define EQUAL 13
-# define MINUS 14
-# define POINT 15
-# define SEMI 16
+# define SPACE 3
+# define PARENTHESIS 4
+# define REDIRECTION 5
+# define AND 6
+# define SEMI 7
 
 
 typedef struct s_env{
@@ -77,23 +69,27 @@ void	ft_lexer(t_data *data);
 t_lexer	*ft_add_lexer_back(t_lexer *lexer, char *str, int type);
 void	ft_free_lexer(t_lexer *lexer);
 void	ft_print_lexer(t_lexer	*lexer);
-void	ft_expanding(t_data *data);
+int		ft_add_pipe(t_data *data, int i);
+int		ft_add_word(t_data *data, int i);
+int		ft_add_redirection(t_data *data, int i);
+int		ft_add_parenth(t_data *data, int i);
+int		ft_add_and(t_data *data, int i);
+int		ft_add_semi(t_data *data, int i);
 
-int		ft_is_right(int c, int type);
-int		ft_isalpha(int c);
-int		ft_isdigit(int c);
-int		ft_is_curly(int c);
-int		ft_is_straight(int c);
-int		ft_is_operation(int c);
-int		ft_is_redirection(int c);
-int		ft_add_token(t_data *data, int i, int type);
-int		ft_word_len(char *word, int	i, int type);
+int	ft_change_flag(int flag);
+
+int		ft_is_word(char c);
+int		ft_is_parenth(char c);
+int		ft_is_redirection(char c);
 
 //------------Syntax analyzer-----------------//
 int	ft_syntax_analyzer(t_data *data);
 int	ft_check_redirection(t_data *data);
 int	ft_check_between_pipes(t_data *data);
 int	ft_check_quotes(t_data *data);
+
+//-------------Expanding------------------------//
+void	ft_expanding(t_data *data);
 
 //----------------parsing----------------------//
 void	ft_parsing(t_data *data);

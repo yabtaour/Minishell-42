@@ -23,7 +23,7 @@ static int	ft_check_start_end(t_data *data)
 	return (data->error);
 }
 
-static int	ft_check_and_or(t_data *data)
+static int	ft_check_forbidden(t_data *data)
 {
 	t_lexer	*lexer_clone;
 
@@ -50,15 +50,15 @@ int	ft_syntax_analyzer(t_data *data)
 
 	if (data->lst_lexer)
 	{
-		data->error = ft_check_and_or(data);
+		data->error = ft_check_forbidden(data);
 		if (data->error)
 			return (data->error);
 		data->error = ft_check_start_end(data);
 		if (data->error)
 			return (data->error);
-		// data->error = ft_check_quotes(data);
-		// if (data->error)
-		// 	return (data->error);
+		data->error = ft_check_quotes(data);
+		if (data->error)
+			return (data->error);
 		data->error = ft_check_between_pipes(data);
 		if (data->error)
 			return (data->error);

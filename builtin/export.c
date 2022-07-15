@@ -134,13 +134,10 @@ void	ft_sort_env(t_data *data)
 	while (env_clone && (!data->first_export || strcmp(env_clone->name, data->first_export)))
 	{
 		env_clone2 = env_clone->next;
-		HERE
 		if (env_clone2)
 		{
-			HERE
 			while (env_clone2 && (!data->first_export || strcmp(env_clone2->name, data->first_export)))
 			{
-				HERE
 				if (strcmp(env_clone->name, env_clone2->name) > 0)
 				{
 					name_tmp = malloc (strlen(env_clone->name) + 1);
@@ -204,7 +201,6 @@ int	export(t_data *data, t_cmd *lst_cmd, int fd)
 
 	if (lst_cmd && !lst_cmd->cmd[1])
 	{
-		HERE
 		ft_sort_env(data);
 		ft_print_env(data->lst_env, 1, fd);
 	}
@@ -246,7 +242,6 @@ int	export(t_data *data, t_cmd *lst_cmd, int fd)
 			ft_add_new_env(data, name, value);
 			if (!data->first_export)
 			{
-				HERE
 				data->first_export = malloc (strlen(name) + 1);
 				strcpy(data->first_export, name);
 			}

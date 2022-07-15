@@ -14,20 +14,6 @@ static int	ft_check_pipe(t_data *data)
 	return (0);
 }
 
-// void	ft_add_normal_command(t_data *data)
-// {
-// 	char	*all_cmd = NULL;
-// 	t_lexer	*lexer_clone;
-
-// 	lexer_clone = data->lst_lexer;
-// 	while (lexer_clone)
-// 	{
-// 		all_cmd = ft_strjoin(all_cmd, lexer_clone->value);
-// 		lexer_clone = lexer_clone->next;
-// 	}
-// 	data->lst_cmd = ft_add_cmd_back(data->lst_cmd, all_cmd);
-// }
-
 void	ft_delete_node_red(t_data *data, int position)
 {
 	t_lexer	*lexer_clone;
@@ -86,12 +72,6 @@ void	ft_delete_redirections(t_data *data)
 			if (lexer_clone && lexer_clone->type == REDIRECTION)
 			{
 				position++;
-				lexer_clone = lexer_clone->next;
-				while (lexer_clone && lexer_clone->type == SPACE)
-				{
-					position++;
-					lexer_clone = lexer_clone->next;
-				}
 				while (lexer_clone && lexer_clone->type != REDIRECTION)
 				{
 					ft_delete_node_red(data, position);
@@ -232,8 +212,6 @@ void	ft_add_normal_command(t_data *data)
 		if (lexer_clone->type == REDIRECTION && strcmp(lexer_clone->value, "<<"))
 		{
 			lexer_clone = lexer_clone->next;
-			while (lexer_clone->type == SPACE)
-				lexer_clone = lexer_clone->next;
 			if (lexer_clone)
 			{
 				if (red[i] == 1)
@@ -272,10 +250,10 @@ void	ft_handle_herdoc(t_data *data)
 		if (strcmp(lexer_clone->value, "<<") == 0)
 		{
 			lexer_clone = lexer_clone->next;
-			if (lexer_clone->type == DOUBLE_QUOTES || lexer_clone->type == SINGLE_QUOTES)
-				data->eof[i++] = ft_substr(lexer_clone->value, 1, strlen(lexer_clone->value) - 2);
-			else
-				data->eof[i++] = ft_substr(lexer_clone->value, 0, strlen(lexer_clone->value));			
+			// if (lexer_clone->type == DOUBLE_QUOTES || lexer_clone->type == SINGLE_QUOTES)
+			// 	data->eof[i++] = ft_substr(lexer_clone->value, 1, strlen(lexer_clone->value) - 2);
+			// else
+			data->eof[i++] = ft_substr(lexer_clone->value, 0, strlen(lexer_clone->value));			
 		}
 		lexer_clone = lexer_clone->next;
 	}
@@ -301,10 +279,7 @@ void	ft_add_command_pipe(t_data *data)
 	t_lexer	*lexer_clone;
 
 	while (data->lst_lexer)
-	{
-		// ft_print_lexer(data->lst_lexer);
 		ft_add_normal_command(data);
-	}
 }
 
 void	ft_parsing(t_data *data)
