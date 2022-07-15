@@ -45,6 +45,9 @@ char	*ft_trim(char *str)
 	return (str);
 }
 
+void	ft_delete_quotes(t_data *data)
+
+
 int	main(int argc, char **argv, char **env)
 {
 	t_data	data;
@@ -81,8 +84,8 @@ int	main(int argc, char **argv, char **env)
 			ft_print_lexer(data.lst_lexer);
 			ft_parsing(&data);
 			ft_print_lexer(data.lst_lexer);
-			// ft_print_lexer(data.lst_lexer);
-			// ft_print_cmd(data.lst_cmd);
+			ft_delete_quotes(&data);
+			ft_print_cmd(data.lst_cmd);
 			// if (data.lst_cmd)
 				// echo(&data, data.lst_cmd, data.lst_cmd->fd_in);
 			// cd(&data, data.lst_cmd);

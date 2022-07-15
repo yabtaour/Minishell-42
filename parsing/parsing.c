@@ -72,6 +72,12 @@ void	ft_delete_redirections(t_data *data)
 			if (lexer_clone && lexer_clone->type == REDIRECTION)
 			{
 				position++;
+				lexer_clone = lexer_clone->next;
+				while (lexer_clone && lexer_clone->type == SPACE)
+				{
+					position++;
+					lexer_clone = lexer_clone->next;
+				}
 				while (lexer_clone && lexer_clone->type != REDIRECTION)
 				{
 					ft_delete_node_red(data, position);
@@ -128,6 +134,7 @@ t_cmd	*ft_add_back_cmd(t_data *data, int *fd, int *red, int red_num)
 	while (lexer_clone && lexer_clone->type != PIPE)
 	{
 		command = ft_strjoin(command, lexer_clone->value);
+		command = ft_strjoin(command, " ");
 		lexer_clone = lexer_clone->next;
 	}
 	while (i < red_num)
@@ -139,6 +146,7 @@ t_cmd	*ft_add_back_cmd(t_data *data, int *fd, int *red, int red_num)
 		i++;
 	}
 	node = ft_create_new_command(command, fd_in, fd_out);
+	free(command);
 	if (!data->lst_cmd)
 		return (node);
 	cmd_clone = data->lst_cmd;
@@ -148,7 +156,7 @@ t_cmd	*ft_add_back_cmd(t_data *data, int *fd, int *red, int red_num)
 	node->prev = cmd_clone;
 	return (data->lst_cmd);
 }
-// /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki
+
 void	ft_delete_command(t_data *data)
 {
 	t_lexer	*lexer_clone;
@@ -212,6 +220,8 @@ void	ft_add_normal_command(t_data *data)
 		if (lexer_clone->type == REDIRECTION && strcmp(lexer_clone->value, "<<"))
 		{
 			lexer_clone = lexer_clone->next;
+			while (lexer_clone->type == SPACE)
+				lexer_clone = lexer_clone->next;
 			if (lexer_clone)
 			{
 				if (red[i] == 1)
@@ -253,7 +263,7 @@ void	ft_handle_herdoc(t_data *data)
 			// if (lexer_clone->type == DOUBLE_QUOTES || lexer_clone->type == SINGLE_QUOTES)
 			// 	data->eof[i++] = ft_substr(lexer_clone->value, 1, strlen(lexer_clone->value) - 2);
 			// else
-			data->eof[i++] = ft_substr(lexer_clone->value, 0, strlen(lexer_clone->value));			
+			// 	data->eof[i++] = ft_substr(lexer_clone->value, 0, strlen(lexer_clone->value));			
 		}
 		lexer_clone = lexer_clone->next;
 	}
@@ -279,7 +289,10 @@ void	ft_add_command_pipe(t_data *data)
 	t_lexer	*lexer_clone;
 
 	while (data->lst_lexer)
+	{
+		// ft_print_lexer(data->lst_lexer);
 		ft_add_normal_command(data);
+	}
 }
 
 void	ft_parsing(t_data *data)
