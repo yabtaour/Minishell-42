@@ -115,6 +115,8 @@ void	ft_print_cmd(t_cmd *cmd);
 char	*ft_substr(char *s, int start, size_t len);
 
 void	ft_delete_quotes(t_data *data);
+char	**ft_new_split(char *s, char c);
+
 
 
 //-----------------exe-------------------------//

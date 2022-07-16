@@ -12,7 +12,7 @@ SRC = main.c ft_free.c ft_print_list.c execut.c \
 ENV = ./env/ft_env.c ./env/ft_env_list.c\
 
 PARSING = ./parsing/parsing.c ./parsing/parsing_utils.c \
-		  ./parsing/ft_cmd_list.c\
+		  ./parsing/ft_cmd_list.c ./parsing/ft_new_split.c \
 
 LEXER = ./lexer/lexer.c ./lexer/lexer_utils.c \
 		./lexer/ft_lexer_list.c ./lexer/ft_expanding.c \
