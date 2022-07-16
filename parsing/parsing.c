@@ -110,7 +110,7 @@ t_cmd	*ft_create_new_command(char *command, int fd_in, int fd_out)
 	char	**all_cmd;
 
 	cmd = malloc(sizeof(t_cmd));
-	all_cmd = ft_split(command, ' ');
+	all_cmd = ft_new_split(command, ' ');
 	cmd->cmd = all_cmd;
 	cmd->fd_in = fd_in;
 	cmd->fd_out = fd_out;
