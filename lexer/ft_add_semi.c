@@ -6,7 +6,6 @@ int	ft_add_semi(t_data *data, int i)
 	int		len = 0;
 	char	*command = NULL;
 
-	HERE
 	while (data->cmd[i] && data->cmd[i] == ';')
 	{
 		i++;

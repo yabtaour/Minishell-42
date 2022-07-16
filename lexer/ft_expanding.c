@@ -242,7 +242,6 @@ void	ft_expanding(t_data *data)
 				free(new_var);
 				free(var);
 			}
-			ft_print_lexer(data->lst_lexer);
 			lexer_clone = lexer_clone->next;
 		}
 	}

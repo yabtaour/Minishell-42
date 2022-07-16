@@ -20,7 +20,6 @@ int	ft_add_and(t_data *data, int i)
 		len++;
 	}
 	command[len] = '\0';
-	data->lst_lexer = ft_add_lexer_back(data->lst_lexer, command, AND);
-	ft_print_lexer(data->lst_lexer);	
+	data->lst_lexer = ft_add_lexer_back(data->lst_lexer, command, AND);	
 	return (i);
 }

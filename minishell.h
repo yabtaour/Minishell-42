@@ -5,6 +5,7 @@
 // strcmp is forbidden delete when we finish
 
 # include <stdio.h>
+# include <signal.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <fcntl.h>
@@ -19,6 +20,13 @@
 # define REDIRECTION 5
 # define AND 6
 # define SEMI 7
+
+
+typedef struct s_fds
+{
+	int	fd_out;
+	int	fd_inp;
+}	t_fds;
 
 
 typedef struct s_env{
@@ -39,6 +47,8 @@ typedef struct s_cmd{
 	char			**cmd;
 	int				fd_out;
 	int				fd_in;
+	int				*ptr_in;
+	int				*ptr_out;
 	struct s_cmd	*next;
 	struct s_cmd	*prev;
 }	t_cmd;
@@ -52,6 +62,7 @@ typedef struct s_data{
 	char			**paths;
 	char			**eof;
 	int				her_doc;
+	int				ex_code;
 	char			*first_export;
 	t_env			*lst_env;
 	t_cmd			*lst_cmd;
@@ -103,12 +114,15 @@ void	ft_free_cmd(t_cmd *cmd);
 void	ft_print_cmd(t_cmd *cmd);
 char	*ft_substr(char *s, int start, size_t len);
 
+void	ft_delete_quotes(t_data *data);
+
+
 //-----------------exe-------------------------//
 int		exe(t_data *data);
 int 	echo(t_data *data, t_cmd *cmd_lst, int fd);
 int		cd(t_data *data, t_cmd *lst_cmd);
 int		pwd(t_data *data, t_cmd *lst_cmd, int fd);
-int		unset(t_data *data, char *name);
+int		unset(t_data *data, t_cmd *lst_cmd);
 int		export(t_data *data, t_cmd *lst_cmd, int fd);
 
 

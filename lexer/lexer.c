@@ -6,7 +6,6 @@ void	ft_lexer(t_data *data)
 
 	while (data->cmd[i])
 	{
-		HERE
 		while (data->cmd[i] == ' ')
 			i++;
 		if (data->cmd[i] != '&' && data->cmd[i] != '|'

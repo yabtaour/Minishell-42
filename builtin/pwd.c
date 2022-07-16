@@ -10,8 +10,9 @@ int pwd(t_data *data, t_cmd *lst_cmd, int fd)
 		if (lst_cmd->cmd[0])
 		{
 			curr_wd = getcwd(curr_wd, 0);
-			printf("cur : %s\n", curr_wd);
+			// printf("cur : %s\n", curr_wd);
 			ft_putstr_fd(curr_wd, fd);
+			write(fd, "\n", 1);
 		}
 		else
 			return(printf("pwd: too many arguments\n") ,1);

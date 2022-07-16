@@ -27,6 +27,8 @@ void	ft_change_env(t_data *data, char *name, char *value)
 	}
 }
 
+
+// the cd cmnds should be in the parent process 
 int cd(t_data *data, t_cmd *lst_cmd)
 {
 	int direrror;
@@ -37,18 +39,28 @@ int cd(t_data *data, t_cmd *lst_cmd)
 	if (lst_cmd)
 	{
 		current_wd = getcwd(current_wd, 0);
+		printf("cur : %s\n", current_wd);
 		if (!lst_cmd->cmd[1])
+		{
 			new_wd = ft_get_env(data ,"HOME");
+		}
 		else if (strncmp(lst_cmd->cmd[1], "-", 1) == 0)
+		{
 			new_wd = ft_get_env(data, "OLDPWD");
+		}
 		else
+		{
 			new_wd = lst_cmd->cmd[1];
+		}
+		printf("new : %s\n", new_wd);
 		direrror = chdir(new_wd);
 		if (direrror != 0)
 			return (printf("cd: no such file or directory: %s\n", lst_cmd->cmd[1]), 1);
 		ft_change_env(data, "OLDPWD", current_wd);
 		ft_change_env(data, "PWD", new_wd);
 		free(current_wd);
+		current_wd = getcwd(current_wd, 0);
+		printf("cur : %s\n", current_wd);
 	}
 	return (0);
 }

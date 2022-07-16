@@ -92,7 +92,6 @@ void	ft_delete_redirections(t_data *data)
 				lexer_clone = lexer_clone->next;
 		}
 		lexer_clone = data->lst_lexer;
-		ft_print_lexer(data->lst_lexer);
 		position = 0;
 		while (lexer_clone && lexer_clone->type != PIPE)
 		{
@@ -111,16 +110,12 @@ t_cmd	*ft_create_new_command(char *command, int fd_in, int fd_out)
 	char	**all_cmd;
 
 	cmd = malloc(sizeof(t_cmd));
-	HERE
-	printf("%s\n", command);
 	all_cmd = ft_split(command, ' ');
-	HERE
 	cmd->cmd = all_cmd;
 	cmd->fd_in = fd_in;
 	cmd->fd_out = fd_out;
 	cmd->next = NULL;
 	cmd->prev = NULL;
-	HERE
 	return (cmd);
 }
 
@@ -141,7 +136,6 @@ t_cmd	*ft_add_back_cmd(t_data *data, int *fd, int *red, int red_num)
 		command = ft_strjoin(command, " ");
 		lexer_clone = lexer_clone->next;
 	}
-	HERE
 	while (i < red_num)
 	{
 		if (red[i] == 1 || red[i] == 2)
@@ -150,10 +144,7 @@ t_cmd	*ft_add_back_cmd(t_data *data, int *fd, int *red, int red_num)
 			fd_in = fd[i];
 		i++;
 	}
-	HERE
-	printf("command %s\n", command);
 	node = ft_create_new_command(command, fd_in, fd_out);
-	HERE
 	free(command);
 	if (!data->lst_cmd)
 		return (node);
@@ -162,7 +153,6 @@ t_cmd	*ft_add_back_cmd(t_data *data, int *fd, int *red, int red_num)
 		cmd_clone = cmd_clone->next;
 	cmd_clone->next = node;
 	node->prev = cmd_clone;
-	HERE
 	return (data->lst_cmd);
 }
 
@@ -246,7 +236,6 @@ void	ft_add_normal_command(t_data *data)
 	}
 	ft_delete_redirections(data);
 	data->lst_cmd = ft_add_back_cmd(data, fd, red, red_num);
-	HERE
 	ft_delete_command(data);
 }
 
@@ -299,16 +288,11 @@ void	ft_add_command_pipe(t_data *data)
 	t_lexer	*lexer_clone;
 
 	while (data->lst_lexer)
-	{
-		HERE
 		ft_add_normal_command(data);
-	}
 }
 
 void	ft_parsing(t_data *data)
 {
 	ft_handle_herdoc(data);
-	HERE
 	ft_add_command_pipe(data);
-	HERE
 }

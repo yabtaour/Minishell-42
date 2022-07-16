@@ -68,8 +68,7 @@ static int	ft_check_after_red(t_data *data)
 }
 
 int	ft_check_redirection(t_data *data)
-{
-	HERE
+{	
 	data->error = ft_check_red(data);
 	if (data->error)
 		return (data->error);

@@ -6,7 +6,8 @@ CC = cc
 
 FLAGS = -Wall -Wextra -Werror
 
-SRC = main.c ft_free.c ft_print_list.c execut.c\
+SRC = main.c ft_free.c ft_print_list.c execut.c \
+	  ft_delete_quotes.c
 
 ENV = ./env/ft_env.c ./env/ft_env_list.c\
 
@@ -35,21 +36,13 @@ OBJ = ${FILES:.c=.o}
 
 RSAF_OBJ = ${RSAF:.c=.o}
  
-# dial team
-# %.o: %.c minishel.h
-# $(CC) $(FLAGS) -c $< -I /Users/yabtaour/.brew/opt/readline/include -o $@
-
-# dial younesss
 %.o: %.c minishel.h
-	$(CC) $(FLAGS) -c $< -I //usr/include/readline  -o $@
+	$(CC) $(FLAGS) -c $< -I /Users/yabtaour/.brew/opt/readline/include -o $@
 
 all: ${NAME}
 
 ${NAME}: ${OBJ}
 	$(CC) $(OBJ) -L/Users/yabtaour/.brew/opt/readline/lib -lreadline -o ${NAME}
-
-ana: ${OBJ}
-	$(CC) $(OBJ) -L/Users/yabtaour/.brew/opt/readline/lib -lreadline -o ${YBA}
 
 env: $(RSAF_OBJ)
 	cc $(RSAF_OBJ) -L/Users/yabtaour/.brew/opt/readline/lib -lreadline -o execute

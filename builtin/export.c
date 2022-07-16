@@ -130,7 +130,6 @@ void	ft_sort_env(t_data *data)
 	t_env	*env_tmp;
 
 	env_clone = data->lst_env;
-	printf("%s\n", data->first_export);
 	while (env_clone && (!data->first_export || strcmp(env_clone->name, data->first_export)))
 	{
 		env_clone2 = env_clone->next;
@@ -138,6 +137,7 @@ void	ft_sort_env(t_data *data)
 		{
 			while (env_clone2 && (!data->first_export || strcmp(env_clone2->name, data->first_export)))
 			{
+
 				if (strcmp(env_clone->name, env_clone2->name) > 0)
 				{
 					name_tmp = malloc (strlen(env_clone->name) + 1);

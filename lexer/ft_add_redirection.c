@@ -22,7 +22,6 @@ int	ft_add_redirection(t_data *data, int i)
 	}
 	command[len] = '\0';
 	data->lst_lexer = ft_add_lexer_back(data->lst_lexer, command, REDIRECTION);
-	ft_print_lexer(data->lst_lexer);
 	free(command);
 	return (i);
 }

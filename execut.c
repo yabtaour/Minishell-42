@@ -2,8 +2,9 @@
 
 // this function return a message or not with a number (echo $?)
 // zero if sccucss, 127 if cmd not found.
-void	exit_status(int status, char *error_messg)
+void	exit_status(int status, char *error_messg, t_data *data)
 {
+	data->ex_code = status;
 	if (error_messg != NULL && status != 0)
 		printf("%s\n", error_messg);
 }
@@ -20,7 +21,7 @@ void	ft_get_paths(t_data *data)
 // this func check if the cmd is exist or not
 // right now for testing if the cmd do not exist it return a messg with exit status
 // if cmd exist it get exuxte
-int	ft_cmd_exist(t_data *data)
+char	*ft_cmd_exist(t_data *data, t_cmd *lst_cmd)
 {
 	int		idx;
 	int		cmd_nb;
@@ -28,13 +29,11 @@ int	ft_cmd_exist(t_data *data)
 	int		FOUND;
 
 	idx = 0;
-	cmd_nb = 5;
 	FOUND = 0;
-	while (idx < cmd_nb && FOUND == 0)
+	while (data->paths[idx] && FOUND == 0)
 	{
 	 	path = ft_strjoin(data->paths[idx], "/");
-		path = ft_strjoin(path, data->lst_cmd->cmd[0]);
-		// printf("path and cmd is : %s\n", path);
+		path = ft_strjoin(path, lst_cmd->cmd[0]);
 		if (access(path, F_OK) == 0){
 			FOUND = 1;
 			break;
@@ -42,38 +41,229 @@ int	ft_cmd_exist(t_data *data)
 		idx++;
 		free(path);
 	}
-	printf("the path is %s\n", path);
-	printf("The cmd is %s\n", data->lst_cmd->cmd[0]);
-	printf("The opt is %s\n", data->lst_cmd->cmd[1]);
 	if (FOUND == 1)
-		execve(path, data->lst_cmd->cmd, data->env);
+		return (path);
 	else
-		return (exit_status(127, "Error: Command not found"), 127);
-	free(path);
-	return (0);
+	{
+		return (exit_status(127, "Error: Command not found", data), NULL);
+	}
+	return (NULL);
+}
+
+
+int	ft_if_builtin(t_data *data, t_cmd *lst_cmd)
+{
+	if (strcmp(lst_cmd->cmd[0], "cd") == 0)
+		data->ex_code = cd(data, lst_cmd);
+	else if (strcmp(lst_cmd->cmd[0], "echo") == 0)
+		data->ex_code = echo(data, lst_cmd, 1);
+	else if (strcmp(lst_cmd->cmd[0], "pwd") == 0)
+		data->ex_code = pwd(data, lst_cmd, 1);
+	else if (strcmp(lst_cmd->cmd[0], "unset") == 0)
+		data->ex_code = unset(data, lst_cmd);
+	else if (strcmp(lst_cmd->cmd[0], "export") == 0)
+		data->ex_code = export(data, lst_cmd, 1);
+	else if (strcmp(lst_cmd->cmd[0], "env") == 0)
+		ft_print_env(data->lst_env, 0, 1);
+	else
+		return (69);
+	exit (data->ex_code);
+}
+
+int	ft_exe_cmd(t_data *data, char *path, t_cmd *lst_cmd)
+{
+	if (lst_cmd->fd_in != 0)
+		close(lst_cmd->fd_in);
+	if (lst_cmd->fd_out != 1)
+		close(lst_cmd->fd_out);
+	execve(path, lst_cmd->cmd, data->env);
+	exit (0);
+}
+
+int	cmds_lent(t_data *data)
+{
+	int	lent;
+	t_cmd *cmd_clone;
+
+	lent = 0;
+	cmd_clone = data->lst_cmd;
+	while (cmd_clone)
+	{
+		lent++;
+		cmd_clone = cmd_clone->next;
+	}
+	return (lent);
+}
+
+int	**fd_ptr(t_data *data, t_cmd *lst_cmd, int lent)
+{
+	int	idx;
+	int **pip;
+	t_cmd *cmd_clone;
+
+	pip = malloc((lent - 1) * sizeof(int*));
+	for (int i = 0; i < lent; i++)
+		pip[i] = malloc(2 * sizeof(int));
+	
+	cmd_clone = lst_cmd;
+	idx = 0;
+	while (idx < lent - 1)
+	{
+		pipe(pip[idx]);
+		idx++;
+	}
+	idx = 0;
+	while (cmd_clone)
+	{
+		if (idx == 0 && !cmd_clone->next)
+		{
+			cmd_clone->fd_in = 0;
+			cmd_clone->fd_out = 1;
+		}
+		else if (idx == 0 && cmd_clone->next)
+		{
+			cmd_clone->fd_in = 0;
+			cmd_clone->fd_out = pip[idx][1];
+		}
+		else if (idx != 0 && cmd_clone->next)
+		{
+			cmd_clone->fd_in = pip[idx - 1][0];
+			cmd_clone->fd_out = pip[idx][1];
+		}
+		else if (idx != 0 && !cmd_clone->next)
+		{
+			cmd_clone->fd_in = pip[idx - 1][0];
+			cmd_clone->fd_out = 1;
+		}
+		cmd_clone = cmd_clone->next;
+		idx++;
+	}
+	return (pip);
 }
 
 //  this main only for testing.
 int	exe(t_data *data)
 {
+	char	*cmd_path;
+	t_fds fd_lst;
+	int	idx;
 	int pid;
-	// t_data data;
+	int status;
+	int id2;
 
-	// data.ac = 0;
-	// data.ac = ac;
-	// data.av = av;
-	// data.env = env;
-	// ft_env(&data);
+	idx = 0;
+	pid = -69;
+	id2 = 0;
+	data->ex_code = 69;
+	cmd_path = NULL;
+
+	int lent = cmds_lent(data);
+	int **pip = fd_ptr(data, data->lst_cmd, lent);
+	ft_get_paths(data);
+	int cmd_status;
 	while (data->lst_cmd)
 	{
-		ft_get_paths(data);
-		
+		if (pid != 0)
+		{
+			idx++;
+			pid = fork(); 
+		}
+		if (pid == 0 && data->ex_code == 69)
+		{
+			dup2(data->lst_cmd->fd_in, 0);
+			dup2(data->lst_cmd->fd_out, 1);
+			for (int i = 0; i < lent - 1; i++)
+				close(pip[i][0]), close(pip[i][1]);
+			data->ex_code = ft_if_builtin(data, data->lst_cmd);
+			if (data->ex_code == 69)
+				cmd_path = ft_cmd_exist(data ,data->lst_cmd);
+			if (cmd_path)
+			{
+				data->ex_code = 0;
+				ft_exe_cmd(data, cmd_path, data->lst_cmd);
+			}
+			else
+				data->ex_code = 127;
+		}
 		data->lst_cmd = data->lst_cmd->next;
 	}
-	// printf("\n%s\n", data->lst_cmd->cmd[0]);
-	// pull the data
-	// check if the cmds exist in builtin
-	// check if the cmds exist in bash
-	// exeuct
+	for (int i = 0; i < lent - 1; i++)
+	{
+		close(pip[i][0]), close(pip[i][1]);
+		free(pip[i]);
+	}
+	free(pip);
+	while (id2 < idx)
+	{
+		pid = waitpid(-1, &status ,0);
+		if (WIFEXITED(status) && WEXITSTATUS(status) != -1 && pid != -1)
+			kill(pid, SIGINT);
+		id2++;
+	}
 	return (0);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// --------------------------------------------------------------------------------------- //
+
+// 	int lent = cmds_lent(data);
+// 	int	idx2;
+// 	int pip[lent][2];
+// 	t_cmd *cmd_clone;
+
+// 	cmd_clone = data->lst_cmd;
+// 	idx2 = 0;
+// 	while (idx2 < lent )
+// 	{
+// 		pipe(pip[idx2]);
+// 		idx2++;
+// 	}
+// 	idx2 = 0;
+// 	while (cmd_clone)
+// 	{
+// 		if (idx2 == 0 && !cmd_clone->next)
+// 		{
+// 			cmd_clone->fd_in = 0;
+// 			cmd_clone->fd_out = 1;
+// 		}
+// 		else if (idx2 == 0 && cmd_clone->next)
+// 		{
+// 			cmd_clone->fd_in = 0;
+// 			cmd_clone->fd_out = pip[idx2][1];
+// 		}
+// 		else if (idx2 != 0 && cmd_clone->next)
+// 		{
+// 			cmd_clone->fd_in = pip[idx2 - 1][1];
+// 			cmd_clone->fd_out = pip[idx2][1];
+// 		}
+// 		else if (idx2 != 0 && !cmd_clone->next)
+// 		{
+// 			cmd_clone->fd_in = pip[idx2 - 1][1];
+// 			cmd_clone->fd_out = 1;
+// 		}
+// 		// printf("[ CMD\t:\t%s] | [FD OUT\t:\t%d] | [FD IN\t:\t%d]\n", cmd_clone->cmd[0], cmd_clone->fd_out, cmd_clone->fd_in);
+// 		cmd_clone = cmd_clone->next;
+// 		idx2++;
+// 	}
+
+// // --------------------------------------------------------------------------------------- //

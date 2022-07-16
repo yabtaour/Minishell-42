@@ -9,7 +9,7 @@ void	ft_print_2d(char **str, char *type)
 	{
 		while (str[i])
 		{
-			printf(" [%s] ", str[i]);
+			printf(" [%s]%d ", str[i], i);
 			i++;
 		}
 	}
