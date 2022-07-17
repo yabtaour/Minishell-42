@@ -99,8 +99,12 @@ int	**fd_ptr(t_data *data, t_cmd *lst_cmd, int lent)
 {
 	int	idx;
 	int **pip;
+	int	old_input;
+	int	old_output;
 	t_cmd *cmd_clone;
 
+	old_input = lst_cmd->fd_in;
+	old_output = lst_cmd->fd_out;
 	pip = malloc((lent - 1) * sizeof(int*));
 	for (int i = 0; i < lent; i++)
 		pip[i] = malloc(2 * sizeof(int));
@@ -138,6 +142,10 @@ int	**fd_ptr(t_data *data, t_cmd *lst_cmd, int lent)
 		cmd_clone = cmd_clone->next;
 		idx++;
 	}
+	if (old_input != 0)
+		lst_cmd->fd_in = old_input;
+	if (old_output != 1)
+		lst_cmd->fd_out = old_output;
 	return (pip);
 }
 
