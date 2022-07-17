@@ -53,9 +53,10 @@ int	main(int argc, char **argv, char **env)
 			}
 			ft_expanding(&data);
 			ft_parsing(&data);
-			ft_print_cmd(data.lst_cmd);
+			// ft_print_cmd(data.lst_cmd);
 			// ft_delete_quotes(&data);
-			// exe(&data);
+			system("clear");
+			exe(&data);
 			ft_free_lexer(data.lst_lexer);
 			ft_free_cmd(data.lst_cmd);
 		}
