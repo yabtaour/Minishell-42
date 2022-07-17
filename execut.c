@@ -199,7 +199,6 @@ int	exe(t_data *data)
 			}
 			data->lst_cmd = data->lst_cmd->next;
 		}
-
 		for (int i = 0; i < lent - 1; i++)
 		{
 			close(pip[i][0]), close(pip[i][1]);
