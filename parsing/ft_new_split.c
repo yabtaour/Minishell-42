@@ -44,10 +44,8 @@ char	**ft_new_split(char *s, char c)
 	i = 0;
 	while (*s)
 	{
-		HERE
 		while (*s && *s == c)
 			s++;
-		HERE
 		j = 0;
 		if (*s == '"' && flag_s == 0)
 		{
@@ -68,7 +66,6 @@ char	**ft_new_split(char *s, char c)
 			j++;
 		}
 		printf("j = %d\n", j);
-		HERE
 		if (j)
 		{
 			ptr[i] = ft_substr(s, 0, j);
