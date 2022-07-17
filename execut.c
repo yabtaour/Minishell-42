@@ -72,12 +72,13 @@ int	ft_if_builtin(t_data *data, t_cmd *lst_cmd)
 
 int	ft_exe_cmd(t_data *data, char *path, t_cmd *lst_cmd)
 {
+	
 	if (lst_cmd->fd_in != 0)
 		close(lst_cmd->fd_in);
 	if (lst_cmd->fd_out != 1)
 		close(lst_cmd->fd_out);
 	execve(path, lst_cmd->cmd, data->env);
-	exit (0);
+	return (0);
 }
 
 int	cmds_lent(t_data *data)
@@ -103,49 +104,51 @@ int	**fd_ptr(t_data *data, t_cmd *lst_cmd, int lent)
 	int	old_output;
 	t_cmd *cmd_clone;
 
-	old_input = lst_cmd->fd_in;
-	old_output = lst_cmd->fd_out;
-	pip = malloc((lent - 1) * sizeof(int*));
-	for (int i = 0; i < lent; i++)
-		pip[i] = malloc(2 * sizeof(int));
-	
-	cmd_clone = lst_cmd;
-	idx = 0;
-	while (idx < lent - 1)
+	if (lst_cmd)
 	{
-		pipe(pip[idx]);
-		idx++;
+		old_input = lst_cmd->fd_in;
+		old_output = lst_cmd->fd_out;
+		pip = malloc((lent - 1) * sizeof(int*));
+		for (int i = 0; i < lent; i++)
+			pip[i] = malloc(2 * sizeof(int));
+		cmd_clone = lst_cmd;
+		idx = 0;
+		while (idx < lent - 1)
+		{
+			pipe(pip[idx]);
+			idx++;
+		}
+		idx = 0;
+		while (cmd_clone)
+		{
+			if (idx == 0 && !cmd_clone->next)
+			{
+				cmd_clone->fd_in = 0;
+				cmd_clone->fd_out = 1;
+			}
+			else if (idx == 0 && cmd_clone->next)
+			{
+				cmd_clone->fd_in = 0;
+				cmd_clone->fd_out = pip[idx][1];
+			}
+			else if (idx != 0 && cmd_clone->next)
+			{
+				cmd_clone->fd_in = pip[idx - 1][0];
+				cmd_clone->fd_out = pip[idx][1];
+			}
+			else if (idx != 0 && !cmd_clone->next)
+			{
+				cmd_clone->fd_in = pip[idx - 1][0];
+				cmd_clone->fd_out = 1;
+			}
+			cmd_clone = cmd_clone->next;
+			idx++;
+		}
+		if (old_input != 0)
+			lst_cmd->fd_in = old_input;
+		if (old_output != 1)
+			lst_cmd->fd_out = old_output;
 	}
-	idx = 0;
-	while (cmd_clone)
-	{
-		if (idx == 0 && !cmd_clone->next)
-		{
-			cmd_clone->fd_in = 0;
-			cmd_clone->fd_out = 1;
-		}
-		else if (idx == 0 && cmd_clone->next)
-		{
-			cmd_clone->fd_in = 0;
-			cmd_clone->fd_out = pip[idx][1];
-		}
-		else if (idx != 0 && cmd_clone->next)
-		{
-			cmd_clone->fd_in = pip[idx - 1][0];
-			cmd_clone->fd_out = pip[idx][1];
-		}
-		else if (idx != 0 && !cmd_clone->next)
-		{
-			cmd_clone->fd_in = pip[idx - 1][0];
-			cmd_clone->fd_out = 1;
-		}
-		cmd_clone = cmd_clone->next;
-		idx++;
-	}
-	if (old_input != 0)
-		lst_cmd->fd_in = old_input;
-	if (old_output != 1)
-		lst_cmd->fd_out = old_output;
 	return (pip);
 }
 
@@ -167,46 +170,49 @@ int	exe(t_data *data)
 
 	int lent = cmds_lent(data);
 	int **pip = fd_ptr(data, data->lst_cmd, lent);
+	t_cmd *cmd_clone = data->lst_cmd;
 	ft_get_paths(data);
 	int cmd_status;
-	while (data->lst_cmd)
-	{
-		if (pid != 0)
+	// change to clone
+	if (data->lst_cmd){
+		while (data->lst_cmd)
 		{
-			idx++;
-			pid = fork(); 
-		}
-		if (pid == 0 && data->ex_code == 69)
-		{
-			dup2(data->lst_cmd->fd_in, 0);
-			dup2(data->lst_cmd->fd_out, 1);
-			for (int i = 0; i < lent - 1; i++)
-				close(pip[i][0]), close(pip[i][1]);
-			data->ex_code = ft_if_builtin(data, data->lst_cmd);
-			if (data->ex_code == 69)
-				cmd_path = ft_cmd_exist(data ,data->lst_cmd);
-			if (cmd_path)
+			if (pid != 0)
 			{
-				data->ex_code = 0;
-				ft_exe_cmd(data, cmd_path, data->lst_cmd);
+				idx++;
+				pid = fork(); 
 			}
-			else
-				data->ex_code = 127;
+			if (pid == 0 && data->ex_code == 69)
+			{
+				dup2(data->lst_cmd->fd_in, 0);
+				dup2(data->lst_cmd->fd_out, 1);
+				for (int i = 0; i < lent - 1; i++)
+					close(pip[i][0]), close(pip[i][1]);
+				data->ex_code = ft_if_builtin(data, data->lst_cmd);
+				if (data->ex_code == 69)
+					cmd_path = ft_cmd_exist(data ,data->lst_cmd);
+				if (cmd_path)
+				{
+					data->ex_code = 0;
+					ft_exe_cmd(data, cmd_path, data->lst_cmd);
+				}
+			}
+			data->lst_cmd = data->lst_cmd->next;
 		}
-		data->lst_cmd = data->lst_cmd->next;
-	}
-	for (int i = 0; i < lent - 1; i++)
-	{
-		close(pip[i][0]), close(pip[i][1]);
-		free(pip[i]);
-	}
-	free(pip);
-	while (id2 < idx)
-	{
-		pid = waitpid(-1, &status ,0);
-		if (WIFEXITED(status) && WEXITSTATUS(status) != -1 && pid != -1)
-			kill(pid, SIGINT);
-		id2++;
+
+		for (int i = 0; i < lent - 1; i++)
+		{
+			close(pip[i][0]), close(pip[i][1]);
+			free(pip[i]);
+		}
+		free(pip);
+		while (id2 < idx)
+		{
+			pid = waitpid(-1, &status ,0);
+			if (WIFEXITED(status) && WEXITSTATUS(status) != -1 && pid != -1)
+				kill(pid, SIGINT);
+			id2++;
+		}
 	}
 	return (0);
 }

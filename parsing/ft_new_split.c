@@ -65,11 +65,11 @@ char	**ft_new_split(char *s, char c)
 				flag_s = ft_change_flag(flag_s);
 			j++;
 		}
-		printf("j = %d\n", j);
+		// printf("j = %d\n", j);
 		if (j)
 		{
 			ptr[i] = ft_substr(s, 0, j);
-			printf("line i %s\n", ptr[i]);
+			// printf("line i %s\n", ptr[i]);
 			i++;
 		}	
 		s = s + j;

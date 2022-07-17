@@ -225,9 +225,9 @@ void	ft_add_normal_command(t_data *data)
 			if (lexer_clone)
 			{
 				if (red[i] == 1)
-					fd[i] = open(lexer_clone->value, O_RDWR | O_CREAT | O_TRUNC, 0777);
+					fd[i] = open(lexer_clone->value, O_RDWR | O_CREAT | O_TRUNC, 0664);
 				if (red[i] == 2)
-					fd[i] = open(lexer_clone->value, O_RDWR | O_CREAT | O_APPEND, 0777);
+					fd[i] = open(lexer_clone->value, O_RDWR | O_CREAT | O_APPEND, 0664);
 				if (red[i] == 3)
 				{
 					fd[i] = open(lexer_clone->value, O_RDONLY, 0777);
