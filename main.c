@@ -39,7 +39,7 @@ int	main(int argc, char **argv, char **env)
 		data.cmd = readline("minishell-1.0 > ");
 		if (!data.cmd || !strcmp(data.cmd, "exit"))
 			exit(1);
-		if (data.cmd && data.cmd[0] != '\n')
+		if (data.cmd && data.cmd[0] != '\0')
 		{
 			data.cmd = ft_strtrim(data.cmd, " ");
 			add_history(data.cmd);
@@ -61,7 +61,7 @@ int	main(int argc, char **argv, char **env)
 			ft_print_cmd(data.lst_cmd);
 			HERE
 			// system("clear");
-			// exe(&data);
+			exe(&data);
 			ft_free_lexer(data.lst_lexer);
 			ft_free_cmd(data.lst_cmd);
 		}
