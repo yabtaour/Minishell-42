@@ -54,15 +54,18 @@ int	*ft_get_index(char *cmd, int type)
 		i = 0;
 		while (cmd[i])
 		{
+			printf("%s\n", cmd);
 			if (cmd[i] == '"' && flag_s == 0)
 			{
 				index[len] = i;
+				printf("%d\n", i);
 				len++;
 				flag_d = ft_change_flag(flag_d);
 			}
 			if (cmd[i] == '\'' && flag_d == 0)
 			{
 				index[len] = i;
+				printf("%d\n", i);
 				len++;
 				flag_s = ft_change_flag(flag_s);
 			}
@@ -140,9 +143,10 @@ void	ft_delete_quotes(t_data *data)
 				{
 					temp = ft_substr(cmd_clone->cmd[i], 0, strlen(cmd_clone->cmd[i]));
 					free(cmd_clone->cmd[i]);
-					// cmd_clone->cmd[i] = strcpy(cmd_clone->cmd[i], ft_delete(cmd_clone->cmd[i]));
-					i++;
+					cmd_clone->cmd[i] = ft_substr(ft_delete(temp), 0, strlen(temp));
+					free(temp);
 				}
+				i++;
 			}
 		cmd_clone = cmd_clone->next;
 	}
