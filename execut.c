@@ -106,8 +106,6 @@ int	**fd_ptr(t_data *data, t_cmd *lst_cmd, int lent)
 
 	if (lst_cmd)
 	{
-		old_input = lst_cmd->fd_in;
-		old_output = lst_cmd->fd_out;
 		pip = malloc((lent - 1) * sizeof(int*));
 		for (int i = 0; i < lent; i++)
 			pip[i] = malloc(2 * sizeof(int));
@@ -121,6 +119,9 @@ int	**fd_ptr(t_data *data, t_cmd *lst_cmd, int lent)
 		idx = 0;
 		while (cmd_clone)
 		{
+			ft_print_cmd(cmd_clone);
+			old_input = cmd_clone->fd_in;
+			old_output = cmd_clone->fd_out;
 			if (idx == 0 && !cmd_clone->next)
 			{
 				cmd_clone->fd_in = 0;
@@ -141,13 +142,13 @@ int	**fd_ptr(t_data *data, t_cmd *lst_cmd, int lent)
 				cmd_clone->fd_in = pip[idx - 1][0];
 				cmd_clone->fd_out = 1;
 			}
+			if (old_input != 0)
+				cmd_clone->fd_in = old_input;
+			if (old_output != 1)
+				cmd_clone->fd_out = old_output;
 			cmd_clone = cmd_clone->next;
 			idx++;
 		}
-		if (old_input != 0)
-			lst_cmd->fd_in = old_input;
-		if (old_output != 1)
-			lst_cmd->fd_out = old_output;
 	}
 	return (pip);
 }
@@ -203,6 +204,14 @@ int	exe(t_data *data)
 		{
 			close(pip[i][0]), close(pip[i][1]);
 			free(pip[i]);
+		}
+		while (cmd_clone)
+		{
+			if (cmd_clone->fd_in != 0)
+				close(cmd_clone->fd_in);
+			if (cmd_clone->fd_out != 1)
+				close(cmd_clone->fd_out);
+			cmd_clone = cmd_clone->next;
 		}
 		free(pip);
 		while (id2 < idx)
