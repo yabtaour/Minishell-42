@@ -137,17 +137,19 @@ void	ft_delete_quotes(t_data *data)
 	cmd_clone = data->lst_cmd;
 	while (cmd_clone)
 	{
-			while (cmd_clone->cmd[i])
+		HERE
+		while (cmd_clone->cmd && cmd_clone->cmd[i])
+		{
+			HERE
+			if (ft_exist_quotes(cmd_clone->cmd[i]))
 			{
-				if (ft_exist_quotes(cmd_clone->cmd[i]))
-				{
-					temp = ft_substr(cmd_clone->cmd[i], 0, strlen(cmd_clone->cmd[i]));
-					free(cmd_clone->cmd[i]);
-					cmd_clone->cmd[i] = ft_substr(ft_delete(temp), 0, strlen(temp));
-					free(temp);
-				}
-				i++;
+				temp = ft_substr(cmd_clone->cmd[i], 0, strlen(cmd_clone->cmd[i]));
+				free(cmd_clone->cmd[i]);
+				cmd_clone->cmd[i] = ft_substr(ft_delete(temp), 0, strlen(temp));
+				free(temp);
 			}
+			i++;
+		}
 		cmd_clone = cmd_clone->next;
 	}
 }
