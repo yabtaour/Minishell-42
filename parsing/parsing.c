@@ -107,10 +107,11 @@ void	ft_delete_redirections(t_data *data)
 t_cmd	*ft_create_new_command(char *command, int fd_in, int fd_out)
 {
 	t_cmd	*cmd;
-	char	**all_cmd;
+	char	**all_cmd = NULL;
 
 	cmd = malloc(sizeof(t_cmd));
-	all_cmd = ft_new_split(command, ' ');
+	if (command)
+		all_cmd = ft_new_split(command, ' ');
 	cmd->cmd = all_cmd;
 	cmd->fd_in = fd_in;
 	cmd->fd_out = fd_out;
@@ -145,6 +146,7 @@ t_cmd	*ft_add_back_cmd(t_data *data, int *fd, int *red, int red_num)
 			fd_in = fd[i];
 		i++;
 	}
+	HERE
 	node = ft_create_new_command(command, fd_in, fd_out);
 	HERE
 	free(command);
@@ -238,7 +240,10 @@ void	ft_add_normal_command(t_data *data)
 		}
 		lexer_clone = lexer_clone->next;
 	}
+	HERE
 	ft_delete_redirections(data);
+	ft_print_lexer(data->lst_lexer);
+	HERE
 	data->lst_cmd = ft_add_back_cmd(data, fd, red, red_num);
 	HERE
 	ft_delete_command(data);
@@ -305,6 +310,7 @@ void	ft_add_command_pipe(t_data *data)
 void	ft_parsing(t_data *data)
 {
 	ft_handle_herdoc(data);
+	HERE
 	ft_add_command_pipe(data);
 	HERE
 }
