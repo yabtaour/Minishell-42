@@ -110,8 +110,10 @@ t_cmd	*ft_create_new_command(char *command, int fd_in, int fd_out)
 	char	**all_cmd;
 
 	cmd = malloc(sizeof(t_cmd));
-	printf("command %s\n", command);
 	all_cmd = ft_new_split(command, ' ');
+	printf("%s\n", all_cmd[0]);
+	printf("%s\n", all_cmd[1]);
+	printf("%s\n", all_cmd[2]);
 	cmd->cmd = all_cmd;
 	cmd->fd_in = fd_in;
 	cmd->fd_out = fd_out;
@@ -149,7 +151,6 @@ t_cmd	*ft_add_back_cmd(t_data *data, int *fd, int *red, int red_num)
 	node = ft_create_new_command(command, fd_in, fd_out);
 	HERE
 	free(command);
-	HERE
 	if (!data->lst_cmd)
 		return (node);
 	HERE

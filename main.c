@@ -54,7 +54,7 @@ int	main(int argc, char **argv, char **env)
 			ft_expanding(&data);
 			ft_parsing(&data);
 			HERE
-			// ft_print_cmd(data.lst_cmd);
+			ft_print_cmd(data.lst_cmd);
 			HERE
 			// ft_delete_quotes(&data);
 			// exe(&data);

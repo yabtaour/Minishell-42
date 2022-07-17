@@ -61,13 +61,10 @@ char	**ft_new_split(char *s, char c)
 		}
 		while ((s[j] && (flag_d == 1 || flag_s == 1)) || (s[j] != '\0' && s[j] != c))
 		{
-			printf("flag_d %d flag_s %d s = [%c]\n", flag_d, flag_s, s[j]);
 			if (s[j] == '"' && flag_s == 0)
 				flag_d = ft_change_flag(flag_d);
 			if (s[j] == '\'' && flag_d == 0)
 				flag_s = ft_change_flag(flag_s);
-			// if (flag_d == 0)
-			// 	break;
 			j++;
 		}
 		printf("j = %d\n", j);
@@ -80,5 +77,5 @@ char	**ft_new_split(char *s, char c)
 		}	
 		s = s + j;
 	}
-	HERE
+	return (ptr);
 }
