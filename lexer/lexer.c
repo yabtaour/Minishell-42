@@ -2,8 +2,9 @@
 
 void	ft_lexer(t_data *data)
 {
-	int		i = 0;
+	int		i;
 
+	i = 0;
 	while (data->cmd[i])
 	{
 		while (data->cmd[i] == ' ')

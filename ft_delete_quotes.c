@@ -134,7 +134,8 @@ void	ft_delete_quotes(t_data *data)
 	cmd_clone = data->lst_cmd;
 	while (cmd_clone)
 	{
-		while (cmd_clone->cmd && cmd_clone->cmd[i])
+		i = 0;
+		while (cmd_clone->cmd[i])
 		{
 			if (ft_exist_quotes(cmd_clone->cmd[i]))
 			{
