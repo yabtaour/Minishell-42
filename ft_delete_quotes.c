@@ -29,8 +29,8 @@ int	*ft_get_index(char *cmd, int type)
 	int		i = 0;
 	char	c;
 	int		len = 0;
-	int	flag_d = 0;
-	int	flag_s = 0;
+	int		flag_d = 0;
+	int		flag_s = 0;
 	int		*index;
 
 	if (type == 1)
@@ -54,18 +54,15 @@ int	*ft_get_index(char *cmd, int type)
 		i = 0;
 		while (cmd[i])
 		{
-			printf("%s\n", cmd);
 			if (cmd[i] == '"' && flag_s == 0)
 			{
 				index[len] = i;
-				printf("%d\n", i);
 				len++;
 				flag_d = ft_change_flag(flag_d);
 			}
 			if (cmd[i] == '\'' && flag_d == 0)
 			{
 				index[len] = i;
-				printf("%d\n", i);
 				len++;
 				flag_s = ft_change_flag(flag_s);
 			}
@@ -137,10 +134,8 @@ void	ft_delete_quotes(t_data *data)
 	cmd_clone = data->lst_cmd;
 	while (cmd_clone)
 	{
-		HERE
 		while (cmd_clone->cmd && cmd_clone->cmd[i])
 		{
-			HERE
 			if (ft_exist_quotes(cmd_clone->cmd[i]))
 			{
 				temp = ft_substr(cmd_clone->cmd[i], 0, strlen(cmd_clone->cmd[i]));
@@ -151,5 +146,18 @@ void	ft_delete_quotes(t_data *data)
 			i++;
 		}
 		cmd_clone = cmd_clone->next;
+	}
+}
+
+void	ft_delete_eof_quotes(char *eof)
+{
+	char	*temp = NULL;
+
+	if (ft_exist_quotes(eof))
+	{
+		temp = ft_substr(eof, 0, strlen(eof));
+		free(eof);
+		eof = ft_substr(ft_delete(temp), 0, strlen(temp));
+		free(temp);
 	}
 }

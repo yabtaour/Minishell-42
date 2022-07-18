@@ -106,7 +106,8 @@ void	ft_expanding(t_data *data);
 void	ft_parsing(t_data *data);
 char	*ft_strjoin(char *s1, char *s2);
 void	ft_add_command_pipe(t_data *data);
-t_cmd	*ft_add_cmd_back(t_cmd *lst_cmd, char *command);
+t_cmd	*ft_add_back_cmd(t_data *data, int *fd, int *red, int red_num);
+void	ft_add_normal_command(t_data *data);
 char	**ft_split(char *s, char c);
 char	*ft_join_args(char *s1, char *s2);
 void	free_split(char **arguments);
@@ -115,6 +116,7 @@ void	ft_print_cmd(t_cmd *cmd);
 char	*ft_substr(char *s, int start, size_t len);
 
 void	ft_delete_quotes(t_data *data);
+void	ft_delete_eof_quotes(char *eof);
 char	**ft_new_split(char *s, char c);
 
 

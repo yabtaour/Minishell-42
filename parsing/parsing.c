@@ -58,9 +58,8 @@ void	ft_delete_redirections(t_data *data)
 {
 	t_lexer	*lexer_clone;
 	t_lexer	*lexer_clone2;
-	int		delete = 0;
 	int		position;
-	int		flag = 0;
+	int		flag;
 
 	lexer_clone = data->lst_lexer;
 	while (ft_check_still_redirection(data))
@@ -84,7 +83,6 @@ void	ft_delete_redirections(t_data *data)
 					ft_delete_node_red(data, position);
 			}
 			ft_print_lexer(data->lst_lexer);
-			printf("position %d\n", position);
 			if (!flag)
 				position++;
 			if (lexer_clone)
@@ -101,59 +99,6 @@ void	ft_delete_redirections(t_data *data)
 		}
 		lexer_clone = data->lst_lexer;
 	}
-}
-
-t_cmd	*ft_create_new_command(char *command, int fd_in, int fd_out)
-{
-	t_cmd	*cmd;
-	char	**all_cmd = NULL;
-
-	cmd = malloc(sizeof(t_cmd));
-	if (command)
-		all_cmd = ft_new_split(command, ' ');
-	cmd->cmd = all_cmd;
-	cmd->fd_in = fd_in;
-	cmd->fd_out = fd_out;
-	cmd->next = NULL;
-	cmd->prev = NULL;
-	return (cmd);
-}
-
-t_cmd	*ft_add_back_cmd(t_data *data, int *fd, int *red, int red_num)
-{
-	int		fd_in = 0;
-	int		fd_out = 1;
-	int		i = 0;
-	t_lexer	*lexer_clone;
-	t_cmd	*node;
-	t_cmd	*cmd_clone;
-	char	*command = NULL;
-
-	lexer_clone = data->lst_lexer;
-	while (lexer_clone && lexer_clone->type != PIPE)
-	{
-		command = ft_strjoin(command, lexer_clone->value);
-		command = ft_strjoin(command, " ");
-		lexer_clone = lexer_clone->next;
-	}
-	while (i < red_num)
-	{
-		if (red[i] == 1 || red[i] == 2)
-			fd_out = fd[i];
-		else if (red[i] == 3)
-			fd_in = fd[i];
-		i++;
-	}
-	node = ft_create_new_command(command, fd_in, fd_out);
-	free(command);
-	if (!data->lst_cmd)
-		return (node);
-	cmd_clone = data->lst_cmd;
-	while (cmd_clone->next)
-		cmd_clone = cmd_clone->next;
-	cmd_clone->next = node;
-	node->prev = cmd_clone;
-	return (data->lst_cmd);
 }
 
 void	ft_delete_command(t_data *data)
@@ -266,10 +211,9 @@ void	ft_handle_herdoc(t_data *data)
 		if (strcmp(lexer_clone->value, "<<") == 0)
 		{
 			lexer_clone = lexer_clone->next;
-			// if (lexer_clone->type == DOUBLE_QUOTES || lexer_clone->type == SINGLE_QUOTES)
-			// 	data->eof[i++] = ft_substr(lexer_clone->value, 1, strlen(lexer_clone->value) - 2);
-			// else
-			// 	data->eof[i++] = ft_substr(lexer_clone->value, 0, strlen(lexer_clone->value));			
+			data->eof[i] = ft_substr(lexer_clone->value, 0, strlen(lexer_clone->value));
+			ft_delete_eof_quotes(data->eof[i]);
+			i++;		
 		}
 		lexer_clone = lexer_clone->next;
 	}
@@ -288,14 +232,6 @@ int		ft_check_still_pipe(t_data *data)
 		lexer_clone = lexer_clone->next;
 	}
 	return (0);
-}
-
-void	ft_add_command_pipe(t_data *data)
-{
-	t_lexer	*lexer_clone;
-
-	while (data->lst_lexer)
-		ft_add_normal_command(data);
 }
 
 void	ft_parsing(t_data *data)
