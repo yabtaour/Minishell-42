@@ -209,7 +209,6 @@ int	exe(t_data *data)
 	cmd_path = NULL;
 
 	int lent = cmds_lent(data);
-	HERE
 	int *pip = fd_ptr(data, data->lst_cmd, lent);
 	t_cmd *cmd_clone = data->lst_cmd;
 	ft_get_paths(data);

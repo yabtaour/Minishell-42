@@ -82,7 +82,6 @@ void	ft_delete_redirections(t_data *data)
 				if (lexer_clone)
 					ft_delete_node_red(data, position);
 			}
-			ft_print_lexer(data->lst_lexer);
 			if (!flag)
 				position++;
 			if (lexer_clone)
