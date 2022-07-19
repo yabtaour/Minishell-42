@@ -10,20 +10,17 @@ int	ft_check_still_dollar(t_data *data)
 	{
 		data->flag_d = 0;
 		data->flag_s = 0;
-		if (lexer_clone->type == WORD)
+		i = -1;
+		while (lexer_clone->value[++i])
 		{
-			i = 0;
-			while (lexer_clone->value[i])
-			{
-				if (lexer_clone->value[i] == '"' && data->flag_s == 0)
-					data->flag_d = ft_change_flag(data->flag_d);
-				if (lexer_clone->value[i] == '\'' && data->flag_d == 0)
-					data->flag_s = ft_change_flag(data->flag_s);
-				if (data->flag_s == 0 && lexer_clone->value[i] == '$' && lexer_clone->value[i + 1]
-					&& lexer_clone->value[i + 1] != '"' && data->flag_s == 0)
-					return (1);
-				i++;
-			}
+			if (lexer_clone->value[i] == '"' && data->flag_s == 0)
+				data->flag_d = ft_change_flag(data->flag_d);
+			if (lexer_clone->value[i] == '\'' && data->flag_d == 0)
+				data->flag_s = ft_change_flag(data->flag_s);
+			if (data->flag_s == 0 && lexer_clone->value[i] == '$'
+				&& lexer_clone->value[i + 1]
+				&& lexer_clone->value[i + 1] != '"')
+				return (1);
 		}
 		lexer_clone = lexer_clone->next;
 	}
@@ -36,10 +33,10 @@ void	ft_expanding(t_data *data)
 	t_env	*env_clone;
 	char	*new_var;
 	char	*var;
-	int		i = 0;
+	int		i;
 	char	*before_var;
-	int		flag_d = 0;
-	int		flag_s = 0;
+	int		flag_d;
+	int		flag_s;
 
 	lexer_clone = data->lst_lexer;
 	while (ft_check_still_dollar(data))
