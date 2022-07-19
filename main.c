@@ -53,7 +53,7 @@ int	main(int argc, char **argv, char **env)
 				ft_free_lexer(data.lst_lexer);
 				continue;
 			}
-			// ft_expanding(&data);
+			ft_expanding(&data);
 			ft_parsing(&data);
 			// ft_print_cmd(data.lst_cmd);
 			ft_delete_quotes(&data);
@@ -64,7 +64,7 @@ int	main(int argc, char **argv, char **env)
 			// 	printf("%s\n", data.eof[i]);
 			// 	i++;
 			// }			
-			// ft_print_cmd(data.lst_cmd);
+			ft_print_cmd(data.lst_cmd);
 	
 			// system("clear");
 			exe(&data);

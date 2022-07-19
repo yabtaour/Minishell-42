@@ -3,29 +3,25 @@
 int	ft_check_still_dollar(t_data *data)
 {
 	t_lexer	*lexer_clone;
-	int		i = 0;
-	int		flag_d;
-	int		flag_s;
+	int		i;
 
 	lexer_clone = data->lst_lexer;
 	while (lexer_clone)
 	{
-		flag_d = 0;
-		flag_s = 0;
+		data->flag_d = 0;
+		data->flag_s = 0;
 		if (lexer_clone->type == WORD)
 		{
 			i = 0;
 			while (lexer_clone->value[i])
 			{
-				if (lexer_clone->value[i] == '"' && flag_s == 0)
-					flag_d = ft_change_flag(flag_d);
-				if (lexer_clone->value[i] == '\'' && flag_d == 0)
-					flag_s = ft_change_flag(flag_s);
-				if (flag_s == 0 && lexer_clone->value[i] == '$' && lexer_clone->value[i + 1]
-					&& lexer_clone->value[i + 1] != '"' && flag_s == 0)
-				{
+				if (lexer_clone->value[i] == '"' && data->flag_s == 0)
+					data->flag_d = ft_change_flag(data->flag_d);
+				if (lexer_clone->value[i] == '\'' && data->flag_d == 0)
+					data->flag_s = ft_change_flag(data->flag_s);
+				if (data->flag_s == 0 && lexer_clone->value[i] == '$' && lexer_clone->value[i + 1]
+					&& lexer_clone->value[i + 1] != '"' && data->flag_s == 0)
 					return (1);
-				}
 				i++;
 			}
 		}

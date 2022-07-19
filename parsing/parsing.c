@@ -176,7 +176,8 @@ void	ft_add_normal_command(t_data *data)
 					fd[i] = open(lexer_clone->value, O_RDONLY, 0777);
 					if (fd[i] == -1)
 					{
-						printf("No such file or directory");
+						printf("No such file or directory\n");
+						fd[i] = -69;
 						data->ex_code = 1;
 					}
 				}
