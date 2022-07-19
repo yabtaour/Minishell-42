@@ -167,7 +167,6 @@ void	ft_add_normal_command(t_data *data)
 				lexer_clone = lexer_clone->next;
 			if (lexer_clone)
 			{
-				printf("%s\n", lexer_clone->value);
 				if (red[i] == 1)
 					fd[i] = open(lexer_clone->value, O_RDWR | O_CREAT | O_TRUNC, 0664);
 				if (red[i] == 2)
