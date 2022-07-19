@@ -64,6 +64,8 @@ typedef struct s_data{
 	int				her_doc;
 	int				ex_code;
 	char			*first_export;
+	int				flag_s;
+	id_t			flag_d;
 	t_env			*lst_env;
 	t_cmd			*lst_cmd;
 	t_lexer			*lst_lexer;
@@ -87,8 +89,6 @@ int		ft_add_parenth(t_data *data, int i);
 int		ft_add_and(t_data *data, int i);
 int		ft_add_semi(t_data *data, int i);
 
-int	ft_change_flag(int flag);
-
 int		ft_is_word(char c);
 int		ft_is_parenth(char c);
 int		ft_is_redirection(char c);
@@ -101,6 +101,16 @@ int	ft_check_quotes(t_data *data);
 
 //-------------Expanding------------------------//
 void	ft_expanding(t_data *data);
+int		ft_change_flag(int flag);
+char	*ft_get_value(t_data *data, char *var);
+int		ft_check_var_env(t_data *data, char *var);
+char	*ft_delete_var(t_data *data, char *var);
+int		ft_len_before(char *var);
+int		ft_len_after(char *var);
+int		ft_len_var(char *var);
+int		ft_check_still_dollar(t_data *data);
+
+
 
 //----------------parsing----------------------//
 void	ft_parsing(t_data *data);

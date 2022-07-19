@@ -46,19 +46,20 @@ int	main(int argc, char **argv, char **env)
 			add_history(data.cmd);
 			ft_lexer(&data);
 			free(data.cmd);
+			ft_print_lexer(data.lst_lexer);
+
 			data.error = ft_syntax_analyzer(&data);
 			if (data.error)
 			{
 				ft_free_lexer(data.lst_lexer);
 				continue;
 			}
-			ft_print_lexer(data.lst_lexer);
-			ft_expanding(&data);
+			// ft_expanding(&data);
 			ft_parsing(&data);
-			ft_print_cmd(data.lst_cmd);
-			HERE
+			// ft_print_cmd(data.lst_cmd);
+			
 			ft_delete_quotes(&data);
-			HERE
+		
 			// int i = 0;
 			// printf("her_doc %d\n", data.her_doc);
 			// while (data.eof[i])
@@ -66,10 +67,10 @@ int	main(int argc, char **argv, char **env)
 			// 	printf("%s\n", data.eof[i]);
 			// 	i++;
 			// }			
-			ft_print_cmd(data.lst_cmd);
-			HERE
+			// ft_print_cmd(data.lst_cmd);
+	
 			// system("clear");
-			// exe(&data);
+			exe(&data);
 			ft_free_lexer(data.lst_lexer);
 			ft_free_cmd(data.lst_cmd);
 		}
