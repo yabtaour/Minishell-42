@@ -57,9 +57,11 @@ int	main(int argc, char **argv, char **env)
 			// ft_expanding(&data);
 			ft_parsing(&data);
 			// ft_print_cmd(data.lst_cmd);
-			
+			HERE
+			ft_print_lexer(data.lst_lexer);
+			ft_print_cmd(data.lst_cmd);
 			ft_delete_quotes(&data);
-		
+			HERE
 			// int i = 0;
 			// printf("her_doc %d\n", data.her_doc);
 			// while (data.eof[i])
@@ -71,6 +73,7 @@ int	main(int argc, char **argv, char **env)
 	
 			// system("clear");
 			exe(&data);
+			HERE
 			ft_free_lexer(data.lst_lexer);
 			ft_free_cmd(data.lst_cmd);
 		}
