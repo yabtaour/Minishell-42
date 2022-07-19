@@ -96,59 +96,98 @@ int	cmds_lent(t_data *data)
 	return (lent);
 }
 
-int	**fd_ptr(t_data *data, t_cmd *lst_cmd, int lent)
-{
-	int	idx;
-	int **pip;
-	int	old_input;
-	int	old_output;
-	t_cmd *cmd_clone;
+// int	**fd_ptr(t_data *data, t_cmd *lst_cmd, int lent)
+// {
+// 	int	idx;
+// 	int **pip;
+// 	int	old_input;
+// 	int	old_output;
+// 	t_cmd *cmd_clone;
 
-	if (lst_cmd)
+// 	if (lst_cmd)
+// 	{
+// 		pip = malloc((lent - 1) * sizeof(int*));
+// 		for (int i = 0; i < lent; i++)
+// 			pip[i] = malloc(2 * sizeof(int));
+// 		cmd_clone = lst_cmd;
+// 		idx = 0;
+// 		while (idx < lent - 1)
+// 		{
+// 			pipe(pip[idx]);
+// 			idx++;
+// 		}
+// 		idx = 0;
+// 		while (cmd_clone)
+// 		{
+// 			old_input = cmd_clone->fd_in;
+// 			old_output = cmd_clone->fd_out;
+// 			if (idx == 0 && !cmd_clone->next)
+// 			{
+// 				cmd_clone->fd_in = 0;
+// 				cmd_clone->fd_out = 1;
+// 			}
+// 			else if (idx == 0 && cmd_clone->next)
+// 			{
+// 				cmd_clone->fd_in = 0;
+// 				cmd_clone->fd_out = pip[idx][1];
+// 			}
+// 			else if (idx != 0 && cmd_clone->next)
+// 			{
+// 				cmd_clone->fd_in = pip[idx - 1][0];
+// 				cmd_clone->fd_out = pip[idx][1];
+// 			}
+// 			else if (idx != 0 && !cmd_clone->next)
+// 			{
+// 				cmd_clone->fd_in = pip[idx - 1][0];
+// 				cmd_clone->fd_out = 1;
+// 			}
+// 			if (old_input != 0)
+// 				cmd_clone->fd_in = old_input;
+// 			if (old_output != 1)
+// 				cmd_clone->fd_out = old_output;
+// 			cmd_clone = cmd_clone->next;
+// 			idx++;
+// 		}
+// 	}
+// 	return (pip);
+// }
+
+int	*fd_ptr(t_data *data, t_cmd *lst_cmd, int lent)
+{
+	t_cmd *cmd_clone;
+	int		red_fd_inp;
+	int		red_fd_out;
+	int		*pip;
+	int		idx;
+
+	idx = 0;
+	cmd_clone = lst_cmd;
+	pip = malloc(sizeof(int) * 2);
+	if (!pip)
+		return (0);
+	pipe(pip);
+	while (lent > 1 && cmd_clone)
 	{
-		pip = malloc((lent - 1) * sizeof(int*));
-		for (int i = 0; i < lent; i++)
-			pip[i] = malloc(2 * sizeof(int));
-		cmd_clone = lst_cmd;
-		idx = 0;
-		while (idx < lent - 1)
+		red_fd_inp = cmd_clone->fd_in;
+		red_fd_out = cmd_clone->fd_out;
+		if (idx == 0 && cmd_clone->next)
+			cmd_clone->fd_out = pip[1];
+		else if (idx != 0 && cmd_clone->next)
 		{
-			pipe(pip[idx]);
-			idx++;
+			cmd_clone->fd_in = pip[0];
+			cmd_clone->fd_out = pip[1];
 		}
-		idx = 0;
-		while (cmd_clone)
+		else if (idx != 0 && !cmd_clone->next)
 		{
-			ft_print_cmd(cmd_clone);
-			old_input = cmd_clone->fd_in;
-			old_output = cmd_clone->fd_out;
-			if (idx == 0 && !cmd_clone->next)
-			{
-				cmd_clone->fd_in = 0;
-				cmd_clone->fd_out = 1;
-			}
-			else if (idx == 0 && cmd_clone->next)
-			{
-				cmd_clone->fd_in = 0;
-				cmd_clone->fd_out = pip[idx][1];
-			}
-			else if (idx != 0 && cmd_clone->next)
-			{
-				cmd_clone->fd_in = pip[idx - 1][0];
-				cmd_clone->fd_out = pip[idx][1];
-			}
-			else if (idx != 0 && !cmd_clone->next)
-			{
-				cmd_clone->fd_in = pip[idx - 1][0];
-				cmd_clone->fd_out = 1;
-			}
-			if (old_input != 0)
-				cmd_clone->fd_in = old_input;
-			if (old_output != 1)
-				cmd_clone->fd_out = old_output;
-			cmd_clone = cmd_clone->next;
-			idx++;
+			cmd_clone->fd_in = pip[0];
+			cmd_clone->fd_out = 1;
 		}
+		if (red_fd_inp != 0)
+			cmd_clone->fd_in = red_fd_inp;
+		if (red_fd_out != 1)
+			cmd_clone->fd_out = red_fd_out;
+		idx++;
+		cmd_clone = cmd_clone->next;
 	}
 	return (pip);
 }
@@ -170,7 +209,8 @@ int	exe(t_data *data)
 	cmd_path = NULL;
 
 	int lent = cmds_lent(data);
-	int **pip = fd_ptr(data, data->lst_cmd, lent);
+	HERE
+	int *pip = fd_ptr(data, data->lst_cmd, lent);
 	t_cmd *cmd_clone = data->lst_cmd;
 	ft_get_paths(data);
 	int cmd_status;
@@ -187,8 +227,8 @@ int	exe(t_data *data)
 			{
 				dup2(data->lst_cmd->fd_in, 0);
 				dup2(data->lst_cmd->fd_out, 1);
-				for (int i = 0; i < lent - 1; i++)
-					close(pip[i][0]), close(pip[i][1]);
+				close(pip[0]), close(pip[1]);
+				free(pip);
 				data->ex_code = ft_if_builtin(data, data->lst_cmd);
 				if (data->ex_code == 69)
 					cmd_path = ft_cmd_exist(data ,data->lst_cmd);
@@ -200,11 +240,7 @@ int	exe(t_data *data)
 			}
 			data->lst_cmd = data->lst_cmd->next;
 		}
-		for (int i = 0; i < lent - 1; i++)
-		{
-			close(pip[i][0]), close(pip[i][1]);
-			free(pip[i]);
-		}
+			close(pip[0]), close(pip[1]);
 		while (cmd_clone)
 		{
 			if (cmd_clone->fd_in != 0)
