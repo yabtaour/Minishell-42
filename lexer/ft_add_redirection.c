@@ -1,4 +1,4 @@
- #include "../minishell.h"
+#include "../minishell.h"
 
 int	ft_add_redirection(t_data *data, int i)
 {
@@ -16,6 +16,7 @@ int	ft_add_redirection(t_data *data, int i)
 	}
 	command = ft_substr(data->cmd, origin, len);
 	i += len;
+	i--;
 	data->lst_lexer = ft_add_lexer_back(data->lst_lexer, command, REDIRECTION);
 	free(command);
 	return (i);

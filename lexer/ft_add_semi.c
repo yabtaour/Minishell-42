@@ -16,6 +16,7 @@ int	ft_add_semi(t_data *data, int i)
 	}
 	command = ft_substr(data->cmd, origin, len);
 	i += len;
+	i--;
 	data->lst_lexer = ft_add_lexer_back(data->lst_lexer, command, SEMI);
 	free(command);
 	return (i);
