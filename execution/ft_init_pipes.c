@@ -11,7 +11,7 @@ int	**ft_init_pipes(t_data *data, t_cmd *lst_cmd, int lent)
 	if (lst_cmd)
 	{
 		pip = malloc((lent - 1) * sizeof(int*));
-		for (int i = 0; i < lent; i++)
+		for (int i = 0; i < lent - 1; i++)
 			pip[i] = malloc(2 * sizeof(int));
 		cmd_clone = lst_cmd;
 		idx = 0;

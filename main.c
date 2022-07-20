@@ -63,7 +63,8 @@ int	main(int argc, char **argv, char **env)
 			// {
 			// 	printf("%s\n", data.eof[i]);
 			// 	i++;
-			// }			
+			// }
+			ft_print_cmd(data.lst_cmd);			
 			execution(&data);
 			ft_free_lexer(data.lst_lexer);
 			ft_free_cmd(data.lst_cmd);

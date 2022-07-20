@@ -35,13 +35,17 @@ int	execution(t_data *data)
 	int	lent;
 	int	pid;
 
+	// ft_print_cmd(data->lst_cmd);
 	idx = 0;
 	pid = 0;
 	lent = cmds_lent(data);
 	pip = ft_init_pipes(data, data->lst_cmd, lent);
+	// ft_print_cmd(data->lst_cmd);
+	// ft_print_cmd(data->lst_cmd);
 	ft_get_paths(data);
 	if (data->lst_cmd)
 		start_execution(data, lent, pip);
+	// ft_print_cmd(data->lst_cmd);
 	return (0);
 }
 

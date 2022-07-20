@@ -22,5 +22,5 @@ int pwd(t_data *data, t_cmd *lst_cmd, int fd)
 	return (0);
 }
 
-change the PWD : /Users/rsaf/Desktop/2.0shell/t1/t2/..
-and OLD PWD to : /Users/rsaf/Desktop/2.0shell/t1/t2
+// change the PWD : /Users/rsaf/Desktop/2.0shell/t1/t2/..
+// and OLD PWD to : /Users/rsaf/Desktop/2.0shell/t1/t2
