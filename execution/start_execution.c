@@ -13,9 +13,10 @@ int	start_execution(t_data *data, int lent, int **pip)
 	idx = 0;
 	pid = -42;
 	status = 0;
+	
 	while (cmd_clone)
 	{
-		non_fork_funcs(data, cmd_clone);
+		data->ex_code = non_fork_funcs(data, cmd_clone);
 		if (pid != 0)
 		{
 			idx++;
@@ -30,6 +31,7 @@ int	start_execution(t_data *data, int lent, int **pip)
 			   cmd_path = ft_cmd_exist(data, cmd_clone);
 			if (cmd_path)
 				ft_execute_cmd(data, cmd_path, cmd_clone);
+			exit(1);
 		}
 		// printf("The current cmd is [ - %s -] and [ input is [ - %d - ] | output is [ - %d - ] ..... [ next cmd is [- %s -] ]]\n", cmd_clone->cmd[0], cmd_clone->fd_in, cmd_clone->fd_out, cmd_clone->next->cmd[0]);
 		cmd_clone = cmd_clone->next;

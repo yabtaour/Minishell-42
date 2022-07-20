@@ -40,7 +40,6 @@ int	execution(t_data *data)
 	lent = cmds_lent(data);
 	pip = ft_init_pipes(data, data->lst_cmd, lent);
 	ft_get_paths(data);
-	ft_print_cmd(data->lst_cmd);
 	if (data->lst_cmd)
 		start_execution(data, lent, pip);
 	return (0);

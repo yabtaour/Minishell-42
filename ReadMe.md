@@ -138,3 +138,8 @@ rak 9alb input and output dial > √
 
 ### SEGFAULT
 whatever HOME
+
+
+
+
+3ndk problem fe argument 3

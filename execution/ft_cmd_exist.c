@@ -12,6 +12,7 @@ char	*ft_cmd_exist(t_data *data, t_cmd *lst_cmd)
 
 	idx = 0;
 	FOUND = 0;
+	path = NULL;
 	while (data->paths[idx] && FOUND == 0)
 	{
 	 	path = ft_strjoin(data->paths[idx], "/");
@@ -20,8 +21,9 @@ char	*ft_cmd_exist(t_data *data, t_cmd *lst_cmd)
 			FOUND = 1;
 			break;
 		}
+		else
+			free(path);
 		idx++;
-		free(path);
 	}
 	if (FOUND == 1)
 		return (path);
