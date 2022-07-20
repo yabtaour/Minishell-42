@@ -17,13 +17,14 @@ int	start_execution(t_data *data, int lent, int **pip)
 	while (cmd_clone)
 	{
 		data->ex_code = non_fork_funcs(data, cmd_clone);
-		if (pid != 0)
+		if (pid != 0 && data->ex_code != 0)
 		{
 			idx++;
 			pid = fork();
 		}
 		if (pid == 0 && cmd_clone->fd_in != -69)
 		{
+			HERE
 			ft_dup(lent, cmd_clone, pip);
 			close_pipes(pip, lent);
 			data->ex_code = ft_if_builtin(data, cmd_clone);

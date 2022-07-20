@@ -43,7 +43,10 @@ int cd(t_data *data, t_cmd *lst_cmd)
 	{
 		current_wd = getcwd(current_wd, 0);
 		if (!current_wd)
+		{
 			printf("cd: getcwd: cannot access parent directories: No such file or directory\n");
+			
+		}
 		else
 		{
 			if (!lst_cmd->cmd[1])
@@ -53,19 +56,16 @@ int cd(t_data *data, t_cmd *lst_cmd)
 			else
 				new_wd = lst_cmd->cmd[1];
 			direrror = chdir(new_wd);
-			printf("Name : %s (error %d)\n", new_wd, direrror);
 			if (direrror != 0)
 				return (1);
 			else
 			{
 				upd_wd = getcwd(upd_wd, 0);
-				printf(">>>>>>>>>>>> %s\n", new_wd);
 				ft_change_env(data, "OLDPWD", current_wd);
 				ft_change_env(data, "PWD", upd_wd);
 			}
 			free(current_wd);
 		}
-		HERE
 	}
 	return (0);
 }
