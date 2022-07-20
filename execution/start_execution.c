@@ -24,7 +24,6 @@ int	start_execution(t_data *data, int lent, int **pip)
 		}
 		if (pid == 0 && cmd_clone->fd_in != -69)
 		{
-			HERE
 			ft_dup(lent, cmd_clone, pip);
 			close_pipes(pip, lent);
 			data->ex_code = ft_if_builtin(data, cmd_clone);
