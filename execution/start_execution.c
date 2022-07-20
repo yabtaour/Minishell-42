@@ -16,6 +16,7 @@ int	start_execution(t_data *data, int lent, int **pip)
 	
 	while (cmd_clone)
 	{
+		
 		data->ex_code = non_fork_funcs(data, cmd_clone);
 		if (pid != 0 && data->ex_code != 0)
 		{

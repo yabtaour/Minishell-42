@@ -35,7 +35,7 @@ UTILS= ./utils/ft_putstr_fd.c ./utils/ft_get_env.c \
 EXECUT= ./execution/execution.c ./execution/ft_get_path.c ./execution/ft_cmd_exist.c \
 		./execution/ft_if_builtin.c ./execution/ft_init_pipes.c\
 		./execution/start_execution.c ./execution/ft_dup.c ./execution/close_fds.c \
-		./execution/non_fork_funcs.c \
+		./execution/non_fork_funcs.c ./execution/herdoc.c \
 
 FILES = $(SRC) $(PARSING) $(LEXER) $(ENV) $(SYNTAX) $(BUILTIN) $(UTILS) $(EXPANDING) $(EXECUT)
 

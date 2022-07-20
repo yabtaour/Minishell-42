@@ -47,7 +47,7 @@ int	ft_check_still_redirection(t_data *data)
 	lexer_clone = data->lst_lexer;
 	while (lexer_clone && lexer_clone->type != PIPE)
 	{
-		if (lexer_clone->type == REDIRECTION)
+		if (lexer_clone->type == REDIRECTION && strcmp(lexer_clone->value, "<<"))
 			return (1);
 		lexer_clone = lexer_clone->next;
 	}
@@ -68,7 +68,7 @@ void	ft_delete_redirections(t_data *data)
 		while (lexer_clone && lexer_clone->type != PIPE)
 		{
 			flag = 0;
-			if (lexer_clone && lexer_clone->type == REDIRECTION)
+			if (lexer_clone && lexer_clone->type == REDIRECTION && strcmp(lexer_clone->value, "<<"))
 			{
 				flag = 1;
 				position++;
@@ -91,7 +91,7 @@ void	ft_delete_redirections(t_data *data)
 		position = 0;
 		while (lexer_clone && lexer_clone->type != PIPE)
 		{
-			if (lexer_clone && lexer_clone->type == REDIRECTION)
+			if (lexer_clone && lexer_clone->type == REDIRECTION && strcmp(lexer_clone->value, "<<"))
 				ft_delete_node_red(data, position);
 			position++;
 			lexer_clone = lexer_clone->next;

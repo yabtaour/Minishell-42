@@ -69,6 +69,7 @@ void	ft_print_cmd(t_cmd *cmd)
 			ft_print_2d(cmd_clone->cmd, "command");
 		printf("fd_in %d", cmd_clone->fd_in);
 		printf(" fd_out %d\n", cmd_clone->fd_out);
+		printf("herdoc num %d\n", cmd_clone->her_doc_num);
 		cmd_clone = cmd_clone->next;
 	}
 }

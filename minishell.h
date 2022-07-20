@@ -45,6 +45,7 @@ typedef struct s_lexer{
 
 typedef struct s_cmd{
 	char			**cmd;
+	int				her_doc_num;
 	int				fd_out;
 	int				fd_in;
 	int				*ptr_in;
@@ -159,5 +160,7 @@ int		non_fork_funcs(t_data *data, t_cmd *cmd);
 //-----------------utils------------------------//
 void	ft_putstr_fd(char *s, int fd);
 char	*ft_get_env(t_data *data, char *name);
+
+int ft_herdoc(t_data *data);
 
 #endif

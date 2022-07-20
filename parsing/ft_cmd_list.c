@@ -4,10 +4,23 @@ t_cmd	*ft_create_new_command(char *command, int fd_in, int fd_out)
 {
 	t_cmd	*cmd;
 	char	**all_cmd = NULL;
+	int		i = 0;
 
 	cmd = malloc(sizeof(t_cmd));
 	if (command)
 		all_cmd = ft_new_split(command, ' ');
+	cmd->her_doc_num = 0;
+	printf("command =>> %s\n", command);
+	while (all_cmd[i])
+	{
+		printf("%s\n", all_cmd[i]);
+		if (!strcmp(all_cmd[i], "<<"))
+		{
+			HERE
+			cmd->her_doc_num++;
+		}
+		i++;
+	}
 	cmd->cmd = all_cmd;
 	cmd->fd_in = fd_in;
 	cmd->fd_out = fd_out;
