@@ -39,7 +39,6 @@ int cd(t_data *data, t_cmd *lst_cmd)
 	if (lst_cmd)
 	{
 		current_wd = getcwd(current_wd, 0);
-		printf("cur : %s\n", current_wd);
 		if (!lst_cmd->cmd[1])
 		{
 			new_wd = ft_get_env(data ,"HOME");
@@ -52,7 +51,6 @@ int cd(t_data *data, t_cmd *lst_cmd)
 		{
 			new_wd = lst_cmd->cmd[1];
 		}
-		printf("new : %s\n", new_wd);
 		direrror = chdir(new_wd);
 		if (direrror != 0)
 			return (printf("cd: no such file or directory: %s\n", lst_cmd->cmd[1]), 1);
@@ -60,7 +58,6 @@ int cd(t_data *data, t_cmd *lst_cmd)
 		ft_change_env(data, "PWD", new_wd);
 		free(current_wd);
 		current_wd = getcwd(current_wd, 0);
-		printf("cur : %s\n", current_wd);
 	}
 	return (0);
 }

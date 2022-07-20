@@ -6,7 +6,7 @@ CC = cc
 
 FLAGS = -Wall -Wextra -Werror
 
-SRC = main.c ft_free.c ft_print_list.c execut.c \
+SRC = main.c ft_free.c ft_print_list.c\
 	  ft_delete_quotes.c
 
 ENV = ./env/ft_env.c ./env/ft_env_list.c\
@@ -31,13 +31,14 @@ BUILTIN= ./builtin/echo.c ./builtin/cd.c ./builtin/pwd.c ./builtin/export.c ./bu
 
 UTILS= ./utils/ft_putstr_fd.c ./utils/ft_get_env.c \
 
-FILES = $(SRC) $(PARSING) $(LEXER) $(ENV) $(SYNTAX) $(BUILTIN) $(UTILS) $(EXPANDING)
+EXECUT= ./execution/execution.c ./execution/ft_get_path.c ./execution/ft_cmd_exist.c \
+		./execution/ft_if_builtin.c ./execution/ft_init_pipes.c\
+		./execution/start_execution.c ./execution/ft_dup.c ./execution/close_fds.c \
+		./execution/non_fork_funcs.c \
 
-RSAF = execut.c $(FILES)
+FILES = $(SRC) $(PARSING) $(LEXER) $(ENV) $(SYNTAX) $(BUILTIN) $(UTILS) $(EXPANDING) $(EXECUT)
 
 OBJ = ${FILES:.c=.o}
-
-RSAF_OBJ = ${RSAF:.c=.o}
  
 %.o: %.c minishel.h
 	$(CC) $(FLAGS) -c $< -I /Users/yabtaour/.brew/opt/readline/include -o $@
@@ -46,9 +47,6 @@ all: ${NAME}
 
 ${NAME}: ${OBJ}
 	$(CC) $(OBJ) -L/Users/yabtaour/.brew/opt/readline/lib -lreadline -o ${NAME}
-
-env: $(RSAF_OBJ)
-	cc $(RSAF_OBJ) -L/Users/yabtaour/.brew/opt/readline/lib -lreadline -o execute
 
 clean_execute:
 	rm -rf $(RSAF_OBJ) execute

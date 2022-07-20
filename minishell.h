@@ -131,15 +131,25 @@ char	**ft_new_split(char *s, char c);
 
 
 
-//-----------------exe-------------------------//
-int		exe(t_data *data);
+//-----------------builtinh-------------------------//
 int 	echo(t_data *data, t_cmd *cmd_lst, int fd);
 int		cd(t_data *data, t_cmd *lst_cmd);
 int		pwd(t_data *data, t_cmd *lst_cmd, int fd);
 int		unset(t_data *data, t_cmd *lst_cmd);
 int		export(t_data *data, t_cmd *lst_cmd, int fd);
 
-
+//*-----------------execution----------------------//
+int		execution(t_data *data);
+int		start_execution(t_data *data, int lent, int **pip);
+void	ft_get_paths(t_data *data);
+char	*ft_cmd_exist(t_data *data, t_cmd *lst_cmd);
+int		ft_if_builtin(t_data *data, t_cmd *lst_cmd);
+int		**ft_init_pipes(t_data *data, t_cmd *lst_cmd, int lent);
+int		ft_execute_cmd(t_data *data, char *path, t_cmd *lst_cmd);
+int		ft_dup(int lent, t_cmd *lst_cmd, int **pip);
+int		close_pipes(int **pipes, int lent);
+int		close_fds(t_cmd *lst_cmd);
+int		non_fork_funcs(t_data *data, t_cmd *cmd);
 //-----------------utils------------------------//
 void	ft_putstr_fd(char *s, int fd);
 char	*ft_get_env(t_data *data, char *name);
