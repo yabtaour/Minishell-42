@@ -34,33 +34,38 @@ int cd(t_data *data, t_cmd *lst_cmd)
 	int direrror;
 	char *current_wd;
 	char *new_wd;
+	char *upd_wd;
 
 	current_wd = NULL;
+	new_wd = NULL;
+	upd_wd = NULL;
 	if (lst_cmd)
 	{
 		current_wd = getcwd(current_wd, 0);
-		printf("cur : %s\n", current_wd);
-		if (!lst_cmd->cmd[1])
+		if (!current_wd)
 		{
-			new_wd = ft_get_env(data ,"HOME");
-		}
-		else if (strncmp(lst_cmd->cmd[1], "-", 1) == 0)
-		{
-			new_wd = ft_get_env(data, "OLDPWD");
+			printf("cd: getcwd: cannot access parent directories: No such file or directory\n");
+			
 		}
 		else
 		{
-			new_wd = lst_cmd->cmd[1];
+			if (!lst_cmd->cmd[1])
+				new_wd = ft_get_env(data ,"HOME");
+			else if (strcmp(lst_cmd->cmd[1], "-") == 0)
+				new_wd = ft_get_env(data, "OLDPWD");
+			else
+				new_wd = lst_cmd->cmd[1];
+			direrror = chdir(new_wd);
+			if (direrror != 0)
+				return (1);
+			else
+			{
+				upd_wd = getcwd(upd_wd, 0);
+				ft_change_env(data, "OLDPWD", current_wd);
+				ft_change_env(data, "PWD", upd_wd);
+			}
+			free(current_wd);
 		}
-		printf("new : %s\n", new_wd);
-		direrror = chdir(new_wd);
-		if (direrror != 0)
-			return (printf("cd: no such file or directory: %s\n", lst_cmd->cmd[1]), 1);
-		ft_change_env(data, "OLDPWD", current_wd);
-		ft_change_env(data, "PWD", new_wd);
-		free(current_wd);
-		current_wd = getcwd(current_wd, 0);
-		printf("cur : %s\n", current_wd);
 	}
 	return (0);
 }

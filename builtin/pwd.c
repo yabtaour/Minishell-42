@@ -10,8 +10,10 @@ int pwd(t_data *data, t_cmd *lst_cmd, int fd)
 		if (lst_cmd->cmd[0])
 		{
 			curr_wd = getcwd(curr_wd, 0);
-			// printf("cur : %s\n", curr_wd);
-			ft_putstr_fd(curr_wd, fd);
+			if (!curr_wd)
+				ft_putstr_fd(ft_get_env(data, "OLDPWD"), 1);
+			else
+				ft_putstr_fd(curr_wd, fd);
 			write(fd, "\n", 1);
 		}
 		else
@@ -19,3 +21,6 @@ int pwd(t_data *data, t_cmd *lst_cmd, int fd)
 	}
 	return (0);
 }
+
+change the PWD : /Users/rsaf/Desktop/2.0shell/t1/t2/..
+and OLD PWD to : /Users/rsaf/Desktop/2.0shell/t1/t2
