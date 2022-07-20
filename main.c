@@ -46,7 +46,6 @@ int	main(int argc, char **argv, char **env)
 			add_history(data.cmd);
 			ft_lexer(&data);
 			free(data.cmd);
-
 			data.error = ft_syntax_analyzer(&data);
 			if (data.error)
 			{

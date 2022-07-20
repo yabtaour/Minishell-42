@@ -37,8 +37,11 @@ void	ft_print_env(t_env *env, int flag, int fd)
 	{
 		while(env_clone)
 		{
-			printf("%s=%s\n", env_clone->name, env_clone->value);
-			env_clone = env_clone->next;
+			if (env_clone->value && strlen(env_clone->value))
+			{
+				printf("%s=%s\n", env_clone->name, env_clone->value);
+				env_clone = env_clone->next;
+			}
 		}
 	}
 	if (flag == 1)

@@ -28,6 +28,7 @@ SYNTAX = ./syntax/syntax_analyzer.c ./syntax/ft_pipe.c \
 	 	 ./syntax/ft_redirection.c ./syntax/ft_quotes.c \
 
 BUILTIN= ./builtin/echo.c ./builtin/cd.c ./builtin/pwd.c ./builtin/export.c ./builtin/unset.c \
+		 ./builtin/env.c ./builtin/export/export.c\
 
 UTILS= ./utils/ft_putstr_fd.c ./utils/ft_get_env.c \
 
