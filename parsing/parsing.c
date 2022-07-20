@@ -128,6 +128,49 @@ void	ft_delete_command(t_data *data)
 	}
 }
 
+void	ft_delete_herdoc(t_data *data)
+{
+	t_cmd	*cmd_clone;
+	char	**new_cmd = NULL;
+	int		len;
+
+	cmd_clone = data->lst_cmd;
+	HERE
+	while (cmd_clone)
+	{
+		len = 0;
+		while (cmd_clone->cmd && cmd_clone->cmd[len])
+		{
+			if (strcmp(cmd_clone->cmd[len], "<<"))
+				len -= 2;
+			len++;
+		}
+		HERE
+		new_cmd = malloc (sizeof(char *) * len + 1);
+		len = 0;
+		int	i = 0;
+		HERE
+		if (cmd_clone->her_doc_num)
+		{
+			while (cmd_clone->cmd && cmd_clone->cmd[len])
+			{
+				if (strcmp(cmd_clone->cmd[len], "<<"))
+				{
+					new_cmd[i] = ft_substr(cmd_clone->cmd[len], 0, strlen(cmd_clone->cmd[len]));
+					i++;
+					len++;
+				}
+				else
+					len += 2;
+			}
+			new_cmd[i] = NULL;
+			cmd_clone->cmd = new_cmd;
+		}
+		HERE
+		cmd_clone = cmd_clone->next;
+	}
+}
+
 void	ft_add_normal_command(t_data *data)
 {
 	t_lexer	*lexer_clone;
@@ -188,6 +231,7 @@ void	ft_add_normal_command(t_data *data)
 	}
 	ft_delete_redirections(data);
 	data->lst_cmd = ft_add_back_cmd(data, fd, red, red_num);
+	ft_delete_herdoc(data);
 	ft_delete_command(data);
 }
 
