@@ -138,22 +138,23 @@ void	ft_delete_herdoc(t_data *data)
 	HERE
 	while (cmd_clone)
 	{
-		len = 0;
-		while (cmd_clone->cmd && cmd_clone->cmd[len])
-		{
-			if (strcmp(cmd_clone->cmd[len], "<<"))
-				len -= 2;
-			len++;
-		}
-		HERE
-		new_cmd = malloc (sizeof(char *) * len + 1);
-		len = 0;
-		int	i = 0;
-		HERE
 		if (cmd_clone->her_doc_num)
 		{
+			len = 0;
 			while (cmd_clone->cmd && cmd_clone->cmd[len])
 			{
+				if (strcmp(cmd_clone->cmd[len], "<<"))
+					len -= 2;
+				len++;
+			}
+			HERE
+			new_cmd = malloc (sizeof(char *) * len + 1);
+			len = 0;
+			int	i = 0;
+			HERE
+			while (cmd_clone->cmd && cmd_clone->cmd[len])
+			{
+				ft_print_cmd(data->lst_cmd);
 				if (strcmp(cmd_clone->cmd[len], "<<"))
 				{
 					new_cmd[i] = ft_substr(cmd_clone->cmd[len], 0, strlen(cmd_clone->cmd[len]));
@@ -164,7 +165,7 @@ void	ft_delete_herdoc(t_data *data)
 					len += 2;
 			}
 			new_cmd[i] = NULL;
-			cmd_clone->cmd = new_cmd;
+			// cmd_clone->cmd = new_cmd;
 		}
 		HERE
 		cmd_clone = cmd_clone->next;
