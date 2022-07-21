@@ -136,46 +136,43 @@ void	ft_delete_herdoc(t_data *data)
 	int		i;
 
 	cmd_clone = data->lst_cmd;
-	while (cmd_clone)
-	{
-		if (cmd_clone->her_doc_num)
-		{
-			i = 1;
-			while (cmd_clone->cmd && cmd_clone->cmd[i])
-				i++;
-			HERE
-			printf("allocated memory = %d\n", (i - (cmd_clone->her_doc_num * 2) + 1));
-			new_cmd = malloc (sizeof(char *) * (i - (cmd_clone->her_doc_num * 2) + 1));
-			len = 0;
-			i = 0;
-			while (cmd_clone->cmd && cmd_clone->cmd[i])
-			{
-				if (!strcmp(cmd_clone->cmd[i], "<<"))
-					i += 2;
-				else
-				{
-					new_cmd[len] = ft_substr(cmd_clone->cmd[i], 0, strlen(cmd_clone->cmd[i]));
-					len++;
-					i++;
-				}
-			}
-			new_cmd[len] = NULL;
-			i = 0;
-			free_split(cmd_clone->cmd);
-			i = 0;
-			while (new_cmd && new_cmd[i])
-				i++;
-			cmd_clone->cmd = malloc (sizeof (char *) * i + 1);
-			i = 0;
-			while (new_cmd && new_cmd[i])
-			{
-				cmd_clone->cmd[i] = ft_substr(new_cmd[i], 0, strlen(new_cmd[i]));
-				i++;
-			}
-			cmd_clone->cmd[i] = NULL;
-		}
+	while (cmd_clone->next)
 		cmd_clone = cmd_clone->next;
-	}
+	if (cmd_clone->her_doc_num)
+	{
+		i = 1;
+		while (cmd_clone->cmd && cmd_clone->cmd[i])
+			i++;
+		printf("allocated memory = %d\n", (i - (cmd_clone->her_doc_num * 2) + 1));
+		new_cmd = malloc (sizeof(char *) * (i - (cmd_clone->her_doc_num * 2) + 1));
+		len = 0;
+		i = 0;
+		while (cmd_clone->cmd && cmd_clone->cmd[i])
+		{
+			if (!strcmp(cmd_clone->cmd[i], "<<"))
+				i += 2;
+			else
+			{
+				new_cmd[len] = ft_substr(cmd_clone->cmd[i], 0, strlen(cmd_clone->cmd[i]));
+				len++;
+				i++;
+			}
+		}
+		new_cmd[len] = NULL;
+		i = 0;
+		free_split(cmd_clone->cmd);
+		i = 0;
+		while (new_cmd && new_cmd[i])
+			i++;
+		cmd_clone->cmd = malloc (sizeof (char *) * i + 1);
+		i = 0;
+		while (new_cmd && new_cmd[i])
+		{
+			cmd_clone->cmd[i] = ft_substr(new_cmd[i], 0, strlen(new_cmd[i]));
+			i++;
+		}
+		cmd_clone->cmd[i] = NULL;
+	}		
 }
 
 void	ft_add_normal_command(t_data *data)
