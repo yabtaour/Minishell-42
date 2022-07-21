@@ -78,6 +78,8 @@ void	ft_env(t_data *data);
 void	ft_free_env(t_env *env);
 void	ft_print_env(t_env	*env, int flag, int fd);
 
+void	free_split(char **arguments);
+
 //-----------------Lexer------------------------//
 void	ft_lexer(t_data *data);
 t_lexer	*ft_add_lexer_back(t_lexer *lexer, char *str, int type);

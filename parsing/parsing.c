@@ -131,43 +131,49 @@ void	ft_delete_command(t_data *data)
 void	ft_delete_herdoc(t_data *data)
 {
 	t_cmd	*cmd_clone;
-	char	**new_cmd = NULL;
+	char	**new_cmd;
 	int		len;
+	int		i;
 
 	cmd_clone = data->lst_cmd;
-	HERE
 	while (cmd_clone)
 	{
 		if (cmd_clone->her_doc_num)
 		{
-			len = 0;
-			while (cmd_clone->cmd && cmd_clone->cmd[len])
-			{
-				if (strcmp(cmd_clone->cmd[len], "<<"))
-					len -= 2;
-				len++;
-			}
+			i = 1;
+			while (cmd_clone->cmd && cmd_clone->cmd[i])
+				i++;
 			HERE
-			new_cmd = malloc (sizeof(char *) * len + 1);
+			printf("allocated memory = %d\n", (i - (cmd_clone->her_doc_num * 2) + 1));
+			new_cmd = malloc (sizeof(char *) * (i - (cmd_clone->her_doc_num * 2) + 1));
 			len = 0;
-			int	i = 0;
-			HERE
-			while (cmd_clone->cmd && cmd_clone->cmd[len])
+			i = 0;
+			while (cmd_clone->cmd && cmd_clone->cmd[i])
 			{
-				ft_print_cmd(data->lst_cmd);
-				if (strcmp(cmd_clone->cmd[len], "<<"))
-				{
-					new_cmd[i] = ft_substr(cmd_clone->cmd[len], 0, strlen(cmd_clone->cmd[len]));
-					i++;
-					len++;
-				}
+				if (!strcmp(cmd_clone->cmd[i], "<<"))
+					i += 2;
 				else
-					len += 2;
+				{
+					new_cmd[len] = ft_substr(cmd_clone->cmd[i], 0, strlen(cmd_clone->cmd[i]));
+					len++;
+					i++;
+				}
 			}
-			new_cmd[i] = NULL;
-			// cmd_clone->cmd = new_cmd;
+			new_cmd[len] = NULL;
+			i = 0;
+			free_split(cmd_clone->cmd);
+			i = 0;
+			while (new_cmd && new_cmd[i])
+				i++;
+			cmd_clone->cmd = malloc (sizeof (char *) * i + 1);
+			i = 0;
+			while (new_cmd && new_cmd[i])
+			{
+				cmd_clone->cmd[i] = ft_substr(new_cmd[i], 0, strlen(new_cmd[i]));
+				i++;
+			}
+			cmd_clone->cmd[i] = NULL;
 		}
-		HERE
 		cmd_clone = cmd_clone->next;
 	}
 }
@@ -233,6 +239,7 @@ void	ft_add_normal_command(t_data *data)
 	ft_delete_redirections(data);
 	data->lst_cmd = ft_add_back_cmd(data, fd, red, red_num);
 	ft_delete_herdoc(data);
+	ft_print_cmd(data->lst_cmd);
 	ft_delete_command(data);
 }
 

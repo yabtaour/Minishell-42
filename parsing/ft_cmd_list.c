@@ -10,15 +10,10 @@ t_cmd	*ft_create_new_command(char *command, int fd_in, int fd_out)
 	if (command)
 		all_cmd = ft_new_split(command, ' ');
 	cmd->her_doc_num = 0;
-	printf("command =>> %s\n", command);
 	while (all_cmd[i])
 	{
-		printf("%s\n", all_cmd[i]);
 		if (!strcmp(all_cmd[i], "<<"))
-		{
-			HERE
 			cmd->her_doc_num++;
-		}
 		i++;
 	}
 	cmd->cmd = all_cmd;
