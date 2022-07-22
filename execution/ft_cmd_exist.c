@@ -13,6 +13,8 @@ char	*ft_cmd_exist(t_data *data, t_cmd *lst_cmd)
 	idx = 0;
 	FOUND = 0;
 	path = NULL;
+	if  (access(data->lst_cmd->cmd[0], F_OK) == 0)
+		return(data->lst_cmd->cmd[0]);
 	while (data->paths[idx] && FOUND == 0)
 	{
 	 	path = ft_strjoin(data->paths[idx], "/");
