@@ -178,4 +178,7 @@ int ft_herdoc(t_data *data);
 
 int		ft_strlen(char *str);
 
+void	ft_add_new_env(t_data *data, char *name, char *value);
+t_env	*ft_new_node(char *name, char *value);
+
 #endif
