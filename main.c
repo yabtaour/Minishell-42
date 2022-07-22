@@ -64,8 +64,8 @@ int	main(int argc, char **argv, char **env)
 			// 	i++;
 			// }
 			// ft_print_cmd(data.lst_cmd);
-			// ft_herdoc(&data);
-			// execution(&data);
+			ft_herdoc(&data);
+			execution(&data);
 			ft_free_lexer(data.lst_lexer);
 			ft_free_cmd(data.lst_cmd);
 		}

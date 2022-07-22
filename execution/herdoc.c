@@ -16,13 +16,11 @@ int ft_herdoc(t_data *data)
 	{
 		while (69 && i < data->her_doc)
 		{
-			buff = readline("-------------------> ");
-			if (!buff || !buff[0])
+			buff = readline("-> ");
+			if (!buff)
 				return (0);
-			else if (i < data->her_doc && data->eof[i] && !strcmp(buff, data->eof[i]))
-			{
+			else if (buff[0] != '\0' && !strcmp(buff, data->eof[i]))
 				i++;
-			}
 			else if (i >= data->her_doc)
 				return (0);
 			else

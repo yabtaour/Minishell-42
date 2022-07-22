@@ -2,8 +2,7 @@
 
 int non_fork_funcs(t_data *data, t_cmd *cmd)
 {
-
-    if (cmd->cmd)
+    if (cmd->cmd && cmd->cmd[0])
     {
         if (strcmp(cmd->cmd[0], "cd") == 0)
             data->ex_code = cd(data, cmd);
