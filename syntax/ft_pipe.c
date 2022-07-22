@@ -15,8 +15,7 @@ int	ft_check_between_pipes(t_data *data)
 			lexer_clone = lexer_clone->next;
 			while (lexer_clone && lexer_clone->type != PIPE)
 			{
-				if (lexer_clone->type != SPACE)
-					num++;
+			 	num++;
 				lexer_clone = lexer_clone->next;
 			}
 			if (!lexer_clone)

@@ -62,6 +62,7 @@ void	ft_print_export(t_data *data)
 	env_clone = data->lst_env;
 	while (env_clone)
 	{
+		printf("declare -x ");
 		printf("%s", env_clone->name);
 		if (env_clone->value && strlen(env_clone->value))
 			printf("=%s", env_clone->value);

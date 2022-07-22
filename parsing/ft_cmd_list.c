@@ -49,9 +49,7 @@ t_cmd	*ft_add_back_cmd(t_data *data, int *fd, int *red, int red_num)
 			fd_in = fd[i];
 		i++;
 	}
-	HERE
 	node = ft_create_new_command(command, fd_in, fd_out);
-	HERE
 	free(command);
 	if (!data->lst_cmd)
 		return (node);
@@ -60,7 +58,6 @@ t_cmd	*ft_add_back_cmd(t_data *data, int *fd, int *red, int red_num)
 		cmd_clone = cmd_clone->next;
 	cmd_clone->next = node;
 	node->prev = cmd_clone;
-	HERE
 	return (data->lst_cmd);
 }
 
