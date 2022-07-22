@@ -40,7 +40,14 @@ int	main(int argc, char **argv, char **env)
 		data.her_doc = 0;
 		data.cmd = readline("minishell-1.0 > ");
 		if (!data.cmd || !strcmp(data.cmd, "exit"))
-			exit(1);
+		{
+			if (data.cmd)
+			{
+				printf("exit\n");
+				return (0);
+			}
+			break;
+		}
 		if (data.cmd && data.cmd[0] != '\0')
 		{
 			data.cmd = ft_strtrim(data.cmd, " ");

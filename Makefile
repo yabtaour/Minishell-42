@@ -4,8 +4,6 @@ YBA = minishell
 
 CC = gcc
 
-# READLINE_DIR    = /Users/rsaf/goinfre/.brew/opt/readline/
-
 CPPFLAGS	= -I /goinfre/rsaf/.brew/opt/readline/include
 LDFLAGS   	= -L /goinfre/rsaf/.brew/opt/readline/lib
 
