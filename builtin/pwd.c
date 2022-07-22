@@ -1,6 +1,6 @@
 #include "../minishell.h"
 
-int pwd(t_data *data, t_cmd *lst_cmd, int fd)
+int	pwd(t_data *data, t_cmd *lst_cmd, int fd)
 {
 	char	*curr_wd;
 
@@ -17,7 +17,7 @@ int pwd(t_data *data, t_cmd *lst_cmd, int fd)
 			write(fd, "\n", 1);
 		}
 		else
-			return(printf("pwd: too many arguments\n") ,1);
+			return (printf("pwd: too many arguments\n"), 1);
 	}
 	return (0);
 }
