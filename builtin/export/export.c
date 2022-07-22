@@ -65,7 +65,7 @@ void	ft_print_export(t_data *data)
 		printf("declare -x ");
 		printf("%s", env_clone->name);
 		if (env_clone->value && strlen(env_clone->value))
-			printf("=%s", env_clone->value);
+			printf("=\"%s\"", env_clone->value);
 		printf("\n");
 		env_clone = env_clone->next;
 	}
