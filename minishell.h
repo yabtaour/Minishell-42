@@ -159,6 +159,7 @@ int		ft_dup(int lent, t_cmd *lst_cmd, int **pip);
 int		close_pipes(int **pipes, int lent);
 int		close_fds(t_cmd *lst_cmd);
 int		non_fork_funcs(t_data *data, t_cmd *cmd);
+int		init_signals(t_data *data);
 //-----------------utils------------------------//
 void	ft_putstr_fd(char *s, int fd);
 char	*ft_get_env(t_data *data, char *name);

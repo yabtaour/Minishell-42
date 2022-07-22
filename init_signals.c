@@ -10,9 +10,9 @@ void handler(int sig)
 
 int init_signals(t_data *data)
 {
-    struct sigaction sa;
-
-    sa.sa_sigaction = handler;
-    sigaction(SIGINT, &sa, NULL);
+    if (signal(SIGQUIT, SIG_IGN) == SIG_ERR)
+        printf("NO SIGINT");
+    if (signal(SIGINT, handler) == SIG_ERR)
+        printf("NOT SIGQUIT");
     return (0);
 }

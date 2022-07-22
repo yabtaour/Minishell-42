@@ -31,6 +31,7 @@ int	main(int argc, char **argv, char **env)
 	data.env = env;
 	data.first_export = NULL;
 	ft_env(&data);
+	init_signals(&data);
 	while (69)
 	{
 		data.lst_lexer = NULL;
