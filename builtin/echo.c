@@ -1,24 +1,26 @@
 #include "../minishell.h"
 
-int check_opt(t_cmd *cmd_lst)
+int	check_opt(t_cmd *cmd_lst)
 {
-	int write_from;
-	int x;
-	int idx;
-	int flag;
-	t_cmd cmd_clone;
+	int		write_from;
+	int		x;
+	int		idx;
+	int		flag;
+	t_cmd	cmd_clone;
 
 	if (cmd_lst)
-	{   
+	{
 		x = 0;
 		idx = 1;
 		flag = -1;
 		write_from = 0;
 		cmd_clone = *cmd_lst;
-		while (cmd_clone.cmd[idx]){
+		while (cmd_clone.cmd[idx])
+		{
 			x = 1;
 			flag = -1;
-			while (cmd_clone.cmd[idx][x] && cmd_clone.cmd[idx][0] == '-'){
+			while (cmd_clone.cmd[idx][x] && cmd_clone.cmd[idx][0] == '-')
+			{
 				if (cmd_clone.cmd[idx][x] == 'n' && flag != 0)
 					flag = 1;
 				else if (cmd_clone.cmd[idx][x] != 'n')
@@ -36,10 +38,10 @@ int check_opt(t_cmd *cmd_lst)
 	return (1);
 }
 
-int echo(t_data *data, t_cmd *cmd_lst, int fd)
+int	echo(t_data *data, t_cmd *cmd_lst, int fd)
 {
-	int nl;
-	int write_from;
+	int	nl;
+	int	write_from;
 
 	if (data && cmd_lst && cmd_lst->cmd[0])
 	{
