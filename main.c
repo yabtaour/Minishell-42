@@ -31,9 +31,9 @@ int	main(int argc, char **argv, char **env)
 	data.env = env;
 	data.first_export = NULL;
 	ft_env(&data);
-	init_signals(&data);
 	while (69)
 	{
+		init_signals(&data);
 		data.lst_lexer = NULL;
 		data.lst_cmd = NULL;
 		data.error = 0;

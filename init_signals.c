@@ -4,7 +4,11 @@ void handler(int sig)
 {
     if (sig == SIGINT)
     {
-        ft_putstr_fd("HAHA", 1);
+  		rl_replace_line("", 0);
+		write(STDIN_FILENO, "\n", 1);
+		rl_on_new_line();
+		rl_redisplay();
+
     }
 }
 

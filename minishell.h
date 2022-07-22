@@ -10,9 +10,9 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # include <string.h>
+# include "readline/readline.h"
+# include "readline/history.h"
 # include "debug.h"
-# include <readline/readline.h>
-# include <readline/history.h>
 # define WORD 1
 # define PIPE 2
 # define SPACE 3
