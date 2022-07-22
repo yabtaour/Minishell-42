@@ -234,10 +234,15 @@ void	ft_add_normal_command(t_data *data)
 		lexer_clone = lexer_clone->next;
 	}
 	ft_delete_redirections(data);
+	HERE
 	data->lst_cmd = ft_add_back_cmd(data, fd, red, red_num);
+	HERE
 	ft_delete_herdoc(data);
+	HERE
 	ft_print_cmd(data->lst_cmd);
+	HERE
 	ft_delete_command(data);
+	HERE
 }
 
 void	ft_handle_herdoc(t_data *data)
@@ -285,6 +290,9 @@ int		ft_check_still_pipe(t_data *data)
 
 void	ft_parsing(t_data *data)
 {
+	HERE
 	ft_handle_herdoc(data);
+	HERE
 	ft_add_command_pipe(data);
+	HERE
 }

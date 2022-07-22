@@ -62,7 +62,9 @@ int	main(int argc, char **argv, char **env)
 			}
 			ft_expanding(&data);
 			// ft_print_lexer(data.lst_lexer);
+			HERE
 			ft_parsing(&data);
+			HERE
 			ft_delete_quotes(&data);
 			int i = 0;
 			// printf("her_doc %d\n", data.her_doc);

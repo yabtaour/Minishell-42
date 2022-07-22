@@ -15,12 +15,20 @@
 # include "debug.h"
 # define WORD 1
 # define PIPE 2
-# define SPACE 3
+// # define SPACE 3
 # define PARENTHESIS 4
 # define REDIRECTION 5
 # define AND 6
 # define SEMI 7
 
+// typedef enum{
+// 	WORD,
+// 	PIPESPACE,
+// 	PARENTHESIS,
+// 	REDIRECTION,
+// 	AND,
+// 	SEMI
+// }	tokens;
 
 typedef struct s_fds
 {
