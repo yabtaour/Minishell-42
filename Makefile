@@ -4,13 +4,15 @@ YBA = minishell
 
 CC = gcc
 
-READLINE_DIR    = /Users/rsaf/goinfre/.brew/opt/readline/
+# READLINE_DIR    = /Users/rsaf/goinfre/.brew/opt/readline/
+
+CPPFLAGS	= -I /goinfre/rsaf/.brew/opt/readline/include
+LDFLAGS   	= -L /goinfre/rsaf/.brew/opt/readline/lib
 
 
+INCLUDESS        =  ${CPPFLAGS}
 
-INCLUDESS        = -I includes -I ${READLINE_DIR}/include
-
-LIBRARIESS        = -L ${LIBFT_DIR} -lft -L${READLINE_DIR}/lib -lreadline
+LIBRARIESS        = ${LDFLAGS} -lreadline
 
 FLAGS = -Wall -Wextra -Werror
 
@@ -50,15 +52,12 @@ FILES = $(SRC) $(PARSING) $(LEXER) $(ENV) $(SYNTAX) $(BUILTIN) $(UTILS) $(EXPAND
 OBJ = ${FILES:.c=.o}
  
 %.o: %.c minishel.h
-	$(CC) $(FLAGS) ${INCLUDESS} -c $< -o $@
+	$(CC) $(FLAGS) -c $< ${INCLUDESS} -o $@
 
 all: ${NAME}
 
 ${NAME}: ${OBJ}
-	$(CC) ${INCLUDESS} $(OBJ) -o ${NAME} ${LIBRARIESS}
-
-clean_execute:
-	rm -rf $(RSAF_OBJ) execute
+	$(CC) ${LIBRARIESS} $(OBJ) -o ${NAME}
 
 clean:
 	rm -rf $(OBJ)
