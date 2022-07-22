@@ -4,11 +4,10 @@ void handler(int sig)
 {
     if (sig == SIGINT)
     {
-  		rl_replace_line("", 0);
-		write(0, "\n", 1);
+  		// rl_replace_line("", 0);
+		// write(1, "\n", 1);
 		rl_on_new_line();
 		rl_redisplay();
-
     }
 }
 

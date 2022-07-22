@@ -153,7 +153,9 @@ void	ft_env_built(t_data *data);
 int		ft_change_env_value(t_data *data, char *name, char *value, int	value_size);
 void	ft_add_new_env(t_data *data, char *name, char *value);
 void	ft_sort_env(t_data *data);
-
+char	*ft_get_value_exp(char *value);
+char	*ft_get_name_exp(char *name);
+int		ft_name_exists(t_data *data, char *name);
 
 //*-----------------execution----------------------//
 int		execution(t_data *data);
@@ -173,5 +175,7 @@ void	ft_putstr_fd(char *s, int fd);
 char	*ft_get_env(t_data *data, char *name);
 
 int ft_herdoc(t_data *data);
+
+int		ft_strlen(char *str);
 
 #endif
