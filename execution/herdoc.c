@@ -12,11 +12,12 @@ int ft_herdoc(t_data *data)
 	char	*buff;
 
 	pipe(pip);
+	ft_print_cmd(cmd_clone);
 	if (data->her_doc)
 	{
 		while (69 && i < data->her_doc)
 		{
-			buff = readline("-> ");
+			buff = readline("heredoc> ");
 			if (!buff)
 				return (0);
 			else if (buff[0] != '\0' && !strcmp(buff, data->eof[i]))
@@ -25,10 +26,12 @@ int ft_herdoc(t_data *data)
 				return (0);
 			else
 			{
-				ft_putstr_fd(buff, pip[1]);
-				ft_putstr_fd("\n", pip[1]);
+				ft_putstr_fd(buff, cmd_clone->fd_out);
+				ft_putstr_fd("\n", cmd_clone->fd_out);
 			}
 		}
+		if (cmd_clone->fd_out != 1)
+			close(cmd_clone->fd_in);
 	}
 	return (0);
 }
