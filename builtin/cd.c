@@ -14,27 +14,26 @@ void	ft_change_env(t_data *data, char *name, char *value)
 			free(env_clone->value);
 			env_clone->value = malloc (strlen(value) + 1);
 			if (!env_clone)
-				break;
+				break ;
 			while (value[i])
 			{
 				env_clone->value[i] = value[i];
 				i++;
 			}
 			env_clone->value[i] = '\0';
-			break;
+			break ;
 		}
 		env_clone = env_clone->next;
 	}
 }
 
-
 // the cd cmnds should be in the parent process 
-int cd(t_data *data, t_cmd *lst_cmd)
+int	cd(t_data *data, t_cmd *lst_cmd)
 {
-	int direrror;
-	char *current_wd;
-	char *new_wd;
-	char *upd_wd;
+	int		direrror;
+	char	*current_wd;
+	char	*new_wd;
+	char	*upd_wd;
 
 	current_wd = NULL;
 	new_wd = NULL;
@@ -45,12 +44,11 @@ int cd(t_data *data, t_cmd *lst_cmd)
 		if (!current_wd)
 		{
 			printf("cd: getcwd: cannot access parent directories: No such file or directory\n");
-			
 		}
 		else
 		{
 			if (!lst_cmd->cmd[1])
-				new_wd = ft_get_env(data ,"HOME");
+				new_wd = ft_get_env(data, "HOME");
 			else if (strcmp(lst_cmd->cmd[1], "-") == 0)
 				new_wd = ft_get_env(data, "OLDPWD");
 			else
