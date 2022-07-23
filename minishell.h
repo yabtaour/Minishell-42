@@ -157,7 +157,7 @@ int		ft_name_exists(t_data *data, char *name);
 
 //*-----------------execution----------------------//
 int		execution(t_data *data);
-int		start_execution(t_data *data, int **pip);
+int		start_execution(t_data *data, int **pip, int idx, int pid);
 void	ft_get_paths(t_data *data);
 char	*ft_cmd_exist(t_data *data, t_cmd *lst_cmd, int idx);
 int		ft_if_builtin(t_data *data, t_cmd *lst_cmd);

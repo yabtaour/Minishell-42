@@ -15,19 +15,13 @@ int	ft_wait_nd_kill(int	idx)
 	return (0);
 }
 
-int	start_execution(t_data *data, int **pip)
+int	start_execution(t_data *data, int **pip, int idx, int pid)
 {
 	t_cmd	*cmd_clone;
 	char	*cmd_path;
-	int		status;
-	int		idx;
-	int		pid;
 
 	cmd_clone = data->lst_cmd;
 	cmd_path = NULL;
-	idx = 0;
-	pid = -42;
-	status = 0;
 	while (cmd_clone)
 	{
 		data->error = non_fork_funcs(data, cmd_clone);
@@ -52,12 +46,5 @@ int	start_execution(t_data *data, int **pip)
 	close_pipes(pip, data->lent);
 	close_fds(data->lst_cmd);
 	ft_wait_nd_kill(idx);
-	// while (idx > 0)
-	// {
-	// 	pid = waitpid(-1, &status, 0);
-	// 	if (WIFEXITED(status) && WEXITSTATUS(status) != -1 && pid != -1)
-	// 		kill(pid, SIGINT);
-	// 	idx--;
-	// }
 	return (0);
 }

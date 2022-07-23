@@ -39,7 +39,7 @@ int	execution(t_data *data)
 	pip = ft_init_pipes(data, 0, 0, 0);
 	ft_get_paths(data);
 	if (data->lst_cmd)
-		start_execution(data, pip);
+		start_execution(data, pip, 0, -42);
 	return (0);
 }
 
