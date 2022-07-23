@@ -51,3 +51,4 @@ int	start_execution(t_data *data, int **pip, int idx, int pid)
 	printf("error code : %d\n", data->error);
 	return (0);
 }
+ 
