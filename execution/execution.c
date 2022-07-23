@@ -12,8 +12,8 @@ int	ft_execute_cmd(t_data *data, char *path, t_cmd *lst_cmd)
 
 int	cmds_lent(t_data *data)
 {
-	int	lent;
-	t_cmd *cmd_clone;
+	int		lent;
+	t_cmd	*cmd_clone;
 
 	lent = 0;
 	cmd_clone = data->lst_cmd;
@@ -25,8 +25,6 @@ int	cmds_lent(t_data *data)
 	return (lent);
 }
 
-
-
 //  this main only for testing.
 int	execution(t_data *data)
 {
@@ -35,42 +33,17 @@ int	execution(t_data *data)
 	int	lent;
 	int	pid;
 
-	// ft_print_cmd(data->lst_cmd);
 	idx = 0;
 	pid = 0;
 	lent = cmds_lent(data);
-	pip = ft_init_pipes(data, data->lst_cmd, lent);
-	// ft_print_cmd(data->lst_cmd);
-	// ft_print_cmd(data->lst_cmd);
+	pip = ft_init_pipes(data, lent, 0);
 	ft_get_paths(data);
 	if (data->lst_cmd)
 		start_execution(data, lent, pip);
-	// ft_print_cmd(data->lst_cmd);
 	return (0);
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// --------------------------------------------------------------------------------------- //
+// ----------------------------- //
 
 // 	int lent = cmds_lent(data);
 // 	int	idx2;
@@ -107,9 +80,8 @@ int	execution(t_data *data)
 // 			cmd_clone->fd_in = pip[idx2 - 1][1];
 // 			cmd_clone->fd_out = 1;
 // 		}
-// 		// printf("[ CMD\t:\t%s] | [FD OUT\t:\t%d] | [FD IN\t:\t%d]\n", cmd_clone->cmd[0], cmd_clone->fd_out, cmd_clone->fd_in);
 // 		cmd_clone = cmd_clone->next;
 // 		idx2++;
 // 	}
 
-// // --------------------------------------------------------------------------------------- //
+// // ----------------------------------------------- //

@@ -224,8 +224,8 @@ void	ft_add_normal_command(t_data *data)
 					if (fd[i] == -1)
 					{
 						printf("No such file or directory\n");
+						data->error = 1;
 						fd[i] = -69;
-						data->ex_code = 1;
 					}
 				}
 				i++;

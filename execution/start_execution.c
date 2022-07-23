@@ -16,8 +16,8 @@ int	start_execution(t_data *data, int lent, int **pip)
 
 	while (cmd_clone)
 	{
-		data->ex_code = non_fork_funcs(data, cmd_clone);
-		if (pid != 0 && data->ex_code != 0)
+		data->error = non_fork_funcs(data, cmd_clone);
+		if (pid != 0 && data->error != 0)
 		{
 			idx++;
 			pid = fork();
@@ -26,14 +26,13 @@ int	start_execution(t_data *data, int lent, int **pip)
 		{
 			ft_dup(lent, cmd_clone, pip);
 			close_pipes(pip, lent);
-			data->ex_code = ft_if_builtin(data, cmd_clone);
-			if (data->ex_code == 2)
-			   cmd_path = ft_cmd_exist(data, cmd_clone);
+			data->error = ft_if_builtin(data, cmd_clone);
+			if (data->error == 2)
+			   cmd_path = ft_cmd_exist(data, cmd_clone, 0);
 			if (cmd_path)
 				ft_execute_cmd(data, cmd_path, cmd_clone);
 			exit(1);
 		}
-		// printf("The current cmd is [ - %s -] and [ input is [ - %d - ] | output is [ - %d - ] ..... [ next cmd is [- %s -] ]]\n", cmd_clone->cmd[0], cmd_clone->fd_in, cmd_clone->fd_out, cmd_clone->next->cmd[0]);
 		cmd_clone = cmd_clone->next;
 	}
 	close_pipes(pip, lent);
