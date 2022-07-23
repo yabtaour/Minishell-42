@@ -30,6 +30,7 @@ int	main(int argc, char **argv, char **env)
 	data.av = argv;
 	data.env = env;
 	data.first_export = NULL;
+	data.general.old_error = 0;
 	ft_env(&data);
 	while (69)
 	{

@@ -48,7 +48,6 @@ int	start_execution(t_data *data, int **pip, int idx, int pid)
 	close_pipes(pip, data->general.lent);
 	close_fds(data->lst_cmd);
 	data->error = ft_wait_nd_kill(idx);
-	printf("error code : %d\n", data->error);
 	return (0);
 }
  

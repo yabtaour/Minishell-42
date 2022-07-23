@@ -5,12 +5,16 @@
 // not exist it return a messg with NULL
 // if cmd exist it get exuxte
 
-int	check_result(int found)
+int	check_result(int found, t_data *data)
 {
 	if (found == 1)
 		return (1);
 	else
+	{
 		ft_putstr_fd("mshell: command not found\n", 2);
+		data->error = 127;
+		exit(127);
+	}
 	return (0);
 }
 
@@ -37,7 +41,7 @@ char	*ft_cmd_exist(t_data *data, t_cmd *lst_cmd, int idx)
 			free(path);
 		idx++;
 	}
-	if (check_result(found) == 1)
+	if (check_result(found, data) == 1)
 		return (path);
 	return (NULL);
 }
