@@ -23,7 +23,7 @@ PARSING = ./parsing/parsing.c ./parsing/parsing_utils.c \
 		  ./parsing/ft_cmd_list.c ./parsing/ft_new_split.c \
 
 EXPANDING = ./expanding/ft_expanding.c ./expanding/expanding_utils.c \
-			./expanding/ft_len.c \
+			./expanding/ft_len.c ./expanding/expanding_utils2.c \
 
 LEXER = ./lexer/lexer.c ./lexer/lexer_utils.c \
 		./lexer/ft_lexer_list.c \

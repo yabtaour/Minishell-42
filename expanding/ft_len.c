@@ -2,12 +2,13 @@
 
 int	ft_len_before(char *var)
 {
-	int	len = 0;
+	int	len;
 	int	flag_d;
 	int	flag_s;
 
 	flag_d = 0;
 	flag_s = 0;
+	len = 0;
 	while (flag_s == 1 || (var[len] && var[len] != '$'))
 	{
 		if (var[len] == '"' && flag_s == 0)
@@ -19,15 +20,27 @@ int	ft_len_before(char *var)
 	return (len);
 }
 
+int	ft_skip(char *value, int i)
+{
+	i++;
+	while (value[i] && value[i] != ' ' && value[i] != '$'
+		&& value[i] != '\\' && value[i] != '\''
+		&& value[i] != '"' && value[i] != '=')
+		i++;
+	return (i);
+}
+
 int	ft_len_after(char *var)
 {
-	int	len = 0;
-	int	i = 0;
-	int	flag_d = 0;
-	int	flag_s = 0;
+	int	len;
+	int	i;
+	int	flag_d;
+	int	flag_s;
 
 	flag_s = 0;
 	flag_d = 0;
+	i = 0;
+	len = 0;
 	while (flag_s == 1 || (var[i] && var[i] != '$'))
 	{
 		if (var[i] == '"' && flag_s == 0)
@@ -38,26 +51,40 @@ int	ft_len_after(char *var)
 	}
 	if (var[i] && var[i] == '$')
 	{
+		i = ft_skip(var, i);
+		while (var[i++])
+			len++;
+	}
+	return (len);
+}
+
+int	ft_calculate_len(char *value, int i)
+{
+	int	len;
+
+	len = 0;
+	i++;
+	while (value[i] && value[i] != ' ' && value[i] != '$'
+		&& value[i] != '\\' && value[i] != '\''
+		&& value[i] != '"' && value[i] != '=')
+	{
 		i++;
-		while (var[i] && var[i] != ' ' && var[i] != '$'
-			&& var[i] != '\\' && var[i] != '"' && var[i] != '\'' && var[i] != '=')
-				i++;
-		if (var[i])
-		{
-			while (var[i++])
-				len++;
-		}
+		len++;
 	}
 	return (len);
 }
 
 int	ft_len_var(char *var)
 {
-	int	i = 0;
-	int	len = 0;
-	int	flag_s = 0;
-	int	flag_d = 0;
+	int	i;
+	int	len;
+	int	flag_s;
+	int	flag_d;
 
+	flag_s = 0;
+	flag_d = 0;
+	i = 0;
+	len = 0;
 	while (flag_s == 1 || (var[i] && var[i] != '$'))
 	{
 		if (var[i] == '"' && flag_s == 0)
@@ -69,15 +96,7 @@ int	ft_len_var(char *var)
 	if (flag_s == 0)
 	{
 		if (var[i] && var[i] == '$')
-		{
-			i++;
-			while (var[i] && var[i] != ' ' && var[i] != '$' && var[i] != '\''
-				&& var[i] != '\\' && var[i] != '"' && var[i] != '=')
-			{
-				i++;
-				len++;
-			}
-		}
+			len = ft_calculate_len(var, i);
 	}
 	return (len);
 }
