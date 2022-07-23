@@ -1,5 +1,20 @@
 #include "../minishell.h"
 
+int	ft_wait_nd_kill(int	idx)
+{
+	int	pid;
+	int	status;
+
+	while (idx > 0)
+	{
+		pid = waitpid(-1, &status, 0);
+		if (WIFEXITED(status) && WEXITSTATUS(status) != -1 && pid != -1)
+			kill(pid, SIGINT);
+		idx--;
+	}
+	return (0);
+}
+
 int	start_execution(t_data *data, int **pip)
 {
 	t_cmd	*cmd_clone;
@@ -36,12 +51,13 @@ int	start_execution(t_data *data, int **pip)
 	}
 	close_pipes(pip, data->lent);
 	close_fds(data->lst_cmd);
-	while (idx > 0)
-	{
-		pid = waitpid(-1, &status, 0);
-		if (WIFEXITED(status) && WEXITSTATUS(status) != -1 && pid != -1)
-			kill(pid, SIGINT);
-		idx--;
-	}
+	ft_wait_nd_kill(idx);
+	// while (idx > 0)
+	// {
+	// 	pid = waitpid(-1, &status, 0);
+	// 	if (WIFEXITED(status) && WEXITSTATUS(status) != -1 && pid != -1)
+	// 		kill(pid, SIGINT);
+	// 	idx--;
+	// }
 	return (0);
 }
