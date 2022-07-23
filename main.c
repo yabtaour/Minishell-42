@@ -39,7 +39,7 @@ int	main(int argc, char **argv, char **env)
 		data.error = 0;
 		data.her_doc = 0;
 		data.cmd = readline("minishell-1.0 > ");
-		printf(" - > error code : %d\n", data.error);
+		printf(" - > error code : %d\n", data.general.old_error);
 		if (!data.cmd || !strcmp(data.cmd, "exit"))
 		{
 			if (data.cmd)

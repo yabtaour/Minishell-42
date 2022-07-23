@@ -34,8 +34,8 @@ int	start_execution(t_data *data, int **pip, int idx, int pid)
 		}
 		if (pid == 0 && cmd_clone->fd_in != -69)
 		{
-			ft_dup(data->lent, cmd_clone, pip);
-			close_pipes(pip, data->lent);
+			ft_dup(data->general.lent, cmd_clone, pip);
+			close_pipes(pip, data->general.lent);
 			data->error = ft_if_builtin(data, cmd_clone);
 			if (data->error == 2)
 				cmd_path = ft_cmd_exist(data, cmd_clone, 0);
@@ -45,7 +45,7 @@ int	start_execution(t_data *data, int **pip, int idx, int pid)
 		}
 		cmd_clone = cmd_clone->next;
 	}
-	close_pipes(pip, data->lent);
+	close_pipes(pip, data->general.lent);
 	close_fds(data->lst_cmd);
 	data->error = ft_wait_nd_kill(idx);
 	printf("error code : %d\n", data->error);

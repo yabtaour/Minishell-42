@@ -34,7 +34,7 @@ int	**ft_init_pipes(t_data *data, int idx, int old_input, int old_output)
 	if (data->lst_cmd)
 	{
 		cmd_clone = data->lst_cmd;
-		pip = ft_allocat_pipes(data->lent, 0, idx);
+		pip = ft_allocat_pipes(data->general.lent, 0, idx);
 		while (cmd_clone)
 		{
 			old_input = cmd_clone->fd_in;
