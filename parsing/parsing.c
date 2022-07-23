@@ -210,8 +210,6 @@ void	ft_add_normal_command(t_data *data)
 		if (lexer_clone->type == REDIRECTION && strcmp(lexer_clone->value, "<<"))
 		{
 			lexer_clone = lexer_clone->next;
-			// while (lexer_clone->type == SPACE)
-			// 	lexer_clone = lexer_clone->next;
 			if (lexer_clone)
 			{
 				if (red[i] == 1)
@@ -236,7 +234,6 @@ void	ft_add_normal_command(t_data *data)
 	ft_delete_redirections(data);
 	data->lst_cmd = ft_add_back_cmd(data, fd, red, red_num);
 	ft_delete_herdoc(data);
-	ft_print_cmd(data->lst_cmd);
 	ft_delete_command(data);
 }
 
@@ -285,6 +282,7 @@ int		ft_check_still_pipe(t_data *data)
 
 void	ft_parsing(t_data *data)
 {
+	ft_print_lexer(data->lst_lexer);
 	ft_handle_herdoc(data);
 	ft_add_command_pipe(data);
 }

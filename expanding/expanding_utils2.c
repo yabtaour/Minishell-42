@@ -19,7 +19,8 @@ int	ft_check_still_dollar(t_data *data)
 				data->flag_s = ft_change_flag(data->flag_s);
 			if (data->flag_s == 0 && lexer_clone->value[i] == '$'
 				&& lexer_clone->value[i + 1]
-				&& lexer_clone->value[i + 1] != '"')
+				&& lexer_clone->value[i + 1] != '"'
+				&& lexer_clone->value[i + 1] != '?')
 				return (1);
 		}
 		lexer_clone = lexer_clone->next;

@@ -60,7 +60,7 @@ char	*ft_delete_var(t_data *data, char *var)
 		while (var[i] && var[i] != ' ' && var[i] != '$'
 			&& var[i] != '\\' && var[i] != '"' && var[i] != '=')
 			i++;
-		if (var[i] && var[i + 1] && var[i + 1] != '"')
+		if (var[i])
 			new_var = ft_substr(var, i, ft_len_after(var));
 	}
 	return (new_var);

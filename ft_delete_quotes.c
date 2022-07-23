@@ -131,6 +131,7 @@ void	ft_delete_quotes(t_data *data)
 	int		i = 0;
 	int		j = 0;
 
+	ft_print_cmd(data->lst_cmd);
 	cmd_clone = data->lst_cmd;
 	while (cmd_clone && cmd_clone->cmd)
 	{
