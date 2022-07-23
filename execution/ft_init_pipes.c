@@ -39,6 +39,7 @@ int	**ft_init_pipes(t_data *data, int idx, int old_input, int old_output)
 		{
 			old_input = cmd_clone->fd_in;
 			old_output = cmd_clone->fd_out;
+			if (cmd_clone.)
 			if (idx == 0 && cmd_clone->next)
 				cmd_clone->fd_out = pip[idx++][1];
 			else if (idx != 0 && cmd_clone->next)
