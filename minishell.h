@@ -31,6 +31,7 @@
 // }	tokens;
 
 typedef struct s_gen{
+	int	pid;
 	int	old_error;
 	int	lent;
 } t_gen;
@@ -158,7 +159,7 @@ int		ft_name_exists(t_data *data, char *name);
 
 //*-----------------execution----------------------//
 int		execution(t_data *data);
-int		start_execution(t_data *data, int **pip, int idx, int pid);
+int		start_execution(t_data *data, int **pip, int idx);
 void	ft_get_paths(t_data *data);
 char	*ft_cmd_exist(t_data *data, t_cmd *lst_cmd, int idx);
 int		ft_if_builtin(t_data *data, t_cmd *lst_cmd);

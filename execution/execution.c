@@ -35,14 +35,14 @@ int	execution(t_data *data)
 
 	idx = 0;
 	pid = 0;
+	data->general.pid = -42;
 	data->general.lent = cmds_lent(data);
 	pip = ft_init_pipes(data, 0, 0, 0);
 	ft_get_paths(data);
 	if (data->lst_cmd)
-		start_execution(data, pip, 0, -42);
+		start_execution(data, pip, 0);
 	return (0);
 }
- 
 
 // ----------------------------- //
 
