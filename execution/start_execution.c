@@ -41,7 +41,7 @@ int	start_execution(t_data *data, int **pip, int idx)
 	cmd_path = NULL;
 	while (cmd_clone)
 	{
-		data->error = non_fork_funcs(data, cmd_clone);
+		data->error = non_fork_funcs(data, cmd_clone, pip);
 		idx = ft_fork(data, idx);
 		if (data->general.pid == 0 && cmd_clone->fd_in != -69)
 		{

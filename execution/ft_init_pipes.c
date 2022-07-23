@@ -4,17 +4,17 @@ int	**ft_allocat_pipes(int lent, int i, int idx)
 {
 	int	**pip;
 
-	pip = malloc((lent - 1) * sizeof(int *));
-	while (i < lent - 1)
+	pip = malloc((lent) * sizeof(int *));
+	while (i < lent)
 	{
 		pip[i] = malloc(2 * sizeof(int));
 		i++;
 	}
-	while (idx < lent - 1)
+	while (idx < lent)
 	{
 		pipe(pip[idx]);
 		idx++;
-	}	
+	}
 	return (pip);
 }
 
@@ -39,9 +39,14 @@ int	**ft_init_pipes(t_data *data, int idx, int old_input, int old_output)
 		{
 			old_input = cmd_clone->fd_in;
 			old_output = cmd_clone->fd_out;
-			// if (cmd_clone.)
-			if (idx == 0 && cmd_clone->next)
+			if (idx == 0 && cmd_clone->next && !cmd_clone->her_doc_num)
 				cmd_clone->fd_out = pip[idx++][1];
+			else if (idx == 0 && cmd_clone->next)
+			{
+				cmd_clone->fd_in = pip[idx][0];
+				cmd_clone->fd_out = pip[idx + 1][1];
+				idx++;
+			}
 			else if (idx != 0 && cmd_clone->next)
 			{
 				cmd_clone->fd_in = pip[idx - 1][0];

@@ -5,7 +5,7 @@ int	close_pipes(int **pip, int lent)
 	int	idx;
 
 	idx = -1;
-	while (++idx < lent - 1)
+	while (++idx < lent)
 	{
 		close(pip[idx][1]);
 		close(pip[idx][0]);

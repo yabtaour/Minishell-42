@@ -141,8 +141,6 @@ void	ft_delete_quotes(t_data *data);
 void	ft_delete_eof_quotes(char *eof);
 char	**ft_new_split(char *s, char c);
 
-
-
 //-----------------builtinh-------------------------//
 int 	echo(t_data *data, t_cmd *cmd_lst, int fd);
 int		cd(t_data *data, t_cmd *lst_cmd);
@@ -168,13 +166,13 @@ int		ft_execute_cmd(t_data *data, char *path, t_cmd *lst_cmd);
 int		ft_dup(int lent, t_cmd *lst_cmd, int **pip);
 int		close_pipes(int **pipes, int lent);
 int		close_fds(t_cmd *lst_cmd);
-int		non_fork_funcs(t_data *data, t_cmd *cmd);
+int		non_fork_funcs(t_data *data, t_cmd *cmd, int **pip);
 int		init_signals(t_data *data);
 //-----------------utils------------------------//
 void	ft_putstr_fd(char *s, int fd);
 char	*ft_get_env(t_data *data, char *name);
 
-int ft_herdoc(t_data *data);
+int ft_herdoc(t_data *data, t_cmd *cmd_lst, int **pip);
 
 int		ft_strlen(char *str);
 
