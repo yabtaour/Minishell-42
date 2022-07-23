@@ -1,6 +1,6 @@
 #include "../minishell.h"
 
-int	ft_wait_nd_kill(int	idx)
+int	ft_wait_nd_kill(int idx)
 {
 	int	pid;
 	int	status;
@@ -15,9 +15,24 @@ int	ft_wait_nd_kill(int	idx)
 	return (WEXITSTATUS(status));
 }
 
+void	ft_finished_exe(t_data *data, int **pip, int idx)
+{
+	close_pipes(pip, data->general.lent);
+	close_fds(data->lst_cmd);
+	data->error = ft_wait_nd_kill(idx);
+}
 
+int	ft_fork(t_data *data, int idx)
+{
+	if (data->general.pid != 0 && data->error != 0)
+	{
+		idx++;
+		data->general.pid = fork();
+	}
+	return (idx);
+}
 
-int	start_execution(t_data *data, int **pip, int idx, int pid)
+int	start_execution(t_data *data, int **pip, int idx)
 {
 	t_cmd	*cmd_clone;
 	char	*cmd_path;
@@ -27,12 +42,8 @@ int	start_execution(t_data *data, int **pip, int idx, int pid)
 	while (cmd_clone)
 	{
 		data->error = non_fork_funcs(data, cmd_clone);
-		if (pid != 0 && data->error != 0)
-		{
-			idx++;
-			pid = fork();
-		}
-		if (pid == 0 && cmd_clone->fd_in != -69)
+		idx = ft_fork(data, idx);
+		if (data->general.pid == 0 && cmd_clone->fd_in != -69)
 		{
 			ft_dup(data->general.lent, cmd_clone, pip);
 			close_pipes(pip, data->general.lent);
@@ -45,9 +56,6 @@ int	start_execution(t_data *data, int **pip, int idx, int pid)
 		}
 		cmd_clone = cmd_clone->next;
 	}
-	close_pipes(pip, data->general.lent);
-	close_fds(data->lst_cmd);
-	data->error = ft_wait_nd_kill(idx);
+	ft_finished_exe(data, pip, idx);
 	return (0);
 }
- 
