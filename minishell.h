@@ -30,8 +30,8 @@
 // 	SEMI
 // }	tokens;
 
-typedef struct s_gen
-{
+typedef struct s_gen{
+	int	old_error;
 	int	lent;
 } t_gen;
 
@@ -70,10 +70,10 @@ typedef struct s_data{
 	char			**paths;
 	char			**eof;
 	int				her_doc;
-	int				lent;
+	t_gen			general;
 	char			*first_export;
 	int				flag_s;
-	id_t			flag_d;
+	int				flag_d;
 	t_env			*lst_env;
 	t_cmd			*lst_cmd;
 	t_lexer			*lst_lexer;

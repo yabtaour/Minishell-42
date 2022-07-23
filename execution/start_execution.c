@@ -12,8 +12,10 @@ int	ft_wait_nd_kill(int	idx)
 			kill(pid, SIGINT);
 		idx--;
 	}
-	return (0);
+	return (WEXITSTATUS(status));
 }
+
+
 
 int	start_execution(t_data *data, int **pip, int idx, int pid)
 {
@@ -45,6 +47,7 @@ int	start_execution(t_data *data, int **pip, int idx, int pid)
 	}
 	close_pipes(pip, data->lent);
 	close_fds(data->lst_cmd);
-	ft_wait_nd_kill(idx);
+	data->error = ft_wait_nd_kill(idx);
+	printf("error code : %d\n", data->error);
 	return (0);
 }
