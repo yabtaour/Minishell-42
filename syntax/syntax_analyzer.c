@@ -15,7 +15,7 @@ static int	ft_check_start_end(t_data *data)
 	}
 	while (lexer_clone->next)
 		lexer_clone = lexer_clone->next;
-	if ((lexer_clone->type == PIPE)  && !flag)
+	if ((lexer_clone->type == PIPE) && !flag)
 	{
 		printf("Syntax error near unexpected token `%s'\n", lexer_clone->value);
 		data->error = 258;
@@ -26,6 +26,7 @@ static int	ft_check_start_end(t_data *data)
 static int	ft_check_forbidden(t_data *data)
 {
 	t_lexer	*lexer_clone;
+	char	c;
 
 	lexer_clone = data->lst_lexer;
 	while (lexer_clone)
@@ -35,7 +36,8 @@ static int	ft_check_forbidden(t_data *data)
 			|| (lexer_clone->type == SEMI))
 		{
 			data->error = 258;
-			printf("Syntax error near unexpected token `%c'\n", lexer_clone->value[0]);
+			c = lexer_clone->value[0];
+			printf("Syntax error near unexpected token `%c'\n", c);
 			return (data->error);
 		}
 		lexer_clone = lexer_clone->next;
