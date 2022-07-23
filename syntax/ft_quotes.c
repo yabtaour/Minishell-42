@@ -1,36 +1,7 @@
 #include "../minishell.h"
 
-int	ft_check_the_quotes(t_data *data)
+int	ft_check_which(int double_num, int single_num)
 {
-	int		flag_s = 0;
-	int		flag_d = 0;
-	int		double_num = 0;
-	int		single_num = 0;
-	t_lexer	*lexer_clone = data->lst_lexer;
-	int		i = 0;
-
-	while (lexer_clone)
-	{
-		if (lexer_clone->type == WORD)
-		{
-			i = 0;
-			while (lexer_clone->value[i])
-			{
-				if (lexer_clone->value[i] == '"' && flag_s == 0)
-				{
-					double_num++;
-					flag_d = ft_change_flag(flag_d);
-				}
-				if (lexer_clone->value[i] == '\'' && flag_d == 0)
-				{
-					single_num++;
-					flag_s = ft_change_flag(flag_s);
-				}
-				i++;
-			}
-		}
-		lexer_clone = lexer_clone->next;
-	}
 	if (double_num % 2)
 	{
 		printf ("Syntax error near unexpected token `\"'\n");
@@ -44,10 +15,57 @@ int	ft_check_the_quotes(t_data *data)
 	return (0);
 }
 
+int	ft_change_double(t_data *data, char c, int quote)
+{
+	if (c == '"' && data->flag_s == 0)
+	{
+		quote++;
+		data->flag_d = ft_change_flag(data->flag_d);
+	}
+	return (quote);
+}
+
+int	ft_change_single(t_data *data, char c, int quote)
+{
+	if (c == '\'' && data->flag_d == 0)
+	{
+		quote++;
+		data->flag_s = ft_change_flag(data->flag_s);
+	}
+	return (quote);
+}
+
+int	ft_check_the_quotes(t_data *data)
+{
+	int		do_num;
+	int		si_num;
+	t_lexer	*lexer_clone;
+	int		i;
+
+	data->flag_d = 0;
+	data->flag_s = 0;
+	do_num = 0;
+	si_num = 0;
+	lexer_clone = data->lst_lexer;
+	while (lexer_clone)
+	{
+		if (lexer_clone->type == WORD)
+		{
+			i = 0;
+			while (lexer_clone->value[i])
+			{
+				do_num = ft_change_double(data, lexer_clone->value[i], do_num);
+				si_num = ft_change_single(data, lexer_clone->value[i], si_num);
+				i++;
+			}
+		}
+		lexer_clone = lexer_clone->next;
+	}
+	return (ft_check_which(do_num, si_num));
+}
+
 int	ft_check_quotes(t_data *data)
 {
 	data->error = ft_check_the_quotes(data);
-	if (data->error)
-		return (data->error);
 	return (data->error);
 }
