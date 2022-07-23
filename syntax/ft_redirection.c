@@ -1,15 +1,16 @@
 #include "../minishell.h"
 
+void	ft_for_norme(t_data *data, char *value)
+{
+	data->error = 258;
+	printf("Syntax error near unexpected token `%s'\n", value);
+}
+
 static int	ft_check_red(t_data *data)
 {
 	t_lexer	*lexer_clone;
 
 	lexer_clone = data->lst_lexer;
-	// if (strcmp(lexer_clone->value, "<") == 0)
-	// {
-	// 	data->error = 258;
-	// 	return (data->error);
-	// }
 	while (lexer_clone->next)
 		lexer_clone = lexer_clone->next;
 	if (lexer_clone->type == REDIRECTION)
@@ -19,12 +20,11 @@ static int	ft_check_red(t_data *data)
 		return (data->error);
 	}
 	lexer_clone = data->lst_lexer;
-	while(lexer_clone)
+	while (lexer_clone)
 	{
 		if (lexer_clone->type == REDIRECTION && strlen(lexer_clone->value) > 2)
 		{
-			data->error = 258;
-			printf("Syntax error near unexpected token `%s'\n", lexer_clone->value);
+			ft_for_norme(data, lexer_clone->value);
 			return (data->error);
 		}
 		lexer_clone = lexer_clone->next;
@@ -53,12 +53,11 @@ static int	ft_check_after_red(t_data *data)
 			{
 				if (ft_check_type(lexer_clone->type))
 				{
-					data->error = 258;
-					printf("Syntax error near unexpected token `%s'\n", lexer_clone->value);
+					ft_for_norme(data, lexer_clone->value);
 					return (data->error);
 				}
 				else
-					break;
+					break ;
 				lexer_clone = lexer_clone->next;
 			}
 		}
