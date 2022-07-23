@@ -35,11 +35,11 @@ int	execution(t_data *data)
 
 	idx = 0;
 	pid = 0;
-	lent = cmds_lent(data);
-	pip = ft_init_pipes(data, lent, 0);
+	data->lent = cmds_lent(data);
+	pip = ft_init_pipes(data, 0, 0, 0);
 	ft_get_paths(data);
 	if (data->lst_cmd)
-		start_execution(data, lent, pip);
+		start_execution(data, pip);
 	return (0);
 }
 

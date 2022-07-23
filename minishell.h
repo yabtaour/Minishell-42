@@ -30,11 +30,10 @@
 // 	SEMI
 // }	tokens;
 
-typedef struct s_fds
+typedef struct s_gen
 {
-	int	fd_out;
-	int	fd_inp;
-}	t_fds;
+	int	lent;
+} t_gen;
 
 
 typedef struct s_env{
@@ -71,7 +70,7 @@ typedef struct s_data{
 	char			**paths;
 	char			**eof;
 	int				her_doc;
-	int				ex_code;
+	int				lent;
 	char			*first_export;
 	int				flag_s;
 	id_t			flag_d;
@@ -149,7 +148,6 @@ int		pwd(t_data *data, t_cmd *lst_cmd, int fd);
 int		unset(t_data *data, t_cmd *lst_cmd);
 int		export(t_data *data, t_cmd *lst_cmd, int fd);
 void	ft_env_built(t_data *data);
-
 int		ft_change_env_value(t_data *data, char *name, char *value, int	value_size);
 void	ft_add_new_env(t_data *data, char *name, char *value);
 void	ft_sort_env(t_data *data);
@@ -159,11 +157,11 @@ int		ft_name_exists(t_data *data, char *name);
 
 //*-----------------execution----------------------//
 int		execution(t_data *data);
-int		start_execution(t_data *data, int lent, int **pip);
+int		start_execution(t_data *data, int **pip);
 void	ft_get_paths(t_data *data);
 char	*ft_cmd_exist(t_data *data, t_cmd *lst_cmd, int idx);
 int		ft_if_builtin(t_data *data, t_cmd *lst_cmd);
-int		**ft_init_pipes(t_data *data, int lent, int idx);
+int		**ft_init_pipes(t_data *data, int idx, int old_input, int old_output);
 int		ft_execute_cmd(t_data *data, char *path, t_cmd *lst_cmd);
 int		ft_dup(int lent, t_cmd *lst_cmd, int **pip);
 int		close_pipes(int **pipes, int lent);
