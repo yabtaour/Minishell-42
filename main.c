@@ -40,7 +40,6 @@ int	main(int argc, char **argv, char **env)
 		data.error = 0;
 		data.her_doc = 0;
 		data.cmd = readline("minishell-1.0 > ");
-		printf(" - > error code : %d\n", data.general.old_error);
 		if (!data.cmd || !strcmp(data.cmd, "exit"))
 		{
 			if (data.cmd)
@@ -56,7 +55,6 @@ int	main(int argc, char **argv, char **env)
 			add_history(data.cmd);
 			ft_lexer(&data);
 			free(data.cmd);
-			HERE
 			data.error = ft_syntax_analyzer(&data);
 			if (data.error)
 			{
@@ -66,7 +64,6 @@ int	main(int argc, char **argv, char **env)
 			ft_expanding(&data);
 			ft_parsing(&data);
 			ft_delete_quotes(&data);
-			ft_herdoc(&data);
 			execution(&data);
 			ft_free_lexer(data.lst_lexer);
 			ft_free_cmd(data.lst_cmd);
