@@ -34,9 +34,10 @@ int	ft_herdoc(t_data *data, t_cmd *cmd_lst, int **pip)
 	i = 0;
 	fd_out = 0;
 	cmd_clone = cmd_lst;
-	if (data->her_doc)
+	pid = fork();
+	if (data->her_doc && pid == 0)
 	{
-			while (69 && i < cmd_clone->her_doc_num)
+			while (1 && i < cmd_clone->her_doc_num)
 			{
 				buff = readline("heredoc> ");
 				if (!buff)
@@ -44,13 +45,18 @@ int	ft_herdoc(t_data *data, t_cmd *cmd_lst, int **pip)
 				else if (buff[0] != '\0' && !strcmp(buff, data->eof[i]))
 					i++;
 				else if (i >= cmd_clone->her_doc_num)
-					return (1);
+					break ;
 				else
 				{
 					ft_putstr_fd(buff, cmd_clone->her_in);
 					ft_putstr_fd("\n", cmd_clone->her_in);
 				}
 			}
+			close_fds(cmd_clone);
+			close_pipes(pip, data->general.lent);
+			exit(0);
 	}
+	// close_pipes(pip, data->general.lent);
+	waitpid(pid, 0, 0);
 	return (1);
 }

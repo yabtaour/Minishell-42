@@ -40,7 +40,6 @@ int	ft_init_no_herdoc(t_cmd *cmd_clone, int idx, int **pip)
 	}
 	else if (idx != 0 && !cmd_clone->next)
 		cmd_clone->fd_in = pip[idx - 1][0];
-	idx++;
 	return (idx);
 }
 
@@ -54,6 +53,7 @@ int	ft_init_a_herdoc(t_cmd *cmd_clone, int idx, int **pip)
 	}
 	else if (idx == 0 && cmd_clone->next)
 	{
+		HERE
 		cmd_clone->her_in = pip[idx][1];
 		cmd_clone->fd_in = pip[idx][0];
 		cmd_clone->fd_out = pip[idx][1];	
@@ -62,7 +62,7 @@ int	ft_init_a_herdoc(t_cmd *cmd_clone, int idx, int **pip)
 	{
 		cmd_clone->her_in = pip[idx][1];
 		cmd_clone->fd_in = pip[idx][0];
-		cmd_clone->fd_out = pip[idx][1];	
+		cmd_clone->fd_out = pip[idx][1];
 	}
 	else if (idx != 0 && !cmd_clone->next)
 	{
@@ -70,7 +70,6 @@ int	ft_init_a_herdoc(t_cmd *cmd_clone, int idx, int **pip)
 		cmd_clone->fd_in = pip[idx][0];
 		cmd_clone->fd_out = 1;
 	}
-	idx++;
 	return (idx);
 }
 
@@ -88,9 +87,10 @@ int	**ft_init_pipes(t_data *data, int idx, int old_input, int old_output)
 			old_input = cmd_clone->fd_in;
 			old_output = cmd_clone->fd_out;
 			if (cmd_clone->her_doc_num > 0)
-				idx = ft_init_a_herdoc(cmd_clone, idx, pip);
+				ft_init_a_herdoc(cmd_clone, idx, pip);
 			else
-				idx = ft_init_no_herdoc(cmd_clone, idx, pip);
+				ft_init_no_herdoc(cmd_clone, idx, pip);
+			idx++;
 			check_for_redfd(cmd_clone, old_input, old_output);
 			cmd_clone = cmd_clone->next;
 		}

@@ -282,7 +282,7 @@ int		ft_check_still_pipe(t_data *data)
 
 void	ft_parsing(t_data *data)
 {
-	ft_print_lexer(data->lst_lexer);
+	// ft_print_lexer(data->lst_lexer);
 	ft_handle_herdoc(data);
 	ft_add_command_pipe(data);
 }

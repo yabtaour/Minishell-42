@@ -54,6 +54,7 @@ int	main(int argc, char **argv, char **env)
 			data.cmd = ft_strtrim(data.cmd, " ");
 			add_history(data.cmd);
 			ft_lexer(&data);
+			// ft_print_lexer(data.lst_lexer);
 			free(data.cmd);
 			data.error = ft_syntax_analyzer(&data);
 			if (data.error)
