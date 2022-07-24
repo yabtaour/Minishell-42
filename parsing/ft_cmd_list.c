@@ -5,7 +5,9 @@ t_cmd	*ft_create_new_command(char *command, int fd_in, int fd_out)
 	t_cmd	*cmd;
 	char	**all_cmd = NULL;
 	int		i = 0;
+	int		pip[2];
 
+	pipe(pip);
 	cmd = malloc(sizeof(t_cmd));
 	if (command)
 		all_cmd = ft_new_split(command, ' ');
@@ -13,7 +15,11 @@ t_cmd	*ft_create_new_command(char *command, int fd_in, int fd_out)
 	while (all_cmd && all_cmd[i])
 	{
 		if (!strcmp(all_cmd[i], "<<"))
+		{
+			fd_in = pip[0];
+			cmd->her_in = pip[1];
 			cmd->her_doc_num++;
+		}
 		i++;
 	}
 	cmd->cmd = all_cmd;

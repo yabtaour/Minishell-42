@@ -14,13 +14,13 @@ LIBRARIESS        = ${LDFLAGS} -lreadline
 
 FLAGS = -Wall -Wextra -Werror
 
-SRC = main.c ft_free.c ft_print_list.c\
-	  ft_delete_quotes.c
+SRC = main.c ft_free.c ft_print_list.c \
 
 ENV = ./env/ft_env.c ./env/ft_env_list.c\
 
 PARSING = ./parsing/parsing.c ./parsing/parsing_utils.c \
 		  ./parsing/ft_cmd_list.c ./parsing/ft_new_split.c \
+		  ./delete_quotes/ft_delete_quotes.c ./delete_quotes/delete_quotes_utils.c \
 
 EXPANDING = ./expanding/ft_expanding.c ./expanding/expanding_utils.c \
 			./expanding/ft_len.c ./expanding/expanding_utils2.c \

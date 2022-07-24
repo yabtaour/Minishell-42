@@ -142,6 +142,8 @@ char	*ft_substr(char *s, int start, size_t len);
 void	ft_delete_quotes(t_data *data);
 void	ft_delete_eof_quotes(char *eof);
 char	**ft_new_split(char *s, char c);
+int		*ft_get_index(char *cmd, int type);
+int		ft_real_len(char *cmd);
 
 //-----------------builtinh-------------------------//
 int 	echo(t_data *data, t_cmd *cmd_lst, int fd);
