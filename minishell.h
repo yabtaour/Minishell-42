@@ -54,6 +54,8 @@ typedef struct s_lexer{
 typedef struct s_cmd{
 	char			**cmd;
 	int				her_doc_num;
+	int				idx;
+	int				her_in;
 	int				fd_out;
 	int				fd_in;
 	int				*ptr_in;

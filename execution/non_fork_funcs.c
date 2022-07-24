@@ -3,10 +3,7 @@
 int	non_fork_funcs(t_data *data, t_cmd *cmd, int **pip)
 {
 	if (ft_herdoc(data, cmd, pip) == 1)
-	{
-		
 		return (1);
-	}
 	if (cmd->cmd && cmd->cmd[0])
 	{
 		if (strcmp(cmd->cmd[0], "cd") == 0)
