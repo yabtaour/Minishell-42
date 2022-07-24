@@ -48,11 +48,17 @@ int	ft_init_a_herdoc(t_cmd *cmd_clone, int idx, int **pip)
 {
 	if (idx == 0 && !cmd_clone->next)
 	{
-		cmd_clone->idx = idx;
 		cmd_clone->her_in = pip[idx][1];
 		cmd_clone->fd_in = pip[idx][0];
 		cmd_clone->fd_out = 1;
 		idx++;
+	}
+	else if (idx == 0 && cmd_clone->next)
+	{
+		cmd_clone->her_in = pip[idx][1];
+		cmd_clone->fd_in = pip[idx][0];
+		cmd_clone->fd_out = pip[idx][1];
+		idx++;		
 	}
 	else if (idx != 0 && cmd_clone->next)
 	{
