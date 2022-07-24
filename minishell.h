@@ -179,7 +179,7 @@ char	*ft_get_env(t_data *data, char *name);
 int ft_herdoc(t_data *data, t_cmd *cmd_lst, int **pip);
 
 int		ft_strlen(char *str);
-
+void	ft_print_cmd1(t_cmd *cmd);
 void	ft_add_new_env(t_data *data, char *name, char *value);
 t_env	*ft_new_node(char *name, char *value);
 

@@ -31,10 +31,11 @@ int	main(int argc, char **argv, char **env)
 	data.env = env;
 	data.first_export = NULL;
 	data.general.old_error = 0;
+	printf("%d\n", getpid());
 	ft_env(&data);
 	while (69)
 	{
-		init_signals(&data);
+		// init_signals(&data);
 		data.lst_lexer = NULL;
 		data.lst_cmd = NULL;
 		data.error = 0;

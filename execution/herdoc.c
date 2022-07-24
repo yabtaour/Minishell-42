@@ -52,11 +52,14 @@ int	ft_herdoc(t_data *data, t_cmd *cmd_lst, int **pip)
 					ft_putstr_fd("\n", cmd_clone->her_in);
 				}
 			}
+			close(cmd_clone->fd_in);
+			close(cmd_clone->her_in);
 			close_fds(cmd_clone);
 			close_pipes(pip, data->general.lent);
 			exit(0);
 	}
-	// close_pipes(pip, data->general.lent);
 	waitpid(pid, 0, 0);
+	if (cmd_clone->her_in != 1)
+		close(cmd_clone->her_in);
 	return (1);
 }
