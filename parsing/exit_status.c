@@ -1,24 +1,31 @@
 #include "../minishell.h"
 
+char	*ft_allocate(char *exit, char *value)
+{
+	int		len;
+	char	*new;
+
+	len = ft_strlen(exit) + ft_strlen(value) - 2;
+	new = malloc(sizeof(char) * len - 1);
+	return (new);
+}
+
 char	*ft_new_value(t_data *data, char *value)
 {
 	char	*exit_s;
-	int		len;
 	char	*new_value;
 	int		i;
 	int		j;
 
-	i = 0;
 	j = 0;
-	exit_s = ft_itoa(data->general.old_error);
-	len = ft_strlen(exit_s) + ft_strlen(value) - 2;
-	new_value = malloc(sizeof(char) * len + 1);
+	i = 0;
+	new_value = ft_allocate(ft_itoa(data->general.old_error), value);
 	while (value[i])
 	{
 		if (value[i] == '$' && value[i + 1] == '?')
 		{
-			new_value = ft_strjoin(new_value, exit_s);
-			j += ft_strlen(exit_s);
+			new_value = ft_strjoin(new_value, ft_itoa(data->general.old_error));
+			j += ft_strlen(ft_itoa(data->general.old_error));
 			i += 2;
 		}
 		else
@@ -40,7 +47,6 @@ char	*ft_change_value(t_data *data, char *value)
 	free(value);
 	value = ft_new_value(data, temp);
 	free(temp);
-	printf("%s\n", value);
 	return (value);
 }
 
