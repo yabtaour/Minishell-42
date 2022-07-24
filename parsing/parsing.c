@@ -143,7 +143,6 @@ void	ft_delete_herdoc(t_data *data)
 		i = 1;
 		while (cmd_clone->cmd && cmd_clone->cmd[i])
 			i++;
-		printf("allocated memory = %d\n", (i - (cmd_clone->her_doc_num * 2) + 1));
 		new_cmd = malloc (sizeof(char *) * (i - (cmd_clone->her_doc_num * 2) + 1));
 		len = 0;
 		i = 0;
