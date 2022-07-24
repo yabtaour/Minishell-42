@@ -1,5 +1,19 @@
 #include "../minishell.h"
 
+int	ft_check_for_norme(t_data *data, char *value, int i)
+{
+	if (value[i] == '"' && data->flag_s == 0)
+		data->flag_d = ft_change_flag(data->flag_d);
+	if (value[i] == '\'' && data->flag_d == 0)
+		data->flag_s = ft_change_flag(data->flag_s);
+	if (data->flag_s == 0 && value[i] == '$'
+		&& value[i + 1]
+		&& value[i + 1] != '"'
+		&& value[i + 1] != '?')
+		return (1);
+	return (0);
+}
+
 int	ft_check_still_dollar(t_data *data)
 {
 	t_lexer	*lexer_clone;
@@ -8,22 +22,22 @@ int	ft_check_still_dollar(t_data *data)
 	lexer_clone = data->lst_lexer;
 	while (lexer_clone)
 	{
+		if (!strcmp(lexer_clone->value, "<<"))
+		{
+			lexer_clone = lexer_clone->next;
+			if (lexer_clone)
+				lexer_clone = lexer_clone->next;
+		}
 		data->flag_d = 0;
 		data->flag_s = 0;
 		i = -1;
-		while (lexer_clone->value[++i])
+		while (lexer_clone && lexer_clone->value[++i])
 		{
-			if (lexer_clone->value[i] == '"' && data->flag_s == 0)
-				data->flag_d = ft_change_flag(data->flag_d);
-			if (lexer_clone->value[i] == '\'' && data->flag_d == 0)
-				data->flag_s = ft_change_flag(data->flag_s);
-			if (data->flag_s == 0 && lexer_clone->value[i] == '$'
-				&& lexer_clone->value[i + 1]
-				&& lexer_clone->value[i + 1] != '"'
-				&& lexer_clone->value[i + 1] != '?')
+			if (ft_check_for_norme(data, lexer_clone->value, i))
 				return (1);
 		}
-		lexer_clone = lexer_clone->next;
+		if (lexer_clone)
+			lexer_clone = lexer_clone->next;
 	}
 	return (0);
 }

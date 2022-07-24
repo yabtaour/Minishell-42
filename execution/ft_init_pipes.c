@@ -43,36 +43,6 @@ int	ft_init_no_herdoc(t_cmd *cmd_clone, int idx, int **pip)
 	return (idx);
 }
 
-// int	ft_init_a_herdoc(t_cmd *cmd_clone, int idx, int **pip)
-// {
-// 	if (idx == 0 && !cmd_clone->next)
-// 	{
-// 		cmd_clone->her_in = pip[idx][1];
-// 		cmd_clone->fd_in = pip[idx][0];
-// 		cmd_clone->fd_out = 1;
-// 	}
-// 	else if (idx == 0 && cmd_clone->next)
-// 	{
-// 		HERE
-// 		cmd_clone->her_in = pip[idx][1]; 
-// 		cmd_clone->fd_in = pip[idx][0];
-// 		cmd_clone->fd_out = pip[idx][1]; // | here
-// 	}
-// 	else if (idx != 0 && cmd_clone->next)
-// 	{
-// 		cmd_clone->her_in = pip[idx][1];
-// 		cmd_clone->fd_in = pip[idx][0];
-// 		cmd_clone->fd_out = pip[idx][1];
-// 	}
-// 	else if (idx != 0 && !cmd_clone->next)
-// 	{
-// 		cmd_clone->her_in = pip[idx][1];
-// 		cmd_clone->fd_in = pip[idx][0];
-// 		cmd_clone->fd_out = 1;
-// 	}
-// 	return (idx);
-// }
-
 int	**ft_init_pipes(t_data *data, int idx, int old_input, int old_output)
 {
 	int		**pip;
@@ -86,13 +56,9 @@ int	**ft_init_pipes(t_data *data, int idx, int old_input, int old_output)
 		{
 			old_input = cmd_clone->fd_in;
 			old_output = cmd_clone->fd_out;
-			// if (cmd_clone->her_doc_num > 0)
-			// 	ft_init_a_herdoc(cmd_clone, idx, pip);
-			// else
 			ft_init_no_herdoc(cmd_clone, idx, pip);
 			idx++;
 			check_for_redfd(cmd_clone, old_input, old_output);
-			ft_print_cmd1(cmd_clone);
 			cmd_clone = cmd_clone->next;
 		
 		}

@@ -67,11 +67,18 @@ void	ft_expanding(t_data *data)
 		lexer_clone = data->lst_lexer;
 		while (lexer_clone)
 		{
+			if (!strcmp(lexer_clone->value, "<<"))
+			{
+				lexer_clone = lexer_clone->next;
+				if (lexer_clone)
+					lexer_clone = lexer_clone->next;
+			}
 			var = NULL;
 			new_var = NULL;
 			if (lexer_clone->type == WORD)
 				ft_real_expanding(data, lexer_clone, var, new_var);
-			lexer_clone = lexer_clone->next;
+			if (lexer_clone)
+				lexer_clone = lexer_clone->next;
 		}
 	}
 }
