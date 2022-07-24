@@ -145,6 +145,8 @@ char	**ft_new_split(char *s, char c);
 int		*ft_get_index(char *cmd, int type);
 int		ft_real_len(char *cmd);
 
+void	ft_change_exit_status(t_data *data);
+
 //-----------------builtinh-------------------------//
 int 	echo(t_data *data, t_cmd *cmd_lst, int fd);
 int		cd(t_data *data, t_cmd *lst_cmd);
@@ -176,11 +178,13 @@ int		init_signals(t_data *data);
 void	ft_putstr_fd(char *s, int fd);
 char	*ft_get_env(t_data *data, char *name);
 
-int ft_herdoc(t_data *data, t_cmd *cmd_lst, int **pip);
+int		ft_herdoc(t_data *data, t_cmd *cmd_lst, int **pip);
 
 int		ft_strlen(char *str);
 void	ft_print_cmd1(t_cmd *cmd);
 void	ft_add_new_env(t_data *data, char *name, char *value);
 t_env	*ft_new_node(char *name, char *value);
+
+char	*ft_itoa(int n);
 
 #endif

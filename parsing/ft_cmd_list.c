@@ -12,6 +12,7 @@ t_cmd	*ft_create_new_command(char *command, int fd_in, int fd_out)
 	if (command)
 		all_cmd = ft_new_split(command, ' ');
 	cmd->her_doc_num = 0;
+	cmd->her_in = 1;
 	while (all_cmd && all_cmd[i])
 	{
 		if (!strcmp(all_cmd[i], "<<"))

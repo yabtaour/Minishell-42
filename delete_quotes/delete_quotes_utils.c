@@ -10,7 +10,7 @@ int	ft_real_len(char *cmd)
 	i = 0;
 	len = 0;
 	flag_d = 0;
-	flag_d = 0;
+	flag_s = 0;
 	while (cmd[i])
 	{
 		if (cmd[i] == '"' && flag_s == 0)

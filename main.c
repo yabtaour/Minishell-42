@@ -31,11 +31,9 @@ int	main(int argc, char **argv, char **env)
 	data.env = env;
 	data.first_export = NULL;
 	data.general.old_error = 0;
-	printf("%d\n", getpid());
 	ft_env(&data);
 	while (69)
 	{
-		// init_signals(&data);
 		data.lst_lexer = NULL;
 		data.lst_cmd = NULL;
 		data.error = 0;
@@ -55,18 +53,19 @@ int	main(int argc, char **argv, char **env)
 			data.cmd = ft_strtrim(data.cmd, " ");
 			add_history(data.cmd);
 			ft_lexer(&data);
-			// ft_print_lexer(data.lst_lexer);
 			free(data.cmd);
 			data.error = ft_syntax_analyzer(&data);
 			if (data.error)
 			{
 				ft_free_lexer(data.lst_lexer);
+				data.general.old_error = data.error;			
 				continue;
 			}
 			ft_expanding(&data);
+			ft_change_exit_status(&data);
+			ft_print_lexer(data.lst_lexer);
 			ft_parsing(&data);
 			ft_delete_quotes(&data);
-			ft_print_cmd(data.lst_cmd);
 			execution(&data);
 			ft_free_lexer(data.lst_lexer);
 			ft_free_cmd(data.lst_cmd);
