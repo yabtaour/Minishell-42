@@ -32,15 +32,15 @@ int	ft_init_no_herdoc(t_cmd *cmd_clone, int idx, int **pip)
 	{
 		cmd_clone->fd_in = 0;
 		cmd_clone->fd_out = pip[idx][1];
-		idx++;
 	}
 	else if (idx != 0 && cmd_clone->next)
 	{
 		cmd_clone->fd_in = pip[idx - 1][0];
-		cmd_clone->fd_out = pip[idx++][1];
+		cmd_clone->fd_out = pip[idx][1];
 	}
 	else if (idx != 0 && !cmd_clone->next)
-		cmd_clone->fd_in = pip[idx++ - 1][0];
+		cmd_clone->fd_in = pip[idx - 1][0];
+	idx++;
 	return (idx);
 }
 
@@ -51,22 +51,26 @@ int	ft_init_a_herdoc(t_cmd *cmd_clone, int idx, int **pip)
 		cmd_clone->her_in = pip[idx][1];
 		cmd_clone->fd_in = pip[idx][0];
 		cmd_clone->fd_out = 1;
-		idx++;
 	}
 	else if (idx == 0 && cmd_clone->next)
 	{
 		cmd_clone->her_in = pip[idx][1];
 		cmd_clone->fd_in = pip[idx][0];
-		cmd_clone->fd_out = pip[idx][1];
-		idx++;		
+		cmd_clone->fd_out = pip[idx][1];	
 	}
 	else if (idx != 0 && cmd_clone->next)
 	{
-		cmd_clone->fd_in = pip[idx - 1][0];
-		cmd_clone->fd_out = pip[idx++][1];
+		cmd_clone->her_in = pip[idx][1];
+		cmd_clone->fd_in = pip[idx][0];
+		cmd_clone->fd_out = pip[idx][1];	
 	}
 	else if (idx != 0 && !cmd_clone->next)
-		cmd_clone->fd_in = pip[idx++ - 1][0];
+	{
+		cmd_clone->her_in = pip[idx][1];
+		cmd_clone->fd_in = pip[idx][0];
+		cmd_clone->fd_out = 1;
+	}
+	idx++;
 	return (idx);
 }
 
