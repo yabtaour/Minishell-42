@@ -44,8 +44,7 @@ void	ft_delete_red_norme(t_data *data, int position, int flag)
 				position--;
 				lexer_clone = lexer_clone->prev;
 			}
-			if (lexer_clone)
-				ft_delete_node_red(data, position);
+			ft_delete_node_red(data, position);
 		}
 		if (!flag)
 			position++;
