@@ -6,11 +6,12 @@
 
 int	her_finished(t_data *data, t_cmd *cmd_clone, int **pip, int i)
 {
+	HERE
 	close(cmd_clone->fd_in);
 	close(cmd_clone->her_in);
 	close_fds(cmd_clone);
 	close_pipes(pip, data->general.lent);
-	exit(i);
+	exit(0);
 }
 
 void	print_for_her(t_cmd *cmd_clone, char *buff)
@@ -21,7 +22,6 @@ void	print_for_her(t_cmd *cmd_clone, char *buff)
 
 int	ft_herdoc(t_data *data, t_cmd *cmd_lst, int **pip, int i)
 {
-	int		status;
 	int		pid;
 	char	*buff;
 	t_cmd	*cmd_clone;
@@ -32,6 +32,7 @@ int	ft_herdoc(t_data *data, t_cmd *cmd_lst, int **pip, int i)
 	pid = fork();
 	if (cmd_clone->her_doc_num && pid == 0)
 	{
+		printf("%d\n", cmd_clone->her_in);
 		while (1 && idx < cmd_lst->her_doc_num)
 		{
 			buff = readline("heredoc> ");
@@ -47,6 +48,6 @@ int	ft_herdoc(t_data *data, t_cmd *cmd_lst, int **pip, int i)
 		}
 		her_finished(data, cmd_clone, pip, i);
 	}
-	waitpid(pid, &status, 0);
+	waitpid(pid, 0, 0);
 	return (1);
 }

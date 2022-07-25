@@ -53,7 +53,7 @@ int	start_execution(t_data *data, int **pip, int idx)
 				cmd_path = ft_cmd_exist(data, cmd_clone, 0);
 			if (cmd_path)
 				ft_execute_cmd(data, cmd_path, cmd_clone);
-			rl_on_new_line();
+			// rl_on_new_line();
 			exit(1);
 		}
 		cmd_clone = cmd_clone->next;

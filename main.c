@@ -70,6 +70,7 @@ int	main(int argc, char **argv, char **env)
 			ft_print_lexer(data.lst_lexer);
 			ft_parsing(&data);
 			ft_delete_quotes(&data);
+			ft_print_cmd(data.lst_cmd);
 			execution(&data);
 			ft_free_lexer(data.lst_lexer);
 			ft_free_cmd(data.lst_cmd);

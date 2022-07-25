@@ -38,7 +38,8 @@ t_cmd	*ft_create_new_command(char *command, int fd_in, int fd_out)
 		}
 		i++;
 	}
-	HERE
+	cmd->fd_in = fd_in;
+	cmd->fd_out = fd_out;
 	return (cmd);
 }
 
