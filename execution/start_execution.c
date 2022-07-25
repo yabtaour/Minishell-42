@@ -45,6 +45,7 @@ int	start_execution(t_data *data, int **pip, int idx)
 		idx = ft_fork(data, idx);
 		if (data->general.pid == 0 && cmd_clone->fd_in != -69)
 		{
+			rl_catch_signals = 1;
 			ft_dup(data->general.lent, cmd_clone, pip);
 			close_pipes(pip, data->general.lent);
 			data->error = ft_if_builtin(data, cmd_clone);
@@ -52,6 +53,7 @@ int	start_execution(t_data *data, int **pip, int idx)
 				cmd_path = ft_cmd_exist(data, cmd_clone, 0);
 			if (cmd_path)
 				ft_execute_cmd(data, cmd_path, cmd_clone);
+			rl_on_new_line();
 			exit(1);
 		}
 		cmd_clone = cmd_clone->next;
