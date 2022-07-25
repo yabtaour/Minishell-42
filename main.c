@@ -25,6 +25,7 @@ char	*ft_strtrim(char *s1, char *set)
 int	main(int argc, char **argv, char **env)
 {
 	t_data	data;
+	// int rl_catch_signals;
 
 	data.ac = argc;
 	data.av = argv;
@@ -38,6 +39,8 @@ int	main(int argc, char **argv, char **env)
 		data.lst_cmd = NULL;
 		data.error = 0;
 		data.her_doc = 0;
+		rl_catch_signals = 0;
+		init_signals(&data);
 		data.cmd = readline("minishell-1.0 > ");
 		if (!data.cmd || !strcmp(data.cmd, "exit"))
 		{
