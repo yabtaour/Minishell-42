@@ -147,6 +147,13 @@ int		ft_real_len(char *cmd);
 
 void	ft_change_exit_status(t_data *data);
 
+int	ft_get_in(int *fd, int *red, int red_num);
+int	ft_get_out(int *fd, int *red, int red_num);
+
+void	ft_delete_command(t_data *data);
+void	ft_handle_herdoc(t_data *data);
+void	ft_delete_herdoc(t_data *data);
+
 //-----------------builtinh-------------------------//
 int 	echo(t_data *data, t_cmd *cmd_lst, int fd);
 int		cd(t_data *data, t_cmd *lst_cmd);
