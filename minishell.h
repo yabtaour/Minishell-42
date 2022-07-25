@@ -32,6 +32,7 @@
 
 typedef struct s_gen{
 	int	pid;
+	int	index;
 	int	old_error;
 	int	lent;
 } t_gen;
@@ -185,7 +186,7 @@ int		init_signals(t_data *data);
 void	ft_putstr_fd(char *s, int fd);
 char	*ft_get_env(t_data *data, char *name);
 
-int		ft_herdoc(t_data *data, t_cmd *cmd_lst, int **pip);
+int		ft_herdoc(t_data *data, t_cmd *cmd_lst, int **pip, int i);
 
 int		ft_strlen(char *str);
 void	ft_print_cmd1(t_cmd *cmd);

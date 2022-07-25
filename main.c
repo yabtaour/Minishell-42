@@ -51,6 +51,7 @@ int	main(int argc, char **argv, char **env)
 			}
 			break;
 		}
+		data.general.index = 0;
 		if (data.cmd && data.cmd[0] != '\0')
 		{
 			data.cmd = ft_strtrim(data.cmd, " ");

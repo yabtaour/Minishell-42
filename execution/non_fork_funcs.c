@@ -1,8 +1,15 @@
 #include "../minishell.h"
 
+int	find_idx(t_data *data, t_cmd *cmd)
+{
+	if (cmd->prev)
+		data->general.index += cmd->prev->her_doc_num;
+	return (data->general.index);
+}
+
 int	non_fork_funcs(t_data *data, t_cmd *cmd, int **pip)
 {
-	if (data->her_doc > 0 && ft_herdoc(data, cmd, pip) == 1)
+	if (cmd->her_doc_num > 0 && ft_herdoc(data, cmd, pip , find_idx(data, cmd)) == 1)
 	{
 		if (cmd->her_in != 1)
 			close(cmd->her_in);
