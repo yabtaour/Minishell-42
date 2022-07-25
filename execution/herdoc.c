@@ -39,8 +39,6 @@ int	ft_herdoc(t_data *data, t_cmd *cmd_lst, int **pip)
 				return (1);
 			else if (buff[0] != '\0' && !strcmp(buff, data->eof[i]))
 				i++;
-			else if (i >= cmd_clone->her_doc_num)
-				break ;
 			else if (data->eof[i + 1] == NULL)
 				print_for_her(cmd_clone, buff);
 		}
