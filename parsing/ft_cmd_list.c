@@ -87,5 +87,9 @@ void	ft_add_command_pipe(t_data *data)
 	t_lexer	*lexer_clone;
 
 	while (data->lst_lexer)
+	{
 		ft_add_normal_command(data);
+		ft_delete_herdoc(data);
+		ft_delete_command(data);
+	}
 }

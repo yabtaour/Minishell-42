@@ -49,7 +49,6 @@ char	*ft_join_args(char *s1, char *s2)
 	return (result);
 }
 
-
 char	*ft_strjoin(char *s1, char *s2)
 {
 	int		i;

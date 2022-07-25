@@ -39,7 +39,7 @@ int	main(int argc, char **argv, char **env)
 		data.lst_cmd = NULL;
 		data.error = 0;
 		data.her_doc = 0;
-		rl_catch_signals = 0;
+		// rl_catch_signals = 0;
 		init_signals(&data);
 		data.cmd = readline("minishell-1.0 > ");
 		if (!data.cmd || !strcmp(data.cmd, "exit"))

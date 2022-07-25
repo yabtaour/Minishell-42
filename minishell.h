@@ -155,6 +155,13 @@ void	ft_delete_command(t_data *data);
 void	ft_handle_herdoc(t_data *data);
 void	ft_delete_herdoc(t_data *data);
 
+int	*ft_fill_red(t_data *data, int red_num);
+int	ft_fill_fd(t_data *data, char *name, int red);
+int	ft_red_num(t_data *data);
+
+void	ft_delete_redirections(t_data *data);
+int	ft_check_still_redirection(t_data *data);
+
 //-----------------builtinh-------------------------//
 int 	echo(t_data *data, t_cmd *cmd_lst, int fd);
 int		cd(t_data *data, t_cmd *lst_cmd);

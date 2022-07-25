@@ -34,7 +34,6 @@ void	ft_delete_command(t_data *data)
 	t_lexer	*lexer_clone;
 
 	lexer_clone = data->lst_lexer;
-
 	while (lexer_clone && lexer_clone->type != PIPE)
 	{
 		if (lexer_clone->next)
@@ -71,16 +70,15 @@ char	**ft_get_new(t_data *data, t_cmd *cmd)
 	if (!new_cmd)
 		return (NULL);
 	len = 0;
-	i = 0;
-	while (cmd->cmd && cmd->cmd[i])
+	i = -1;
+	while (cmd->cmd && cmd->cmd[++i])
 	{
 		if (!strcmp(cmd->cmd[i], "<<"))
-			i += 2;
+			i += 1;
 		else
 		{
 			new_cmd[len] = ft_substr(cmd->cmd[i], 0, ft_strlen(cmd->cmd[i]));
 			len++;
-			i++;
 		}
 		new_cmd[len] = NULL;
 	}
