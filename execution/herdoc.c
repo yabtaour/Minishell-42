@@ -4,19 +4,30 @@
 // in bash herdoc do not output to a file just created
 // the herdoc before the syntax error
 
-int	her_finished()
+int	her_finished(t_data *data, t_cmd *cmd_clone, int **pip)
+{
+	close(cmd_clone->fd_in);
+	close(cmd_clone->her_in);
+	close_fds(cmd_clone);
+	close_pipes(pip, data->general.lent);
+	exit(data->error);
+}
+
+void	print_for_her(t_cmd *cmd_clone, char *buff)
+{
+	ft_putstr_fd(buff, cmd_clone->her_in);
+	ft_putstr_fd("\n", cmd_clone->her_in);
+}
 
 int	ft_herdoc(t_data *data, t_cmd *cmd_lst, int **pip)
 {
 	int		pid;
-	int		fd_out;
 	int		i;
 	char	*buff;
 	t_cmd	*cmd_clone;
 
 	pid = -99;
 	i = 0;
-	fd_out = 0;
 	cmd_clone = cmd_lst;
 	pid = fork();
 	if (data->her_doc && pid == 0)
@@ -30,20 +41,11 @@ int	ft_herdoc(t_data *data, t_cmd *cmd_lst, int **pip)
 				i++;
 			else if (i >= cmd_clone->her_doc_num)
 				break ;
-			else
-			{
-				ft_putstr_fd(buff, cmd_clone->her_in);
-				ft_putstr_fd("\n", cmd_clone->her_in);
-			}
+			else if (data->eof[i + 1] == NULL)
+				print_for_her(cmd_clone, buff);
 		}
-		close(cmd_clone->fd_in);
-		close(cmd_clone->her_in);
-		close_fds(cmd_clone);
-		close_pipes(pip, data->general.lent);
-		exit(0);
+		her_finished(data, cmd_clone, pip);
 	}
 	waitpid(pid, 0, 0);
-	if (cmd_clone->her_in != 1)
-		close(cmd_clone->her_in);
 	return (1);
 }
