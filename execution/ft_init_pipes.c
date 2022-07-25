@@ -60,7 +60,6 @@ int	**ft_init_pipes(t_data *data, int idx, int old_input, int old_output)
 			idx++;
 			check_for_redfd(cmd_clone, old_input, old_output);
 			cmd_clone = cmd_clone->next;
-		
 		}
 	}
 	return (pip);
