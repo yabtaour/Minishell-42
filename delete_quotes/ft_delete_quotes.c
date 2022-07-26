@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_delete_quotes.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yabtaour <yabtaour@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/26 18:16:08 by yabtaour          #+#    #+#             */
+/*   Updated: 2022/07/26 18:20:44 by yabtaour         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 int	ft_exist(int i, int *index, int len)
@@ -73,7 +85,8 @@ void	ft_delete_quotes(t_data *data)
 				len = ft_strlen(cmd_clone->cmd[i]);
 				temp = ft_substr(cmd_clone->cmd[i], 0, len);
 				free(cmd_clone->cmd[i]);
-				cmd_clone->cmd[i] = ft_substr(ft_delete(temp), 0, ft_strlen(temp));
+				len = ft_strlen(temp);
+				cmd_clone->cmd[i] = ft_substr(ft_delete(temp), 0, len);
 				free(temp);
 			}
 			i++;

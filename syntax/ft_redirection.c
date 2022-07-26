@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_redirection.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yabtaour <yabtaour@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/26 18:17:27 by yabtaour          #+#    #+#             */
+/*   Updated: 2022/07/26 18:18:53 by yabtaour         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 void	ft_for_norme(t_data *data, char *value)
@@ -22,7 +34,8 @@ static int	ft_check_red(t_data *data)
 	lexer_clone = data->lst_lexer;
 	while (lexer_clone)
 	{
-		if (lexer_clone->type == REDIRECTION && ft_strlen(lexer_clone->value) > 2)
+		if (lexer_clone->type == REDIRECTION
+			&& ft_strlen(lexer_clone->value) > 2)
 		{
 			ft_for_norme(data, lexer_clone->value);
 			return (data->error);

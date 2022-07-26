@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start_execution.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rsaf <rsaf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: yabtaour <yabtaour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 12:22:38 by rsaf              #+#    #+#             */
-/*   Updated: 2022/07/26 12:23:19 by rsaf             ###   ########.fr       */
+/*   Updated: 2022/07/26 18:21:11 by yabtaour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	start_execution(t_data *data, int **pip, int idx)
 	while (cmd_clone)
 	{
 		data->error = non_fork_funcs(data, cmd_clone, pip);
-		where_ami = 0;
+		g_where_ami = 0;
 		idx = ft_fork(data, idx);
 		if (data->general.pid == 0 && cmd_clone->fd_in != -69)
 		{

@@ -33,7 +33,7 @@
 # define AND 6
 # define SEMI 7
 
-int	where_ami;
+int	g_where_ami;
 
 typedef struct s_gen{
 	int				pid;
