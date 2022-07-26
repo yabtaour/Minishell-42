@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rsaf <rsaf@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/26 18:29:08 by rsaf              #+#    #+#             */
+/*   Updated: 2022/07/26 18:29:20 by rsaf             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 char	*ft_strtrim(char *s1, char *set)
@@ -40,6 +52,7 @@ int	main(int argc, char **argv, char **env)
 		data.lst_cmd = NULL;
 		data.error = 0;
 		data.her_doc = 0;
+		rl_catch_signals = 0;
     	signal(SIGINT, handler);
 		signal(SIGQUIT, handler);
 		data.cmd = readline("minishell-1.0 > ");

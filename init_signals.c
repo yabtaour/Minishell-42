@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_signals.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yabtaour <yabtaour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rsaf <rsaf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 12:23:26 by rsaf              #+#    #+#             */
-/*   Updated: 2022/07/26 18:21:21 by yabtaour         ###   ########.fr       */
+/*   Updated: 2022/07/26 18:27:16 by rsaf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void handler(int sig)
 {
-    // printf("%d\n", test);
     if (g_where_ami == 1)
     {
         if (sig == SIGINT)
