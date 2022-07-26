@@ -6,11 +6,23 @@
 /*   By: yabtaour <yabtaour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 18:29:08 by rsaf              #+#    #+#             */
-/*   Updated: 2022/07/26 18:49:51 by yabtaour         ###   ########.fr       */
+/*   Updated: 2022/07/26 22:25:19 by yabtaour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	ft_create_my_env(t_data *data)
+{
+	t_env	*env;
+
+	HERE
+	env = data->lst_env;
+	env = ft_add_to_env_back(env, "PWD=/Users/yabtaour/Desktop/my_minishell");
+	env = ft_add_to_env_back(env, "SHLVL=1");
+	env = ft_add_to_env_back(env, "_=/usr/bin/env");
+	ft_print_env(data->lst_env, 0, 1);
+}
 
 int	main(int argc, char **argv, char **env)
 {
@@ -21,7 +33,10 @@ int	main(int argc, char **argv, char **env)
 	data.env = env;
 	data.first_export = NULL;
 	data.general.old_error = 0;
-	ft_env(&data);
+	if (env)
+		ft_env(&data);
+	else
+		ft_create_my_env(&data);
 	while (69)
 	{
 		g_where_ami = 1;

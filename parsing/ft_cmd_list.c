@@ -6,7 +6,7 @@
 /*   By: yabtaour <yabtaour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 18:17:01 by yabtaour          #+#    #+#             */
-/*   Updated: 2022/07/26 21:17:21 by yabtaour         ###   ########.fr       */
+/*   Updated: 2022/07/26 21:45:08 by yabtaour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,8 @@ t_cmd	*ft_add_back_cmd(t_data *data, int *fd, int *red, int red_num)
 	command = ft_fill_command(data);
 	fd_in = ft_get_in(fd, red, red_num);
 	fd_out = ft_get_out(fd, red, red_num);
+	free(fd);
+	free(red);
 	node = ft_create_new_command(command, fd_in, fd_out);
 	free(command);
 	if (!data->lst_cmd)

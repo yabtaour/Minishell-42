@@ -6,7 +6,7 @@
 /*   By: yabtaour <yabtaour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 18:17:29 by yabtaour          #+#    #+#             */
-/*   Updated: 2022/07/26 18:17:30 by yabtaour         ###   ########.fr       */
+/*   Updated: 2022/07/26 21:38:17 by yabtaour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,6 @@ static int	ft_check_forbidden(t_data *data)
 
 int	ft_syntax_analyzer(t_data *data)
 {
-	int	id_pipe;
-	int	id_redirection;
-
 	if (data->lst_lexer)
 	{
 		data->error = ft_check_forbidden(data);

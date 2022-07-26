@@ -152,3 +152,6 @@ whatever HOME
 ### UPDATE CD
 ### UPDATE ENV
 ### NORME
+
+
+I allocate eof in data

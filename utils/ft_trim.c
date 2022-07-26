@@ -6,11 +6,29 @@
 /*   By: yabtaour <yabtaour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 18:49:39 by yabtaour          #+#    #+#             */
-/*   Updated: 2022/07/26 21:25:18 by yabtaour         ###   ########.fr       */
+/*   Updated: 2022/07/26 21:28:30 by yabtaour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+size_t	ft_strlcpy(char *dst, char *src, size_t dstsize)
+{
+	size_t	src_s;
+	size_t	i;
+
+	i = 0;
+	src_s = ft_strlen(src);
+	if (dstsize == 0)
+		return (src_s);
+	while (i < dstsize - 1 && src[i] != '\0')
+	{
+		dst[i] = src[i];
+		i++;
+	}
+	dst[i] = '\0';
+	return (src_s);
+}
 
 char	*ft_strtrim(char *s1, char *set)
 {
@@ -31,7 +49,7 @@ char	*ft_strtrim(char *s1, char *set)
 		if (!ptr)
 			exit (1);
 		if (ptr)
-			strlcpy(ptr, s1 + start, last - start + 1);
+			ft_strlcpy(ptr, s1 + start, last - start + 1);
 	}
 	return (ptr);
 }

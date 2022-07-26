@@ -6,7 +6,7 @@
 /*   By: yabtaour <yabtaour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 18:16:16 by yabtaour          #+#    #+#             */
-/*   Updated: 2022/07/26 18:16:17 by yabtaour         ###   ########.fr       */
+/*   Updated: 2022/07/26 22:02:40 by yabtaour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,6 @@ void	ft_create_env_list(t_env **envi, char **env)
 
 void	ft_env(t_data *data)
 {
-	ft_create_env_list(&data->lst_env, data->env);
+	if (data->env)
+		ft_create_env_list(&data->lst_env, data->env);
 }

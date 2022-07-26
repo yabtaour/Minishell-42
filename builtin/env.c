@@ -5,8 +5,10 @@ int	ft_env_built(t_data *data, int fd)
 	t_env	*env_clone;
 
 	env_clone = data->lst_env;
+	HERE
 	if (env_clone)
 	{
+		HERE
 		while (env_clone)
 		{
 			if (env_clone->value && ft_strlen(env_clone->value))
@@ -19,7 +21,5 @@ int	ft_env_built(t_data *data, int fd)
 			env_clone = env_clone->next;
 		}
 	}
-	else
-		HERE
 	return (0);
 }

@@ -35,9 +35,6 @@ void	ft_export_arg(t_data *data, t_cmd *lst_cmd, int fd)
 
 int	export(t_data *data, t_cmd *lst_cmd, int fd)
 {
-	char	*name;
-	char	*value;
-
 	if (lst_cmd && !lst_cmd->cmd[1])
 	{
 		ft_sort_env(data);
