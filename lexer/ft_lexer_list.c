@@ -8,7 +8,7 @@ t_lexer	*ft_new_lexer_node(char *str, int type)
 	node = NULL;
 	if (!str)
 		return (NULL);
-	i = strlen(str);
+	i = ft_strlen(str);
 	node = malloc(sizeof(t_lexer));
 	if (!node)
 		return (NULL);

@@ -9,10 +9,10 @@ void	ft_change_env(t_data *data, char *name, char *value)
 	env_clone = data->lst_env;
 	while (env_clone)
 	{
-		if (strncmp(name, env_clone->name, strlen(name)) == 0)
+		if (ft_strncmp(name, env_clone->name, ft_strlen(name)) == 0)
 		{
 			free(env_clone->value);
-			env_clone->value = malloc (strlen(value) + 1);
+			env_clone->value = malloc (ft_strlen(value) + 1);
 			if (!env_clone)
 				break ;
 			while (value[i])
@@ -49,7 +49,7 @@ int	cd(t_data *data, t_cmd *lst_cmd)
 		{
 			if (!lst_cmd->cmd[1])
 				new_wd = ft_get_env(data, "HOME");
-			else if (strcmp(lst_cmd->cmd[1], "-") == 0)
+			else if (ft_strcmp(lst_cmd->cmd[1], "-") == 0)
 				new_wd = ft_get_env(data, "OLDPWD");
 			else
 				new_wd = lst_cmd->cmd[1];

@@ -39,7 +39,7 @@ char	*ft_delete(char *cmd)
 	index = ft_get_index(cmd, 1);
 	r = ft_real_len(cmd);
 	len = 0;
-	new_cmd = malloc (strlen(cmd) + 1 - r);
+	new_cmd = malloc (ft_strlen(cmd) + 1 - r);
 	while (cmd[i])
 	{
 		if (!ft_exist(i, index, r))
@@ -70,10 +70,10 @@ void	ft_delete_quotes(t_data *data)
 		{
 			if (ft_exist_quotes(cmd_clone->cmd[i]))
 			{
-				len = strlen(cmd_clone->cmd[i]);
+				len = ft_strlen(cmd_clone->cmd[i]);
 				temp = ft_substr(cmd_clone->cmd[i], 0, len);
 				free(cmd_clone->cmd[i]);
-				cmd_clone->cmd[i] = ft_substr(ft_delete(temp), 0, strlen(temp));
+				cmd_clone->cmd[i] = ft_substr(ft_delete(temp), 0, ft_strlen(temp));
 				free(temp);
 			}
 			i++;
@@ -89,9 +89,9 @@ void	ft_delete_eof_quotes(char *eof)
 	temp = NULL;
 	if (ft_exist_quotes(eof))
 	{
-		temp = ft_substr(eof, 0, strlen(eof));
+		temp = ft_substr(eof, 0, ft_strlen(eof));
 		free(eof);
-		eof = ft_substr(ft_delete(temp), 0, strlen(temp));
+		eof = ft_substr(ft_delete(temp), 0, ft_strlen(temp));
 		free(temp);
 	}
 }

@@ -21,7 +21,7 @@ static size_t	word_count(const char *s, char c)
 	return (count);
 }
 
-static char	**ft_free_tab(char	**str, int i)
+char	**ft_free_tab(char	**str, int i)
 {
 	while (i >= 0)
 	{
@@ -38,7 +38,7 @@ static char	**ft_allocation(char const *s, char c)
 
 	if (s == NULL)
 		return (NULL);
-	ptr = calloc((word_count(s, c) + 1), sizeof(char *));
+	ptr = ft_calloc((word_count(s, c) + 1), sizeof(char *));
 	return (ptr);
 }
 

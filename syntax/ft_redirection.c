@@ -22,7 +22,7 @@ static int	ft_check_red(t_data *data)
 	lexer_clone = data->lst_lexer;
 	while (lexer_clone)
 	{
-		if (lexer_clone->type == REDIRECTION && strlen(lexer_clone->value) > 2)
+		if (lexer_clone->type == REDIRECTION && ft_strlen(lexer_clone->value) > 2)
 		{
 			ft_for_norme(data, lexer_clone->value);
 			return (data->error);

@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHEL_H
-# define MINISHEL_H
+#ifndef MINISHELL_H
+# define MINISHELL_H
 
 // remark :
 // strcmp is forbidden delete when we finish
@@ -24,24 +24,15 @@
 # include <string.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-#include <termios.h>
+# include <termios.h>
 # include "debug.h"
 # define WORD 1
 # define PIPE 2
-// # define SPACE 3
 # define PARENTHESIS 4
 # define REDIRECTION 5
 # define AND 6
 # define SEMI 7
 
-// typedef enum{
-// 	WORD,
-// 	PIPESPACE,
-// 	PARENTHESIS,
-// 	REDIRECTION,
-// 	AND,
-// 	SEMI
-// }	tokens;
 int	where_ami;
 
 typedef struct s_gen{
@@ -49,15 +40,15 @@ typedef struct s_gen{
 	int				index;
 	int				old_error;
 	int				lent;
-} t_gen;
+}	t_gen;
 
 typedef struct s_split{
 	int				i;
 	int				j;
-	int 			d;
-	int 			s;
+	int				d;
+	int				s;
 	char			**ptr;
-} t_split;
+}	t_split;
 
 typedef struct s_env{
 	char			*name;
@@ -129,10 +120,10 @@ int		ft_is_parenth(char c);
 int		ft_is_redirection(char c);
 
 //------------Syntax analyzer-----------------//
-int	ft_syntax_analyzer(t_data *data);
-int	ft_check_redirection(t_data *data);
-int	ft_check_between_pipes(t_data *data);
-int	ft_check_quotes(t_data *data);
+int		ft_syntax_analyzer(t_data *data);
+int		ft_check_redirection(t_data *data);
+int		ft_check_between_pipes(t_data *data);
+int		ft_check_quotes(t_data *data);
 
 //-------------Expanding------------------------//
 void	ft_expanding(t_data *data);
@@ -169,28 +160,28 @@ int		ft_real_len(char *cmd);
 
 void	ft_change_exit_status(t_data *data);
 
-int	ft_get_in(int *fd, int *red, int red_num);
-int	ft_get_out(int *fd, int *red, int red_num);
+int		ft_get_in(int *fd, int *red, int red_num);
+int		ft_get_out(int *fd, int *red, int red_num);
 
 void	ft_delete_command(t_data *data);
 void	ft_handle_herdoc(t_data *data);
 void	ft_delete_herdoc(t_data *data);
 
-int	*ft_fill_red(t_data *data, int red_num);
-int	ft_fill_fd(t_data *data, char *name, int red);
-int	ft_red_num(t_data *data);
+int		*ft_fill_red(t_data *data, int red_num);
+int		ft_fill_fd(t_data *data, char *name, int red);
+int		ft_red_num(t_data *data);
 
 void	ft_delete_redirections(t_data *data);
-int	ft_check_still_redirection(t_data *data);
+int		ft_check_still_redirection(t_data *data);
 
 //-----------------builtinh-------------------------//
-int 	echo(t_data *data, t_cmd *cmd_lst, int fd);
+int		echo(t_data *data, t_cmd *cmd_lst, int fd);
 int		cd(t_data *data, t_cmd *lst_cmd);
 int		pwd(t_data *data, t_cmd *lst_cmd, int fd);
 int		unset(t_data *data, t_cmd *lst_cmd);
 int		export(t_data *data, t_cmd *lst_cmd, int fd);
 void	ft_env_built(t_data *data);
-int		ft_change_env_value(t_data *data, char *name, char *value, int	value_size);
+int		ft_change_env_value(t_data *data, char *name, char *value, int size);
 void	ft_add_new_env(t_data *data, char *name, char *value);
 void	ft_sort_env(t_data *data);
 char	*ft_get_value_exp(char *value);
@@ -216,12 +207,18 @@ char	*ft_get_env(t_data *data, char *name);
 
 int		ft_herdoc(t_data *data, t_cmd *cmd_lst, int **pip, int i);
 
-int		ft_strlen(char *str);
 void	ft_print_cmd1(t_cmd *cmd);
 void	ft_add_new_env(t_data *data, char *name, char *value);
 t_env	*ft_new_node(char *name, char *value);
 
 char	*ft_itoa(int n);
-void handler(int sig);
+void	handler(int sig);
+
+int		ft_strlen(char *str);
+int		ft_strcmp(char *s1, char *s2);
+int		ft_strncmp(char *s1, char *s2, size_t n);
+void	*ft_calloc(int count, int size);
+char	**ft_free_tab(char	**str, int i);
+char	*ft_strchr(char *s, int c);
 
 #endif

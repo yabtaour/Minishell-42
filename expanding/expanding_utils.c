@@ -16,7 +16,7 @@ char	*ft_get_value(t_data *data, char *var)
 	env_clone = data->lst_env;
 	while (env_clone)
 	{
-		if (!strcmp(env_clone->name, var))
+		if (!ft_strcmp(env_clone->name, var))
 			return (env_clone->value);
 		env_clone = env_clone->next;
 	}
@@ -30,7 +30,7 @@ int	ft_check_var_env(t_data *data, char *var)
 	env_clone = data->lst_env;
 	while (env_clone)
 	{
-		if (!strcmp(env_clone->name, var))
+		if (!ft_strcmp(env_clone->name, var))
 			return (1);
 		env_clone = env_clone->next;
 	}

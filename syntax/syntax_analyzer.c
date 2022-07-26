@@ -32,7 +32,7 @@ static int	ft_check_forbidden(t_data *data)
 	while (lexer_clone)
 	{
 		if (lexer_clone->type == AND || lexer_clone->type == PARENTHESIS
-			|| (lexer_clone->type == PIPE && strlen(lexer_clone->value) > 1)
+			|| (lexer_clone->type == PIPE && ft_strlen(lexer_clone->value) > 1)
 			|| (lexer_clone->type == SEMI))
 		{
 			data->error = 258;

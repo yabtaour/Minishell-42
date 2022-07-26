@@ -10,10 +10,10 @@ char	*ft_strtrim(char *s1, char *set)
 	if (s1 != NULL && set != NULL)
 	{
 		start = 0;
-		last = strlen(s1);
-		while (s1[start] != '\0' && strchr(set, s1[start]))
+		last = ft_strlen(s1);
+		while (s1[start] != '\0' && ft_strchr(set, s1[start]))
 			start++;
-		while (strchr(set, s1[last - 1]) && last > start)
+		while (ft_strchr(set, s1[last - 1]) && last > start)
 			last--;
 		ptr = (char *)malloc(sizeof(char) * (last - start + 1));
 		if (ptr)
@@ -43,7 +43,7 @@ int	main(int argc, char **argv, char **env)
     	signal(SIGINT, handler);
 		signal(SIGQUIT, handler);
 		data.cmd = readline("minishell-1.0 > ");
-		if (!data.cmd || !strcmp(data.cmd, "exit"))
+		if (!data.cmd || !ft_strcmp(data.cmd, "exit"))
 		{
 			if (data.cmd)
 			{
