@@ -143,3 +143,12 @@ whatever HOME
 
 
 3ndk problem fe argument 3
+
+
+
+
+### DELETE FORBBIDEN FUNC
+### LEAKS
+### UPDATE CD
+### UPDATE ENV
+### NORME
