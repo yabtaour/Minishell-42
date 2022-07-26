@@ -6,7 +6,7 @@
 /*   By: yabtaour <yabtaour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 18:17:12 by yabtaour          #+#    #+#             */
-/*   Updated: 2022/07/26 21:23:57 by yabtaour         ###   ########.fr       */
+/*   Updated: 2022/07/27 00:38:28 by yabtaour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,20 @@ char	**ft_get_new(t_data *data, t_cmd *cmd)
 	return (new_cmd);
 }
 
+char	**ft_fix(char **new, char **cmd)
+{
+	int	i;
+
+	i = 0;
+	while (new && new[i])
+	{
+		cmd[i] = ft_substr(new[i], 0, ft_strlen(new[i]));
+		i++;
+	}
+	cmd[i] = NULL;
+	return (cmd);
+}
+
 void	ft_delete_herdoc(t_data *data)
 {
 	t_cmd	*cmd_clone;
@@ -110,15 +124,13 @@ void	ft_delete_herdoc(t_data *data)
 	{
 		new_cmd = ft_get_new(data, cmd_clone);
 		free_split(cmd_clone->cmd);
-		i = -1;
-		while (new_cmd && new_cmd[++i])
+		i = 0;
+		while (new_cmd && new_cmd[i])
+			i++;
 		cmd_clone->cmd = malloc (sizeof(char *) * i + 1);
 		if (!cmd_clone->cmd)
 			exit (1);
-		i = -1;
-		while (new_cmd && new_cmd[++i])
-			cmd_clone->cmd[i] = ft_substr(new_cmd[i], 0, ft_strlen(new_cmd[i]));
-		cmd_clone->cmd[i] = NULL;
+		cmd_clone->cmd = ft_fix(new_cmd, cmd_clone->cmd);
 		free_split(new_cmd);
 	}		
 }

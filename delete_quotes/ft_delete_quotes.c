@@ -6,7 +6,7 @@
 /*   By: yabtaour <yabtaour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 18:16:08 by yabtaour          #+#    #+#             */
-/*   Updated: 2022/07/26 21:11:17 by yabtaour         ###   ########.fr       */
+/*   Updated: 2022/07/27 00:26:05 by yabtaour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,11 +77,10 @@ void	ft_delete_quotes(t_data *data)
 
 	cmd_clone = data->lst_cmd;
 	temp = NULL;
-	ft_print_cmd(data->lst_cmd);
 	while (cmd_clone && cmd_clone->cmd)
 	{
-		i = -1;
-		while (cmd_clone->cmd[++i])
+		i = 0;
+		while (cmd_clone->cmd[i])
 		{
 			if (ft_exist_quotes(cmd_clone->cmd[i]))
 			{
@@ -92,6 +91,7 @@ void	ft_delete_quotes(t_data *data)
 						0, ft_strlen(temp));
 				free(temp);
 			}
+			i++;
 		}
 		cmd_clone = cmd_clone->next;
 	}

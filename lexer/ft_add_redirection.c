@@ -6,7 +6,7 @@
 /*   By: yabtaour <yabtaour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 18:16:39 by yabtaour          #+#    #+#             */
-/*   Updated: 2022/07/26 18:16:40 by yabtaour         ###   ########.fr       */
+/*   Updated: 2022/07/26 23:45:37 by yabtaour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ int	ft_add_redirection(t_data *data, int i)
 	origin = i;
 	len = 0;
 	command = NULL;
-	printf("redirection start at %d\n", i);
 	while (data->cmd[i] && ft_is_redirection(data->cmd[i]))
 	{
 		i++;

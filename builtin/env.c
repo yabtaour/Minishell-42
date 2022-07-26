@@ -7,7 +7,6 @@ int	ft_env_built(t_data *data, int fd)
 	env_clone = data->lst_env;
 	if (env_clone)
 	{
-		HERE
 		while (env_clone)
 		{
 			if (env_clone->value && ft_strlen(env_clone->value))

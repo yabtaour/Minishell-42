@@ -155,3 +155,5 @@ whatever HOME
 
 
 I allocate eof in data
+when u r done with herdoc free data->eof with free_split command
+everything is perfect
