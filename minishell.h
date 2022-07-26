@@ -6,7 +6,7 @@
 /*   By: yabtaour <yabtaour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 12:22:29 by rsaf              #+#    #+#             */
-/*   Updated: 2022/07/26 19:53:32 by yabtaour         ###   ########.fr       */
+/*   Updated: 2022/07/26 21:24:19 by yabtaour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,7 +164,7 @@ int		ft_get_in(int *fd, int *red, int red_num);
 int		ft_get_out(int *fd, int *red, int red_num);
 
 void	ft_delete_command(t_data *data);
-void	ft_handle_herdoc(t_data *data);
+void	ft_handle_herdoc(t_data *data, t_lexer *lexer);
 void	ft_delete_herdoc(t_data *data);
 
 int		*ft_fill_red(t_data *data, int red_num);

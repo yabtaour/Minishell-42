@@ -6,7 +6,7 @@
 /*   By: yabtaour <yabtaour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 18:17:19 by yabtaour          #+#    #+#             */
-/*   Updated: 2022/07/26 19:40:42 by yabtaour         ###   ########.fr       */
+/*   Updated: 2022/07/26 21:23:26 by yabtaour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ void	ft_add_normal_command(t_data *data)
 		}
 		lexer_clone = lexer_clone->next;
 	}
-	ft_delete_redirections(data);
 	data->lst_cmd = ft_add_back_cmd(data, fd, red, red_num);
 }
 
@@ -87,6 +86,9 @@ int	ft_check_still_pipe(t_data *data)
 
 void	ft_parsing(t_data *data)
 {
-	ft_handle_herdoc(data);
+	t_lexer	*lexer_clone;
+
+	lexer_clone = data->lst_lexer;
+	ft_handle_herdoc(data, lexer_clone);
 	ft_add_command_pipe(data);
 }
