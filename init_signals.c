@@ -11,32 +11,36 @@ void handler(int sig)
     }
 }
 
-// void handler2(int sig)
-// {
-//     if (sig == SIGINT)
-//     {
-// 		write(1, "^C\n", 1);
-// 		rl_on_new_line();
-// 		rl_redisplay();
-//     }
-// }
-
-int init_signals(t_data *data)
+void handler2(int sig)
 {
-    int rl_catch_signals;
+    if (sig == SIGINT)
+    {
+        close(0);
+        close(1);
+        // write(2 ,  "\n" , 1);
+  		// rl_replace_line("", 0);
+		// write(1, "\n", 1);
+		// rl_on_new_line();
+		// rl_redisplay();
+        exit(1);
 
-    // rl_catch_signals = 0;
-    signal(SIGQUIT, SIG_IGN);
-    signal(SIGINT, handler);
-    return (0);
+    }
 }
 
-// int init_signals_child(t_data *data)
-// {
-//     int rl_catch_signals;
+int init_signals(t_data *data, int process)
+{
 
-//     // rl_catch_signals = 0;
-//     signal(SIGQUIT, SIG_IGN);
-//     signal(SIGINT, handler2);
-//     return (0);
-// }
+    if (process == 0)
+    {
+        rl_catch_signals = 0;
+        signal(SIGQUIT, SIG_IGN);
+        signal(SIGINT, handler);
+    }
+    else 
+    {
+        // rl_catch_signals = 1;
+        signal(SIGINT, handler2);
+        // signal(SIGQUIT);
+    }
+    return (0);
+}
