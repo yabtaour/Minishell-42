@@ -1,6 +1,6 @@
 #include "../../minishell.h"
 
-int	ft_change_env_value(t_data *data, char *name, char *value, int value_size)
+int	ft_change_env_value(t_data *data, char *name, char *value, int size)
 {
 	t_env	*env_clone;
 
