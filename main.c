@@ -35,7 +35,7 @@ int	main(int argc, char **argv, char **env)
 	ft_env(&data);
 	while (69)
 	{
-		where_ami = 1;
+		g_where_ami = 1;
 		data.lst_lexer = NULL;
 		data.lst_cmd = NULL;
 		data.error = 0;

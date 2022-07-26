@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   herdoc.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rsaf <rsaf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: yabtaour <yabtaour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 12:22:33 by rsaf              #+#    #+#             */
-/*   Updated: 2022/07/26 13:26:59 by rsaf             ###   ########.fr       */
+/*   Updated: 2022/07/26 18:19:26 by yabtaour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,11 @@ int	ft_herdoc(t_data *data, t_cmd *cmd_lst, int **pip, int i)
 	int		pid;
 	char	*buff;
 	t_cmd	*cmd_clone;
-	int		idx = 0;
+	int		idx;
 
+	idx = 0;
 	cmd_clone = cmd_lst;
-	where_ami = 0;
+	g_where_ami = 0;
 	pid = fork();
 	if (cmd_clone->her_doc_num && pid == 0)
 	{
