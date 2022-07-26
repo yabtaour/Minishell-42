@@ -45,11 +45,19 @@
 int	where_ami;
 
 typedef struct s_gen{
-	int	pid;
-	int	index;
-	int	old_error;
-	int	lent;
+	int				pid;
+	int				index;
+	int				old_error;
+	int				lent;
 } t_gen;
+
+typedef struct s_split{
+	int				i;
+	int				j;
+	int 			d;
+	int 			s;
+	char			**ptr;
+} t_split;
 
 typedef struct s_env{
 	char			*name;
@@ -95,8 +103,6 @@ typedef struct s_data{
 	t_cmd			*lst_cmd;
 	t_lexer			*lst_lexer;
 }	t_data;
-
-int test;
 
 //-----------------env--------------------------//
 void	ft_create_env_list(t_env **envi, char **env);
