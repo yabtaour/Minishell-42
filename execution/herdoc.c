@@ -6,7 +6,7 @@
 /*   By: rsaf <rsaf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 12:22:33 by rsaf              #+#    #+#             */
-/*   Updated: 2022/07/26 12:23:12 by rsaf             ###   ########.fr       */
+/*   Updated: 2022/07/26 13:26:59 by rsaf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 
 int	her_finished(t_data *data, t_cmd *cmd_clone, int **pip, int i)
 {
-	HERE
 	close(cmd_clone->fd_in);
 	close(cmd_clone->her_in);
 	close_fds(cmd_clone);
@@ -39,18 +38,16 @@ int	ft_herdoc(t_data *data, t_cmd *cmd_lst, int **pip, int i)
 	t_cmd	*cmd_clone;
 	int		idx = 0;
 
-	pid = -99;
 	cmd_clone = cmd_lst;
 	where_ami = 0;
 	pid = fork();
 	if (cmd_clone->her_doc_num && pid == 0)
 	{
-		printf("%d\n", cmd_clone->her_in);
 		while (1 && idx < cmd_lst->her_doc_num)
 		{
 			buff = readline("heredoc> ");
 			if (!buff)
-				return (1);
+				exit (1);
 			else if (buff[0] != '\0' && !strcmp(buff, data->eof[i]))
 			{
 				i++;
@@ -62,5 +59,6 @@ int	ft_herdoc(t_data *data, t_cmd *cmd_lst, int **pip, int i)
 		her_finished(data, cmd_clone, pip, i);
 	}
 	waitpid(pid, 0, 0);
+	kill(pid, SIGKILL);
 	return (1);
 }
