@@ -207,12 +207,18 @@ char	*ft_get_env(t_data *data, char *name);
 
 int		ft_herdoc(t_data *data, t_cmd *cmd_lst, int **pip, int i);
 
-int		ft_strlen(char *str);
 void	ft_print_cmd1(t_cmd *cmd);
 void	ft_add_new_env(t_data *data, char *name, char *value);
 t_env	*ft_new_node(char *name, char *value);
 
 char	*ft_itoa(int n);
 void	handler(int sig);
+
+int		ft_strlen(char *str);
+int		ft_strcmp(char *s1, char *s2);
+int		ft_strncmp(char *s1, char *s2, size_t n);
+void	*ft_calloc(int count, int size);
+char	**ft_free_tab(char	**str, int i);
+char	*ft_strchr(char *s, int c);
 
 #endif

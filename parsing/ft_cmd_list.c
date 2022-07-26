@@ -30,7 +30,7 @@ t_cmd	*ft_create_new_command(char *command, int fd_in, int fd_out)
 	i = 0;
 	while (cmd->cmd && cmd->cmd[i])
 	{
-		if (!strcmp(cmd->cmd[i], "<<"))
+		if (!ft_strcmp(cmd->cmd[i], "<<"))
 		{
 			fd_in = pip[0];
 			cmd->her_in = pip[1];

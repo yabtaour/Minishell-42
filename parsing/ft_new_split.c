@@ -32,7 +32,7 @@ char	**ft_allocation(char *s, char c)
 	ptr = NULL;
 	if (!s)
 		return (NULL);
-	ptr = calloc((word_count(s, c) + 1), sizeof(char *));
+	ptr = ft_calloc((word_count(s, c) + 1), sizeof(char *));
 	return (ptr);
 }
 
@@ -81,6 +81,8 @@ char	**ft_new_split(char *s, char c)
 		if (split.j)
 		{
 			split.ptr[split.i] = ft_substr(s, 0, split.j);
+			if (!split.ptr[split.i])
+				return (ft_free_tab(split.ptr, split.i));
 			split.i++;
 		}	
 		s = s + split.j;

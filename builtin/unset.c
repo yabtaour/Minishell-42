@@ -12,7 +12,7 @@ int	unset(t_data *data, t_cmd *lst_cmd)
 		return (1);
 	while (env_clone)
 	{
-		if (strcmp(lst_cmd->cmd[idx], env_clone->name) == 0)
+		if (ft_strcmp(lst_cmd->cmd[idx], env_clone->name) == 0)
 		{
 			if (env_clone->next)
 				env_clone->next->prev = env_clone->prev;

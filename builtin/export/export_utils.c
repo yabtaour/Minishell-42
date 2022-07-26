@@ -7,18 +7,18 @@ int	ft_change_env_value(t_data *data, char *name, char *value, int size)
 	env_clone = data->lst_env;
 	while (env_clone)
 	{
-		if (strcmp(name, env_clone->name) == 0)
+		if (ft_strcmp(name, env_clone->name) == 0)
 		{
 			free(env_clone->value);
-			if (!value || !strlen(value))
+			if (!value || !ft_strlen(value))
 			{
 				env_clone->value = malloc (1);
 				env_clone->value[0] = '\0';
 			}
 			else
 			{
-				env_clone->value = malloc (strlen(value) + 1);
-				env_clone->value = ft_substr(value, 0, strlen(value));
+				env_clone->value = malloc (ft_strlen(value) + 1);
+				env_clone->value = ft_substr(value, 0, ft_strlen(value));
 			}
 		}
 		env_clone = env_clone->next;
@@ -35,7 +35,7 @@ int	ft_name_exists(t_data *data, char *name)
 	env_clone = data->lst_env;
 	while (env_clone)
 	{
-		if (strcmp(name, env_clone->name) == 0)
+		if (ft_strcmp(name, env_clone->name) == 0)
 			return (1);
 		env_clone = env_clone->next;
 	}
@@ -79,16 +79,4 @@ char	*ft_get_value_exp(char *value)
 		new_value = ft_substr(value, origin, j);
 	}
 	return (new_value);
-}
-
-int	ft_strlen(char *str)
-{
-	int	i;
-
-	i = 0;
-	if (!str)
-		return (0);
-	while (str[i])
-		i++;
-	return (i);
 }

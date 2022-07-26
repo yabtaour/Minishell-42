@@ -22,7 +22,7 @@ int	ft_check_still_redirection(t_data *data)
 	while (lexer_clone && lexer_clone->type != PIPE)
 	{
 		if (lexer_clone->type == REDIRECTION
-			&& strcmp(lexer_clone->value, "<<"))
+			&& ft_strcmp(lexer_clone->value, "<<"))
 			return (1);
 		lexer_clone = lexer_clone->next;
 	}
@@ -45,7 +45,7 @@ void	ft_add_normal_command(t_data *data)
 	while (lexer_clone && lexer_clone->type != PIPE)
 	{
 		if (lexer_clone->type == REDIRECTION
-			&& strcmp(lexer_clone->value, "<<"))
+			&& ft_strcmp(lexer_clone->value, "<<"))
 		{
 			lexer_clone = lexer_clone->next;
 			fd[i] = ft_fill_fd(data, lexer_clone->value, red[i]);

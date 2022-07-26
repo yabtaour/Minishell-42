@@ -48,7 +48,7 @@ int	ft_herdoc(t_data *data, t_cmd *cmd_lst, int **pip, int i)
 			buff = readline("heredoc> ");
 			if (!buff)
 				exit (1);
-			else if (buff[0] != '\0' && !strcmp(buff, data->eof[i]))
+			else if (buff[0] != '\0' && !ft_strcmp(buff, data->eof[i]))
 			{
 				i++;
 				idx++;

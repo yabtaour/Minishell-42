@@ -39,13 +39,13 @@ void	ft_sort_original(t_data *data)
 
 	env_clone = data->lst_env;
 	while (env_clone && (!data->first_export
-			|| strcmp(env_clone->name, data->first_export)))
+			|| ft_strcmp(env_clone->name, data->first_export)))
 	{
 		env_clone2 = env_clone->next;
 		while (env_clone2 && (!data->first_export
-				|| strcmp(env_clone2->name, data->first_export)))
+				|| ft_strcmp(env_clone2->name, data->first_export)))
 		{
-			if (strcmp(env_clone->name, env_clone2->name) > 0)
+			if (ft_strcmp(env_clone->name, env_clone2->name) > 0)
 			{
 				ft_swap_name(env_clone, env_clone2);
 				ft_swap_value(env_clone, env_clone2);
@@ -63,7 +63,7 @@ void	ft_sort_exported(t_data *data)
 
 	env_clone = data->lst_env;
 	while (env_clone && (!data->first_export
-			|| strcmp(env_clone->name, data->first_export)))
+			|| ft_strcmp(env_clone->name, data->first_export)))
 			env_clone = env_clone->next;
 	if (env_clone)
 	{
@@ -72,7 +72,7 @@ void	ft_sort_exported(t_data *data)
 			env_clone2 = env_clone->next;
 			while (env_clone2)
 			{
-				if (strcmp(env_clone->name, env_clone2->name) > 0)
+				if (ft_strcmp(env_clone->name, env_clone2->name) > 0)
 				{
 					ft_swap_name(env_clone, env_clone2);
 					ft_swap_value(env_clone, env_clone2);

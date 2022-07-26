@@ -67,7 +67,7 @@ void	ft_expanding(t_data *data)
 		lexer_clone = data->lst_lexer;
 		while (lexer_clone)
 		{
-			if (!strcmp(lexer_clone->value, "<<"))
+			if (!ft_strcmp(lexer_clone->value, "<<"))
 			{
 				lexer_clone = lexer_clone->next;
 				if (lexer_clone)

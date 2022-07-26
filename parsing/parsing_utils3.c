@@ -9,7 +9,7 @@ void	ft_handle_herdoc(t_data *data)
 	lexer = data->lst_lexer;
 	while (lexer)
 	{
-		if (strcmp(lexer->value, "<<") == 0)
+		if (ft_strcmp(lexer->value, "<<") == 0)
 			data->her_doc++;
 		lexer = lexer->next;
 	}
@@ -17,10 +17,10 @@ void	ft_handle_herdoc(t_data *data)
 	lexer = data->lst_lexer;
 	while (lexer)
 	{
-		if (strcmp(lexer->value, "<<") == 0)
+		if (ft_strcmp(lexer->value, "<<") == 0)
 		{
 			lexer = lexer->next;
-			data->eof[i] = ft_substr(lexer->value, 0, strlen(lexer->value));
+			data->eof[i] = ft_substr(lexer->value, 0, ft_strlen(lexer->value));
 			ft_delete_eof_quotes(data->eof[i]);
 			i++;
 		}
@@ -73,7 +73,7 @@ char	**ft_get_new(t_data *data, t_cmd *cmd)
 	i = -1;
 	while (cmd->cmd && cmd->cmd[++i])
 	{
-		if (!strcmp(cmd->cmd[i], "<<"))
+		if (!ft_strcmp(cmd->cmd[i], "<<"))
 			i += 1;
 		else
 		{
@@ -106,7 +106,7 @@ void	ft_delete_herdoc(t_data *data)
 		i = 0;
 		while (new_cmd && new_cmd[i])
 		{
-			cmd_clone->cmd[i] = ft_substr(new_cmd[i], 0, strlen(new_cmd[i]));
+			cmd_clone->cmd[i] = ft_substr(new_cmd[i], 0, ft_strlen(new_cmd[i]));
 			i++;
 		}
 		cmd_clone->cmd[i] = NULL;

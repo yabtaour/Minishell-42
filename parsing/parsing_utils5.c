@@ -33,7 +33,7 @@ void	ft_delete_red_norme(t_data *data, int position, int flag)
 	{
 		flag = 0;
 		if (lexer_clone && lexer_clone->type == REDIRECTION
-			&& strcmp(lexer_clone->value, "<<"))
+			&& ft_strcmp(lexer_clone->value, "<<"))
 		{
 			flag = 1;
 			position++;
@@ -67,7 +67,7 @@ void	ft_delete_redirections(t_data *data)
 		while (lexer_clone && lexer_clone->type != PIPE)
 		{
 			if (lexer_clone && lexer_clone->type == REDIRECTION
-				&& strcmp(lexer_clone->value, "<<"))
+				&& ft_strcmp(lexer_clone->value, "<<"))
 				ft_delete_node_red(data, position);
 			position++;
 			lexer_clone = lexer_clone->next;

@@ -43,11 +43,11 @@ int	*ft_fill_red(t_data *data, int red_num)
 	lexer_clone = data->lst_lexer;
 	while (lexer_clone && lexer_clone->type != PIPE)
 	{
-		if (strcmp(lexer_clone->value, ">") == 0)
+		if (ft_strcmp(lexer_clone->value, ">") == 0)
 			red[i++] = 1;
-		if (strcmp(lexer_clone->value, ">>") == 0)
+		if (ft_strcmp(lexer_clone->value, ">>") == 0)
 			red[i++] = 2;
-		if (strcmp(lexer_clone->value, "<") == 0)
+		if (ft_strcmp(lexer_clone->value, "<") == 0)
 			red[i++] = 3;
 		lexer_clone = lexer_clone->next;
 	}
@@ -85,7 +85,7 @@ int	ft_red_num(t_data *data)
 	while (lexer_clone && lexer_clone->type != PIPE)
 	{		
 		if (lexer_clone->type == REDIRECTION
-			&& strcmp(lexer_clone->value, "<<"))
+			&& ft_strcmp(lexer_clone->value, "<<"))
 			red_num++;
 		lexer_clone = lexer_clone->next;
 	}
