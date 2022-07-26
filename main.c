@@ -6,7 +6,7 @@
 /*   By: yabtaour <yabtaour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 18:29:08 by rsaf              #+#    #+#             */
-/*   Updated: 2022/07/26 22:25:19 by yabtaour         ###   ########.fr       */
+/*   Updated: 2022/07/26 22:32:03 by yabtaour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,16 @@
 
 void	ft_create_my_env(t_data *data)
 {
-	t_env	*env;
+	char	*value;
 
-	HERE
-	env = data->lst_env;
-	env = ft_add_to_env_back(env, "PWD=/Users/yabtaour/Desktop/my_minishell");
-	env = ft_add_to_env_back(env, "SHLVL=1");
-	env = ft_add_to_env_back(env, "_=/usr/bin/env");
-	ft_print_env(data->lst_env, 0, 1);
+	value = "PWD=/Users/yabtaour/Desktop/my_minishell";
+	data->env = malloc (sizeof(char *) * 4);
+	data->env[0] = ft_substr(value, 0, ft_strlen(value));
+	value = "SHLVL=1";
+	data->env[1] = ft_substr(value, 0, ft_strlen(value));
+	value = "_=/usr/bin/env";
+	data->env[2] = ft_substr(value, 0, ft_strlen(value));
+	data->env[3] = NULL;
 }
 
 int	main(int argc, char **argv, char **env)
@@ -30,13 +32,13 @@ int	main(int argc, char **argv, char **env)
 
 	data.ac = argc;
 	data.av = argv;
-	data.env = env;
-	data.first_export = NULL;
-	data.general.old_error = 0;
-	if (env)
-		ft_env(&data);
+	if (env[0])
+		data.env = env;
 	else
 		ft_create_my_env(&data);
+	ft_env(&data);
+	data.first_export = NULL;
+	data.general.old_error = 0;
 	while (69)
 	{
 		g_where_ami = 1;

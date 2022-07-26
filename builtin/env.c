@@ -5,7 +5,6 @@ int	ft_env_built(t_data *data, int fd)
 	t_env	*env_clone;
 
 	env_clone = data->lst_env;
-	HERE
 	if (env_clone)
 	{
 		HERE
