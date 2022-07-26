@@ -35,11 +35,13 @@ int	main(int argc, char **argv, char **env)
 	ft_env(&data);
 	while (69)
 	{
+		where_ami = 1;
 		data.lst_lexer = NULL;
 		data.lst_cmd = NULL;
 		data.error = 0;
 		data.her_doc = 0;
-		init_signals(&data, 0);
+    	signal(SIGINT, handler);
+		signal(SIGQUIT, handler);
 		data.cmd = readline("minishell-1.0 > ");
 		if (!data.cmd || !strcmp(data.cmd, "exit"))
 		{

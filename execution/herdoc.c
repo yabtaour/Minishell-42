@@ -29,6 +29,7 @@ int	ft_herdoc(t_data *data, t_cmd *cmd_lst, int **pip, int i)
 
 	pid = -99;
 	cmd_clone = cmd_lst;
+	where_ami = 0;
 	pid = fork();
 	if (cmd_clone->her_doc_num && pid == 0)
 	{

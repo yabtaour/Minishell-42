@@ -30,6 +30,7 @@
 // 	AND,
 // 	SEMI
 // }	tokens;
+int	where_ami;
 
 typedef struct s_gen{
 	int	pid;
@@ -37,7 +38,6 @@ typedef struct s_gen{
 	int	old_error;
 	int	lent;
 } t_gen;
-
 
 typedef struct s_env{
 	char			*name;
@@ -83,6 +83,8 @@ typedef struct s_data{
 	t_cmd			*lst_cmd;
 	t_lexer			*lst_lexer;
 }	t_data;
+
+int test;
 
 //-----------------env--------------------------//
 void	ft_create_env_list(t_env **envi, char **env);
@@ -202,5 +204,6 @@ void	ft_add_new_env(t_data *data, char *name, char *value);
 t_env	*ft_new_node(char *name, char *value);
 
 char	*ft_itoa(int n);
+void handler(int sig);
 
 #endif

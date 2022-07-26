@@ -42,13 +42,13 @@ int	start_execution(t_data *data, int **pip, int idx)
 	while (cmd_clone)
 	{
 		data->error = non_fork_funcs(data, cmd_clone, pip);
+		where_ami = 0;
 		idx = ft_fork(data, idx);
 		if (data->general.pid == 0 && cmd_clone->fd_in != -69)
 		{
 			rl_catch_signals = 1;
 			ft_dup(data->general.lent, cmd_clone, pip);
 			close_pipes(pip, data->general.lent);
-			init_signals(data, 1);
 			data->error = ft_if_builtin(data, cmd_clone);
 			if (data->error == 2)
 				cmd_path = ft_cmd_exist(data, cmd_clone, 0);
