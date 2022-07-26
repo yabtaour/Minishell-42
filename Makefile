@@ -43,7 +43,7 @@ BUILTIN= ./builtin/echo.c ./builtin/cd.c ./builtin/pwd.c ./builtin/unset.c \
 
 UTILS= ./utils/ft_putstr_fd.c ./utils/ft_get_env.c ./utils/ft_itoa.c \
 	   ./utils/ft_strcmp.c ./utils/ft_strlen.c ./utils/ft_calloc.c \
-	   ./utils/ft_strchr.c \
+	   ./utils/ft_strchr.c ./utils/ft_trim.c \
 
 EXECUT= ./execution/execution.c ./execution/ft_get_path.c ./execution/ft_cmd_exist.c \
 		./execution/ft_if_builtin.c ./execution/ft_init_pipes.c\

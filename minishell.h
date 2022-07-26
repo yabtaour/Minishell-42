@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rsaf <rsaf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: yabtaour <yabtaour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 12:22:29 by rsaf              #+#    #+#             */
-/*   Updated: 2022/07/26 12:22:30 by rsaf             ###   ########.fr       */
+/*   Updated: 2022/07/26 18:50:22 by yabtaour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,5 +220,6 @@ int		ft_strncmp(char *s1, char *s2, size_t n);
 void	*ft_calloc(int count, int size);
 char	**ft_free_tab(char	**str, int i);
 char	*ft_strchr(char *s, int c);
+char	*ft_strtrim(char *s1, char *set);
 
 #endif
