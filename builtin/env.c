@@ -1,6 +1,6 @@
 #include "../minishell.h"
 
-void	ft_env_built(t_data *data)
+int	ft_env_built(t_data *data, int fd)
 {
 	t_env	*env_clone;
 
@@ -10,10 +10,16 @@ void	ft_env_built(t_data *data)
 		while (env_clone)
 		{
 			if (env_clone->value && ft_strlen(env_clone->value))
-				printf("%s=%s\n", env_clone->name, env_clone->value);
+			{
+				ft_putstr_fd(env_clone->name, fd);
+				ft_putstr_fd("=", fd);
+				ft_putstr_fd(env_clone->value, fd);
+				ft_putstr_fd("\n", fd);
+			}
 			env_clone = env_clone->next;
 		}
 	}
 	else
 		HERE
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: yabtaour <yabtaour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 18:16:08 by yabtaour          #+#    #+#             */
-/*   Updated: 2022/07/26 18:20:44 by yabtaour         ###   ########.fr       */
+/*   Updated: 2022/07/26 19:36:36 by yabtaour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ char	*ft_delete(char *cmd)
 	r = ft_real_len(cmd);
 	len = 0;
 	new_cmd = malloc (ft_strlen(cmd) + 1 - r);
+	if (!new_cmd)
+		exit (1);
 	while (cmd[i])
 	{
 		if (!ft_exist(i, index, r))

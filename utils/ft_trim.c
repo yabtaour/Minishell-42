@@ -6,7 +6,7 @@
 /*   By: yabtaour <yabtaour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 18:49:39 by yabtaour          #+#    #+#             */
-/*   Updated: 2022/07/26 18:49:40 by yabtaour         ###   ########.fr       */
+/*   Updated: 2022/07/26 19:41:22 by yabtaour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ char	*ft_strtrim(char *s1, char *set)
 		while (ft_strchr(set, s1[last - 1]) && last > start)
 			last--;
 		ptr = (char *)malloc(sizeof(char) * (last - start + 1));
+		if (!ptr)
+			exit (1);
 		if (ptr)
 			strlcpy(ptr, s1 + start, last - start + 1);
 	}

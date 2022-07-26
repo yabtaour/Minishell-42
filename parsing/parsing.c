@@ -6,7 +6,7 @@
 /*   By: yabtaour <yabtaour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 18:17:19 by yabtaour          #+#    #+#             */
-/*   Updated: 2022/07/26 18:17:20 by yabtaour         ###   ########.fr       */
+/*   Updated: 2022/07/26 19:40:42 by yabtaour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ void	ft_add_normal_command(t_data *data)
 	red_num = ft_red_num(data);
 	red = ft_fill_red(data, red_num);
 	fd = malloc (sizeof(int) * red_num);
+	if (!fd)
+		exit (1);
 	lexer_clone = data->lst_lexer;
 	while (lexer_clone && lexer_clone->type != PIPE)
 	{

@@ -6,7 +6,7 @@
 /*   By: yabtaour <yabtaour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 18:17:10 by yabtaour          #+#    #+#             */
-/*   Updated: 2022/07/26 18:17:11 by yabtaour         ###   ########.fr       */
+/*   Updated: 2022/07/26 19:39:04 by yabtaour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ int	*ft_fill_red(t_data *data, int red_num)
 
 	i = 0;
 	red = malloc(sizeof(int) * red_num);
+	if (!red)
+		exit (1);
 	lexer_clone = data->lst_lexer;
 	while (lexer_clone && lexer_clone->type != PIPE)
 	{

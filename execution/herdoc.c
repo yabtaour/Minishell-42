@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   herdoc.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rsaf <rsaf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: yabtaour <yabtaour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 12:22:33 by rsaf              #+#    #+#             */
-/*   Updated: 2022/07/26 18:29:29 by rsaf             ###   ########.fr       */
+/*   Updated: 2022/07/26 19:28:31 by yabtaour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	ft_herdoc(t_data *data, t_cmd *cmd_lst, int **pip, int i)
 	pid = fork();
 	if (cmd_clone->her_doc_num && pid == 0)
 	{
-		rl_catch_signals = 1;
+		// rl_catch_signals = 1;
 		while (1 && idx < cmd_lst->her_doc_num)
 		{
 			buff = readline("heredoc> ");

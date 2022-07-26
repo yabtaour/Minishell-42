@@ -6,7 +6,7 @@
 /*   By: yabtaour <yabtaour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 12:22:29 by rsaf              #+#    #+#             */
-/*   Updated: 2022/07/26 18:50:22 by yabtaour         ###   ########.fr       */
+/*   Updated: 2022/07/26 19:53:32 by yabtaour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,7 +180,7 @@ int		cd(t_data *data, t_cmd *lst_cmd);
 int		pwd(t_data *data, t_cmd *lst_cmd, int fd);
 int		unset(t_data *data, t_cmd *lst_cmd);
 int		export(t_data *data, t_cmd *lst_cmd, int fd);
-void	ft_env_built(t_data *data);
+int		ft_env_built(t_data *data, int fd);
 int		ft_change_env_value(t_data *data, char *name, char *value, int size);
 void	ft_add_new_env(t_data *data, char *name, char *value);
 void	ft_sort_env(t_data *data);

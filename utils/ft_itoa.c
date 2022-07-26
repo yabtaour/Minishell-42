@@ -6,7 +6,7 @@
 /*   By: yabtaour <yabtaour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 18:17:37 by yabtaour          #+#    #+#             */
-/*   Updated: 2022/07/26 18:17:38 by yabtaour         ###   ########.fr       */
+/*   Updated: 2022/07/26 19:41:11 by yabtaour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ char	*ft_itoa(int n)
 	sign = 1;
 	len = ft_len(n);
 	x = (char *)malloc(sizeof(char) * (len + 1));
-	if (!(x))
-		return (NULL);
+	if (!x)
+		exit (1);
 	x[len--] = '\0';
 	if (n == 0)
 		x[0] = '0';

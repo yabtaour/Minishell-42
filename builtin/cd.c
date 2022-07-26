@@ -14,7 +14,7 @@ void	ft_change_env(t_data *data, char *name, char *value)
 			free(env_clone->value);
 			env_clone->value = malloc (ft_strlen(value) + 1);
 			if (!env_clone)
-				break ;
+				exit (1) ;
 			while (value[i])
 			{
 				env_clone->value[i] = value[i];

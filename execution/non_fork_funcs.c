@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   non_fork_funcs.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rsaf <rsaf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: yabtaour <yabtaour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 12:23:14 by rsaf              #+#    #+#             */
-/*   Updated: 2022/07/26 12:27:07 by rsaf             ###   ########.fr       */
+/*   Updated: 2022/07/26 20:01:00 by yabtaour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,9 @@ int	non_fork_funcs(t_data *data, t_cmd *cmd, int **pip)
 		else if (ft_strcmp(cmd->cmd[0], "export") == 0 && !cmd->next)
 			data->error = export(data, cmd, 1);
 		else if (ft_strcmp(cmd->cmd[0], "env") == 0 && !cmd->next)
-			ft_env_built(data);
+			data->error = ft_env_built(data, cmd->fd_out);
+		else if(!ft_strcmp(cmd->cmd[0], "unset") && !cmd->next)
+			data->error = unset(data, cmd);
 		else
 			return (-666);
 	}

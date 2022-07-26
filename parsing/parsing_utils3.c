@@ -6,7 +6,7 @@
 /*   By: yabtaour <yabtaour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 18:17:12 by yabtaour          #+#    #+#             */
-/*   Updated: 2022/07/26 18:17:13 by yabtaour         ###   ########.fr       */
+/*   Updated: 2022/07/26 19:42:27 by yabtaour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ void	ft_handle_herdoc(t_data *data)
 		lexer = lexer->next;
 	}
 	data->eof = malloc(sizeof(char *) * data->her_doc + 1);
+	if (!data->eof)
+		exit (1);
 	lexer = data->lst_lexer;
 	while (lexer)
 	{
@@ -33,8 +35,7 @@ void	ft_handle_herdoc(t_data *data)
 		{
 			lexer = lexer->next;
 			data->eof[i] = ft_substr(lexer->value, 0, ft_strlen(lexer->value));
-			ft_delete_eof_quotes(data->eof[i]);
-			i++;
+			ft_delete_eof_quotes(data->eof[i++]);
 		}
 		lexer = lexer->next;
 	}
@@ -80,7 +81,7 @@ char	**ft_get_new(t_data *data, t_cmd *cmd)
 		i++;
 	new_cmd = malloc(sizeof(char *) * i - (cmd->her_doc_num * 2) + 1);
 	if (!new_cmd)
-		return (NULL);
+		exit (1);
 	len = 0;
 	i = -1;
 	while (cmd->cmd && cmd->cmd[++i])
@@ -115,6 +116,8 @@ void	ft_delete_herdoc(t_data *data)
 		while (new_cmd && new_cmd[i])
 			i++;
 		cmd_clone->cmd = malloc (sizeof(char *) * i + 1);
+		if (!cmd_clone->cmd)
+			exit (1);
 		i = 0;
 		while (new_cmd && new_cmd[i])
 		{

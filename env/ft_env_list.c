@@ -6,7 +6,7 @@
 /*   By: yabtaour <yabtaour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 18:16:13 by yabtaour          #+#    #+#             */
-/*   Updated: 2022/07/26 18:16:14 by yabtaour         ###   ########.fr       */
+/*   Updated: 2022/07/26 19:33:03 by yabtaour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_env	*ft_new_env_node(char *value)
 	node = NULL;
 	node = malloc(sizeof(t_env));
 	if (!node)
-		return (NULL);
+		exit (1);
 	while (value[i] != '=')
 		i++;
 	node->name = ft_substr(value, 0, i);

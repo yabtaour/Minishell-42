@@ -6,7 +6,7 @@
 /*   By: yabtaour <yabtaour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 18:16:59 by yabtaour          #+#    #+#             */
-/*   Updated: 2022/07/26 18:17:00 by yabtaour         ###   ########.fr       */
+/*   Updated: 2022/07/26 19:48:20 by yabtaour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ char	*ft_allocate(char *exit, char *value)
 
 	len = ft_strlen(exit) + ft_strlen(value) - 2;
 	new = malloc(sizeof(char) * len - 1);
+	if (!new)
+		return (NULL);
 	return (new);
 }
 

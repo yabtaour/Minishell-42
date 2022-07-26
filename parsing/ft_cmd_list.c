@@ -6,7 +6,7 @@
 /*   By: yabtaour <yabtaour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 18:17:01 by yabtaour          #+#    #+#             */
-/*   Updated: 2022/07/26 18:17:02 by yabtaour         ###   ########.fr       */
+/*   Updated: 2022/07/26 19:38:10 by yabtaour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_cmd	*ft_create_new_command(char *command, int fd_in, int fd_out)
 	pipe(pip);
 	cmd = malloc(sizeof(t_cmd));
 	if (!cmd)
-		return (NULL);
+		exit (1);
 	ft_initialize(cmd, command, fd_in, fd_out);
 	cmd->her_doc_num = 0;
 	cmd->her_in = 1;

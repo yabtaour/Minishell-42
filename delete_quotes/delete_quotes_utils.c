@@ -6,7 +6,7 @@
 /*   By: yabtaour <yabtaour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 18:16:03 by yabtaour          #+#    #+#             */
-/*   Updated: 2022/07/26 18:16:04 by yabtaour         ###   ########.fr       */
+/*   Updated: 2022/07/26 19:36:12 by yabtaour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,8 @@ int	*ft_get_index(char *cmd, int type)
 	if (type == 1)
 	{
 		index = malloc (sizeof(int) * ft_len(cmd));
+		if (!index)
+			exit (1);
 		index = ft_fill_index(index, cmd);
 	}
 	return (index);

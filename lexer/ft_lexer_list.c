@@ -6,7 +6,7 @@
 /*   By: yabtaour <yabtaour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 18:16:46 by yabtaour          #+#    #+#             */
-/*   Updated: 2022/07/26 18:16:47 by yabtaour         ###   ########.fr       */
+/*   Updated: 2022/07/26 19:37:48 by yabtaour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,10 @@ t_lexer	*ft_new_lexer_node(char *str, int type)
 	i = ft_strlen(str);
 	node = malloc(sizeof(t_lexer));
 	if (!node)
-		return (NULL);
+		exit (1);
 	node->value = malloc(i + 1);
+	if (!node->value)
+		exit (1);
 	i = -1;
 	while (str[++i])
 		node->value[i] = str[i];

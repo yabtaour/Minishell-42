@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_signals.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rsaf <rsaf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: yabtaour <yabtaour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 12:23:26 by rsaf              #+#    #+#             */
-/*   Updated: 2022/07/26 18:27:16 by rsaf             ###   ########.fr       */
+/*   Updated: 2022/07/26 18:40:34 by yabtaour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void handler(int sig)
     {
         if (sig == SIGINT)
         {
-  		    rl_replace_line("", 0);
+  		    // rl_replace_line("", 0);
 		    write(1, "\n", 1);
 		    rl_on_new_line();
 		    rl_redisplay();

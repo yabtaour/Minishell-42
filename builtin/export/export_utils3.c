@@ -6,9 +6,13 @@ t_env	*ft_new_node(char *name, char *value)
 
 	node = malloc (sizeof(t_env));
 	if (!node)
-		return (NULL);
+		exit (1);
 	node->name = malloc (ft_strlen(name) + 1);
+	if (!node->name)
+		exit (1);
 	node->value = malloc (ft_strlen(value) + 1);
+	if (!node->value)
+		exit (1);
 	if (!node->name || !node->value)
 		return (NULL);
 	node->name = ft_substr(name, 0, ft_strlen(name));

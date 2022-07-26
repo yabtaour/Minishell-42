@@ -6,7 +6,7 @@
 /*   By: yabtaour <yabtaour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 18:17:32 by yabtaour          #+#    #+#             */
-/*   Updated: 2022/07/26 18:18:23 by yabtaour         ###   ########.fr       */
+/*   Updated: 2022/07/26 19:40:59 by yabtaour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ void	*ft_calloc(int count, int size)
 
 	sizee = count * size;
 	ptr = (void *)malloc(sizee);
+	if (!ptr)
+		exit (1);
 	if (ptr != NULL)
 		ft_bzero(ptr, sizee);
 	else

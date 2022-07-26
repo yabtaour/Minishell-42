@@ -16,10 +16,7 @@ int	ft_change_env_value(t_data *data, char *name, char *value, int size)
 				env_clone->value[0] = '\0';
 			}
 			else
-			{
-				env_clone->value = malloc (ft_strlen(value) + 1);
 				env_clone->value = ft_substr(value, 0, ft_strlen(value));
-			}
 		}
 		env_clone = env_clone->next;
 	}
