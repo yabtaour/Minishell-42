@@ -6,7 +6,7 @@
 /*   By: yabtaour <yabtaour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 12:22:38 by rsaf              #+#    #+#             */
-/*   Updated: 2022/07/27 17:53:24 by yabtaour         ###   ########.fr       */
+/*   Updated: 2022/07/27 18:39:15 by yabtaour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,12 @@ int	start_execution(t_data *data, int **pip, int idx)
 		idx = ft_fork(data, idx);
 		if (data->general.pid == 0 && cmd_clone->fd_in != -69)
 		{
-			rl_catch_signals = 1;
+			// rl_catch_signals = 1;
 			ft_dup(data->general.lent, cmd_clone, pip);
 			close_pipes(pip, data->general.lent);
 			data->error = ft_if_builtin(data, cmd_clone);
 			if (data->error == 2)
-				cmd_path = ft_cmd_exist(data, cmd_clone, 0);
+				cmd_path = ft_cmd_exist(data, cmd_clone, -1);
 			if (cmd_path)
 				ft_execute_cmd(data, cmd_path, cmd_clone);
 			exit(1);
