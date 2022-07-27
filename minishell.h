@@ -6,7 +6,7 @@
 /*   By: yabtaour <yabtaour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 12:22:29 by rsaf              #+#    #+#             */
-/*   Updated: 2022/07/27 17:39:23 by yabtaour         ###   ########.fr       */
+/*   Updated: 2022/07/27 17:45:16 by yabtaour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <termios.h>
-# include "debug.h"
 # define WORD 1
 # define PIPE 2
 # define PARENTHESIS 4
