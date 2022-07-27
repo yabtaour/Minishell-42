@@ -11,7 +11,7 @@ int	pwd(t_data *data, t_cmd *lst_cmd, int fd)
 		{
 			curr_wd = getcwd(curr_wd, 0);
 			if (!curr_wd)
-				ft_putstr_fd(ft_get_env(data, "OLDPWD"), 1);
+				ft_putstr_fd(ft_get_env(data, "PWD"), 1);
 			else
 				ft_putstr_fd(curr_wd, fd);
 			write(fd, "\n", 1);
