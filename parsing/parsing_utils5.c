@@ -6,7 +6,7 @@
 /*   By: yabtaour <yabtaour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 18:17:17 by yabtaour          #+#    #+#             */
-/*   Updated: 2022/07/26 18:17:18 by yabtaour         ###   ########.fr       */
+/*   Updated: 2022/07/27 22:29:25 by yabtaour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,5 +85,24 @@ void	ft_delete_redirections(t_data *data)
 			lexer_clone = lexer_clone->next;
 		}
 		lexer_clone = data->lst_lexer;
+	}
+}
+
+char	*ft_new(char *old)
+{
+	char	*new;
+	int		len;
+
+	len = ft_strlen(old);
+	new = NULL;
+	if (ft_exist_quotes(old))
+	{
+		new = ft_delete(old);
+		return (new);
+	}
+	else
+	{
+		new = ft_substr(old, 0, len);
+		return (new);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: yabtaour <yabtaour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 12:22:29 by rsaf              #+#    #+#             */
-/*   Updated: 2022/07/27 21:49:27 by yabtaour         ###   ########.fr       */
+/*   Updated: 2022/07/27 22:40:02 by yabtaour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,7 +145,7 @@ void	ft_parsing(t_data *data);
 char	*ft_strjoin(char *s1, char *s2);
 void	ft_add_command_pipe(t_data *data);
 t_cmd	*ft_add_back_cmd(t_data *data, int *fd, int *red, int red_num);
-void	ft_add_normal_command(t_data *data, char *new);
+void	ft_add_normal_command(t_data *data, char *new, int *fd, int *red);
 char	**ft_split(char *s, char c);
 char	*ft_join_args(char *s1, char *s2);
 void	free_split(char **arguments);
@@ -176,6 +176,7 @@ int		ft_red_num(t_data *data);
 
 void	ft_delete_redirections(t_data *data);
 int		ft_check_still_redirection(t_data *data);
+char	*ft_new(char *old);
 
 //-----------------builtinh-------------------------//
 int		echo(t_data *data, t_cmd *cmd_lst, int fd);
