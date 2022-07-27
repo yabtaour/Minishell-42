@@ -6,7 +6,7 @@
 /*   By: yabtaour <yabtaour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 17:56:29 by yabtaour          #+#    #+#             */
-/*   Updated: 2022/07/27 17:56:30 by yabtaour         ###   ########.fr       */
+/*   Updated: 2022/07/27 19:59:55 by yabtaour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,24 @@ void	ft_export_arg(t_data *data, t_cmd *lst_cmd, int fd)
 {
 	char	*name;
 	char	*value;
+	int		i;
 
-	name = ft_get_name_exp(lst_cmd->cmd[1]);
-	value = ft_get_value_exp(lst_cmd->cmd[1]);
-	if (ft_name_exists(data, name))
-		ft_change_env_value(data, name, value, ft_strlen(value));
-	else
+	i = 1;
+	while (lst_cmd->cmd[i])
 	{
-		ft_add_new_env(data, name, value);
-		if (!data->first_export)
-			data->first_export = ft_substr(name, 0, ft_strlen(name));
+		name = ft_get_name_exp(lst_cmd->cmd[i]);
+		value = ft_get_value_exp(lst_cmd->cmd[i]);
+		if (ft_name_exists(data, name))
+			ft_change_env_value(data, name, value, ft_strlen(value));
+		else
+		{
+			ft_add_new_env(data, name, value);
+			if (!data->first_export)
+				data->first_export = ft_substr(name, 0, ft_strlen(name));
+		}
+		free(name);
+		free(value);
+		i++;
 	}
 }
 
