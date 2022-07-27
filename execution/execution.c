@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rsaf <rsaf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: yabtaour <yabtaour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 12:22:48 by rsaf              #+#    #+#             */
-/*   Updated: 2022/07/26 12:22:49 by rsaf             ###   ########.fr       */
+/*   Updated: 2022/07/27 20:59:07 by yabtaour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,10 @@ int	ft_execute_cmd(t_data *data, char *path, t_cmd *lst_cmd)
 	if (lst_cmd->fd_out != 1)
 		close(lst_cmd->fd_out);
 	execve(path, lst_cmd->cmd, data->env);
-	return (0);
+	perror("mshell: ");
+	if (errno == EACCES)
+		exit(126);
+	exit (127);
 }
 
 int	cmds_lent(t_data *data)

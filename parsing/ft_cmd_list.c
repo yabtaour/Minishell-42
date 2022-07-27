@@ -6,7 +6,7 @@
 /*   By: yabtaour <yabtaour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 18:17:01 by yabtaour          #+#    #+#             */
-/*   Updated: 2022/07/27 00:39:21 by yabtaour         ###   ########.fr       */
+/*   Updated: 2022/07/27 21:30:37 by yabtaour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,10 +100,12 @@ t_cmd	*ft_add_back_cmd(t_data *data, int *fd, int *red, int red_num)
 void	ft_add_command_pipe(t_data *data)
 {
 	t_lexer	*lexer_clone;
+	char	*new;
 
 	while (data->lst_lexer)
 	{
-		ft_add_normal_command(data);
+		new = NULL;
+		ft_add_normal_command(data, new);
 		ft_delete_herdoc(data);
 		ft_delete_command(data);
 	}

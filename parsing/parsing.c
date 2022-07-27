@@ -6,7 +6,7 @@
 /*   By: yabtaour <yabtaour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 18:17:19 by yabtaour          #+#    #+#             */
-/*   Updated: 2022/07/27 16:40:21 by yabtaour         ###   ########.fr       */
+/*   Updated: 2022/07/27 21:54:53 by yabtaour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,26 @@ int	ft_check_still_redirection(t_data *data)
 	return (0);
 }
 
-void	ft_add_normal_command(t_data *data)
+char	*ft_new(char *old)
+{
+	char	*new;
+	int		len;
+
+	len = ft_strlen(old);
+	new = NULL;
+	if (ft_exist_quotes(old))
+	{
+		new = ft_delete(old);
+		return (new);
+	}
+	else
+	{
+		new = ft_substr(old, 0, len);
+		return (new);
+	}
+}
+
+void	ft_add_normal_command(t_data *data, char *new)
 {
 	int		*red;
 	int		red_num;
@@ -62,7 +81,10 @@ void	ft_add_normal_command(t_data *data)
 			&& ft_strcmp(lexer_clone->value, "<<"))
 		{
 			lexer_clone = lexer_clone->next;
-			fd[i] = ft_fill_fd(data, lexer_clone->value, red[i]);
+			new = ft_new(lexer_clone->value);
+			printf("%s\n", new);
+			fd[i] = ft_fill_fd(data, new, red[i]);
+			free(new);
 			i++;
 		}
 		lexer_clone = lexer_clone->next;

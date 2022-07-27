@@ -6,7 +6,7 @@
 /*   By: yabtaour <yabtaour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 12:22:51 by rsaf              #+#    #+#             */
-/*   Updated: 2022/07/27 18:39:29 by yabtaour         ###   ########.fr       */
+/*   Updated: 2022/07/27 21:21:43 by yabtaour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,16 @@ int	check_result(int found, t_data *data)
 	return (0);
 }
 
-char	*if_no_path(t_data *data)
+char	*if_no_path(t_data *data, t_cmd *cmd_lst)
 {
-	access(data->lst_cmd->cmd[0], F_OK);
-	return (data->lst_cmd->cmd[0]);
+	char	*path;
+
+	path = NULL;
+	path = ft_strjoin(path, ".");
+	path = ft_strjoin(path, cmd_lst->cmd[0]);
+	if (access(path, F_OK) != 0)
+		return (printf("mshell: command not found.\n"), NULL);
+	return (path);
 }
 
 int	slash_dot(t_cmd *lst_cmd)
@@ -52,9 +58,9 @@ char	*ft_cmd_exist(t_data *data, t_cmd *lst_cmd, int idx)
 
 	found = 0;
 	path = NULL;
-	if (ft_get_env(data, "PATH") == NULL)
-		return (if_no_path(data));
-	if (slash_dot(lst_cmd) && access(data->lst_cmd->cmd[0], F_OK) == 0)
+	if (ft_get_env(data, "PATH") == NULL && lst_cmd->cmd[0][0] != '/')
+		return (lst_cmd->cmd[0]);
+	if (slash_dot(lst_cmd))
 		return (data->lst_cmd->cmd[0]);
 	while (data->paths[++idx] && found == 0)
 	{

@@ -6,7 +6,7 @@
 /*   By: yabtaour <yabtaour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 12:22:29 by rsaf              #+#    #+#             */
-/*   Updated: 2022/07/27 17:45:16 by yabtaour         ###   ########.fr       */
+/*   Updated: 2022/07/27 21:49:27 by yabtaour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <termios.h>
+# include <errno.h>
 # define WORD 1
 # define PIPE 2
 # define PARENTHESIS 4
@@ -144,13 +145,15 @@ void	ft_parsing(t_data *data);
 char	*ft_strjoin(char *s1, char *s2);
 void	ft_add_command_pipe(t_data *data);
 t_cmd	*ft_add_back_cmd(t_data *data, int *fd, int *red, int red_num);
-void	ft_add_normal_command(t_data *data);
+void	ft_add_normal_command(t_data *data, char *new);
 char	**ft_split(char *s, char c);
 char	*ft_join_args(char *s1, char *s2);
 void	free_split(char **arguments);
 void	ft_free_cmd(t_cmd *cmd);
 void	ft_print_cmd(t_cmd *cmd);
 char	*ft_substr(char *s, int start, size_t len);
+int		ft_exist_quotes(char *cmd);
+char	*ft_delete(char *cmd);
 
 void	ft_delete_quotes(t_data *data);
 void	ft_delete_eof_quotes(char *eof);
