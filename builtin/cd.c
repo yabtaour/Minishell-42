@@ -39,6 +39,8 @@ int	ft_change_dir(t_data *data, t_cmd *lst_cmd, char *current, char *new)
 		new = ft_get_env(data, "OLDPWD");
 	else
 		new = lst_cmd->cmd[1];
+	if (new == NULL)
+		return (printf("cd: Target path not set\n"), 1);
 	direrror = chdir(new);
 	if (direrror != 0)
 		return (1);
@@ -59,6 +61,8 @@ int	ft_error(t_data *data, char *new_wd, char *upd_wd)
 	direrror = 0;
 	printf("cd: cannot access parent directories: No such file or directory\n");
 	new_wd = ft_get_env(data, "HOME");
+	if (new_wd == NULL)
+		return (printf("cd: Target path not set\n"), 1);
 	direrror = chdir(new_wd);
 	if (direrror != 0)
 		return (1);
