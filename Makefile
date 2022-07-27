@@ -40,6 +40,7 @@ SYNTAX = ./syntax/syntax_analyzer.c ./syntax/ft_pipe.c \
 BUILTIN= ./builtin/echo.c ./builtin/cd.c ./builtin/pwd.c ./builtin/unset.c \
 		 ./builtin/env.c ./builtin/export/export.c ./builtin/export/export_utils.c \
 		 ./builtin/export/export_utils2.c ./builtin/export/export_utils3.c \
+		 ./builtin/exit.c \
 
 UTILS= ./utils/ft_putstr_fd.c ./utils/ft_get_env.c ./utils/ft_itoa.c \
 	   ./utils/ft_strcmp.c ./utils/ft_strlen.c ./utils/ft_calloc.c \

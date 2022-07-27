@@ -6,7 +6,7 @@
 /*   By: yabtaour <yabtaour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 12:22:29 by rsaf              #+#    #+#             */
-/*   Updated: 2022/07/26 21:24:19 by yabtaour         ###   ########.fr       */
+/*   Updated: 2022/07/27 13:14:23 by yabtaour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,6 +187,7 @@ void	ft_sort_env(t_data *data);
 char	*ft_get_value_exp(char *value);
 char	*ft_get_name_exp(char *name);
 int		ft_name_exists(t_data *data, char *name);
+int		ft_exit(t_data *data, t_cmd *lst_cmd, int fd);
 
 //*-----------------execution----------------------//
 int		execution(t_data *data);

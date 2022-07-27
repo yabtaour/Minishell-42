@@ -6,7 +6,7 @@
 /*   By: yabtaour <yabtaour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 12:23:14 by rsaf              #+#    #+#             */
-/*   Updated: 2022/07/26 20:01:00 by yabtaour         ###   ########.fr       */
+/*   Updated: 2022/07/27 14:23:40 by yabtaour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	non_fork_funcs(t_data *data, t_cmd *cmd, int **pip)
 	{
 		if (cmd->her_in != 1)
 			close(cmd->her_in);
-		return (1);
+		return (-666);
 	}
 	if (cmd->cmd && cmd->cmd[0])
 	{
@@ -37,6 +37,12 @@ int	non_fork_funcs(t_data *data, t_cmd *cmd, int **pip)
 			data->error = ft_env_built(data, cmd->fd_out);
 		else if(!ft_strcmp(cmd->cmd[0], "unset") && !cmd->next)
 			data->error = unset(data, cmd);
+		else if (ft_strcmp(cmd->cmd[0], "exit") == 0 && !cmd->next)
+		{
+			data->error = ft_exit(data, cmd, 1);
+			if (data->error != 1)
+				exit (data->error);
+		}
 		else
 			return (-666);
 	}

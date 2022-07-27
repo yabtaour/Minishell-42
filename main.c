@@ -6,7 +6,7 @@
 /*   By: yabtaour <yabtaour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 18:29:08 by rsaf              #+#    #+#             */
-/*   Updated: 2022/07/27 11:29:06 by yabtaour         ###   ########.fr       */
+/*   Updated: 2022/07/27 12:30:24 by yabtaour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,15 +50,8 @@ int	main(int argc, char **argv, char **env)
     	signal(SIGINT, handler);
 		signal(SIGQUIT, handler);
 		data.cmd = readline("minishell-1.0 > ");
-		if (!data.cmd || !ft_strcmp(data.cmd, "exit"))
-		{
-			if (data.cmd)
-			{
-				printf("exit\n");
-				return (0);
-			}
+		if (!data.cmd)
 			break;
-		}
 		data.general.index = 0;
 		if (data.cmd && data.cmd[0] != '\0')
 		{

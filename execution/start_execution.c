@@ -6,7 +6,7 @@
 /*   By: yabtaour <yabtaour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 12:22:38 by rsaf              #+#    #+#             */
-/*   Updated: 2022/07/26 18:40:37 by yabtaour         ###   ########.fr       */
+/*   Updated: 2022/07/27 13:49:42 by yabtaour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,13 @@ void	ft_finished_exe(t_data *data, int **pip, int idx)
 {
 	close_pipes(pip, data->general.lent);
 	close_fds(data->lst_cmd);
-	data->error = ft_wait_nd_kill(idx);
+	if (idx)
+		data->error = ft_wait_nd_kill(idx);
 }
 
 int	ft_fork(t_data *data, int idx)
 {
-	if (data->general.pid != 0 && data->error != 0)
+	if (data->general.pid != 0 && data->error == -666)
 	{
 		idx++;
 		data->general.pid = fork();
