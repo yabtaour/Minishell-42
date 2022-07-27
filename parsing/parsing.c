@@ -6,7 +6,7 @@
 /*   By: yabtaour <yabtaour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 18:17:19 by yabtaour          #+#    #+#             */
-/*   Updated: 2022/07/26 21:23:26 by yabtaour         ###   ########.fr       */
+/*   Updated: 2022/07/27 16:40:21 by yabtaour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,8 @@ void	ft_parsing(t_data *data)
 	t_lexer	*lexer_clone;
 
 	lexer_clone = data->lst_lexer;
+	ft_change_exit_status(data);
 	ft_handle_herdoc(data, lexer_clone);
 	ft_add_command_pipe(data);
+	ft_delete_quotes(data);
 }

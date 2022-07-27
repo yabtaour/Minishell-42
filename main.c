@@ -6,7 +6,7 @@
 /*   By: yabtaour <yabtaour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 18:29:08 by rsaf              #+#    #+#             */
-/*   Updated: 2022/07/27 12:30:24 by yabtaour         ###   ########.fr       */
+/*   Updated: 2022/07/27 17:24:34 by yabtaour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,54 +26,63 @@ void	ft_create_my_env(t_data *data)
 	data->env[3] = NULL;
 }
 
+void	ft_initialize1(t_data *data, int argc, char **env)
+{
+	data->ac = argc;
+	data->first_export = NULL;
+	data->general.old_error = 0;
+	if (env[0])
+		data->env = env;
+	else
+		ft_create_my_env(data);
+	ft_env(data);
+}
+
+void	ft_initialize2(t_data *data)
+{
+	data->lst_cmd = NULL;
+	data->lst_lexer = NULL;
+	data->error = 0;
+	data->her_doc = 0;
+	data->general.index = 0;
+	// rl_catch_signals = 0;
+	signal(SIGINT, handler);
+	signal(SIGQUIT, handler);
+}
+
+void	ft_free_norme(t_data *data)
+{
+	free_split(data->eof);
+	ft_free_lexer(data->lst_lexer);
+	ft_free_cmd(data->lst_cmd);
+}
+
 int	main(int argc, char **argv, char **env)
 {
 	t_data	data;
 
-	data.ac = argc;
-	data.av = argv;
-	if (env[0])
-		data.env = env;
-	else
-		ft_create_my_env(&data);
-	ft_env(&data);
-	data.first_export = NULL;
-	data.general.old_error = 0;
+	ft_initialize1(&data, argc, env);
 	while (69)
 	{
 		g_where_ami = 1;
-		data.lst_lexer = NULL;
-		data.lst_cmd = NULL;
-		data.error = 0;
-		data.her_doc = 0;
-		// rl_catch_signals = 0;
-    	signal(SIGINT, handler);
-		signal(SIGQUIT, handler);
-		data.cmd = readline("minishell-1.0 > ");
+		ft_initialize2(&data);
+		data.cmd = readline("minishell-1.0> ");
 		if (!data.cmd)
-			break;
-		data.general.index = 0;
+			break ;
 		if (data.cmd && data.cmd[0] != '\0')
 		{
-			data.cmd = ft_strtrim(data.cmd, " ");
-			add_history(data.cmd);
 			ft_lexer(&data);
-			free(data.cmd);
 			data.error = ft_syntax_analyzer(&data);
 			if (data.error)
 			{
 				ft_free_lexer(data.lst_lexer);
-				data.general.old_error = data.error;			
-				continue;
+				data.general.old_error = data.error;
+				continue ;
 			}
 			ft_expanding(&data);
-			ft_change_exit_status(&data);
 			ft_parsing(&data);
-			ft_delete_quotes(&data);
 			execution(&data);
-			free_split(data.eof);
-			ft_free_lexer(data.lst_lexer);
-			ft_free_cmd(data.lst_cmd);
+			ft_free_norme(&data);
 		}
 		data.general.old_error = data.error;
 	}

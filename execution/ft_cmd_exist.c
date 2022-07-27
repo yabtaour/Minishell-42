@@ -6,7 +6,7 @@
 /*   By: yabtaour <yabtaour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 12:22:51 by rsaf              #+#    #+#             */
-/*   Updated: 2022/07/27 15:51:42 by yabtaour         ###   ########.fr       */
+/*   Updated: 2022/07/27 16:26:07 by yabtaour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char	*ft_cmd_exist(t_data *data, t_cmd *lst_cmd, int idx)
 		return (data->lst_cmd->cmd[0]);
 	}
 	if ((lst_cmd->cmd[0][0] == '.' || lst_cmd->cmd[0][0] == '/')
-		&&  access(data->lst_cmd->cmd[0], F_OK) == 0)
+		&& access(data->lst_cmd->cmd[0], F_OK) == 0)
 		return (data->lst_cmd->cmd[0]);
 	while (data->paths[idx] && found == 0)
 	{

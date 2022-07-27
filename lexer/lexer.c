@@ -6,7 +6,7 @@
 /*   By: yabtaour <yabtaour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 18:16:51 by yabtaour          #+#    #+#             */
-/*   Updated: 2022/07/26 18:16:52 by yabtaour         ###   ########.fr       */
+/*   Updated: 2022/07/27 16:47:04 by yabtaour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	ft_lexer(t_data *data)
 	int		i;
 
 	i = 0;
+	data->cmd = ft_strtrim(data->cmd, " ");
+	add_history(data->cmd);
 	while (data->cmd[i])
 	{
 		while (data->cmd[i] == ' ')
@@ -35,4 +37,5 @@ void	ft_lexer(t_data *data)
 		if (data->cmd[i] == ';')
 			i = ft_add_semi(data, i);
 	}
+	free(data->cmd);
 }
