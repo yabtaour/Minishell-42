@@ -6,7 +6,7 @@
 /*   By: yabtaour <yabtaour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 18:29:08 by rsaf              #+#    #+#             */
-/*   Updated: 2022/07/27 00:28:13 by yabtaour         ###   ########.fr       */
+/*   Updated: 2022/07/27 11:29:06 by yabtaour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ int	main(int argc, char **argv, char **env)
 			ft_parsing(&data);
 			ft_delete_quotes(&data);
 			execution(&data);
+			free_split(data.eof);
 			ft_free_lexer(data.lst_lexer);
 			ft_free_cmd(data.lst_cmd);
 		}
