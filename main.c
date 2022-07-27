@@ -6,25 +6,11 @@
 /*   By: yabtaour <yabtaour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 18:29:08 by rsaf              #+#    #+#             */
-/*   Updated: 2022/07/27 17:24:34 by yabtaour         ###   ########.fr       */
+/*   Updated: 2022/07/27 17:40:30 by yabtaour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	ft_create_my_env(t_data *data)
-{
-	char	*value;
-
-	value = "PWD=/Users/yabtaour/Desktop/my_minishell";
-	data->env = malloc (sizeof(char *) * 4);
-	data->env[0] = ft_substr(value, 0, ft_strlen(value));
-	value = "SHLVL=1";
-	data->env[1] = ft_substr(value, 0, ft_strlen(value));
-	value = "_=/usr/bin/env";
-	data->env[2] = ft_substr(value, 0, ft_strlen(value));
-	data->env[3] = NULL;
-}
 
 void	ft_initialize1(t_data *data, int argc, char **env)
 {
@@ -57,6 +43,14 @@ void	ft_free_norme(t_data *data)
 	ft_free_cmd(data->lst_cmd);
 }
 
+void	ft_start(t_data *data)
+{
+	ft_expanding(data);
+	ft_parsing(data);
+	execution(data);
+	ft_free_norme(data);
+}
+
 int	main(int argc, char **argv, char **env)
 {
 	t_data	data;
@@ -79,10 +73,7 @@ int	main(int argc, char **argv, char **env)
 				data.general.old_error = data.error;
 				continue ;
 			}
-			ft_expanding(&data);
-			ft_parsing(&data);
-			execution(&data);
-			ft_free_norme(&data);
+			ft_start(&data);
 		}
 		data.general.old_error = data.error;
 	}
