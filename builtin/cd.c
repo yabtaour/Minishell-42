@@ -57,6 +57,7 @@ int	cd(t_data *data, t_cmd *lst_cmd)
 		}
 		else
 		{
+			HERE
 			if (!lst_cmd->cmd[1])
 				new_wd = ft_get_env(data, "HOME");
 			else if (ft_strcmp(lst_cmd->cmd[1], "-") == 0)
