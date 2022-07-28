@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yabtaour <yabtaour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rsaf <rsaf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 18:29:08 by rsaf              #+#    #+#             */
-/*   Updated: 2022/07/27 18:07:18 by yabtaour         ###   ########.fr       */
+/*   Updated: 2022/07/28 08:46:17 by rsaf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	ft_initialize2(t_data *data)
 	data->error = 0;
 	data->her_doc = 0;
 	data->general.index = 0;
-	// rl_catch_signals = 0;
+	rl_catch_signals = 0;
 	signal(SIGINT, handler);
 	signal(SIGQUIT, handler);
 }
