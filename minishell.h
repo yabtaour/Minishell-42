@@ -6,7 +6,7 @@
 /*   By: rsaf <rsaf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 12:22:29 by rsaf              #+#    #+#             */
-/*   Updated: 2022/07/28 10:51:37 by rsaf             ###   ########.fr       */
+/*   Updated: 2022/07/28 11:01:39 by rsaf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -224,5 +224,6 @@ char	**ft_free_tab(char	**str, int i);
 char	*ft_strchr(char *s, int c);
 char	*ft_strtrim(char *s1, char *set);
 int		ft_sub_main(t_data *data);
+void	ft_free_norme(t_data *data);
 
 #endif
