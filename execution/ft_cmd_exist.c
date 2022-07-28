@@ -6,7 +6,7 @@
 /*   By: rsaf <rsaf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 12:22:51 by rsaf              #+#    #+#             */
-/*   Updated: 2022/07/28 13:47:27 by rsaf             ###   ########.fr       */
+/*   Updated: 2022/07/28 15:14:05 by rsaf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	check_result(int found, t_data *data)
 	{
 		ft_putstr_fd("mshell: command not found\n", 2);
 		data->error = 127;
-		exit(127);
+		return(0);
 	}
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   non_fork_funcs.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yabtaour <yabtaour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rsaf <rsaf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 12:23:14 by rsaf              #+#    #+#             */
-/*   Updated: 2022/07/27 19:42:24 by yabtaour         ###   ########.fr       */
+/*   Updated: 2022/07/28 15:02:28 by rsaf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ int	non_fork_funcs(t_data *data, t_cmd *cmd, int **pip)
 	{
 		if (cmd->her_in != 1)
 			close(cmd->her_in);
-		return (-666);
+		if (cmd->cmd[0])
+			return (-666);
 	}
 	if (cmd->cmd && cmd->cmd[0])
 		data->error = built_list(data, cmd);

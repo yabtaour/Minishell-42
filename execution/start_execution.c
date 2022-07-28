@@ -6,7 +6,7 @@
 /*   By: rsaf <rsaf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 12:22:38 by rsaf              #+#    #+#             */
-/*   Updated: 2022/07/28 13:47:49 by rsaf             ###   ########.fr       */
+/*   Updated: 2022/07/28 15:09:38 by rsaf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ int	start_execution(t_data *data, int **pip, int idx)
 		if (data->general.pid == 0 && cmd_clone->fd_in != -69)
 		{
 			ft_dup(data->general.lent, cmd_clone, pip);
+			close_fds(cmd_clone);
 			close_pipes(pip, data->general.lent);
 			data->error = ft_if_builtin(data, cmd_clone);
 			if (data->error == 2)

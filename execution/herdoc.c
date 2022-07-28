@@ -6,7 +6,7 @@
 /*   By: rsaf <rsaf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 12:22:33 by rsaf              #+#    #+#             */
-/*   Updated: 2022/07/28 10:52:19 by rsaf             ###   ########.fr       */
+/*   Updated: 2022/07/28 15:14:24 by rsaf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	herdoc_routine(t_data *data, t_cmd *cmd_lst, int i)
 		}
 		else
 			print_for_her(cmd_lst, buff);
-	}	
+	}
 }
 
 int	ft_herdoc(t_data *data, t_cmd *cmd_lst, int **pip, int i)
