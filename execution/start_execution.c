@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start_execution.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yabtaour <yabtaour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rsaf <rsaf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 12:22:38 by rsaf              #+#    #+#             */
-/*   Updated: 2022/07/27 21:23:06 by yabtaour         ###   ########.fr       */
+/*   Updated: 2022/07/28 10:10:40 by rsaf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ int	ft_wait_nd_kill(int idx)
 	while (idx > 0)
 	{
 		pid = waitpid(-1, &status, 0);
+		if (WIFEXITED(status) == 0)
+			return (130);
 		if (WIFEXITED(status) && WEXITSTATUS(status) != -1 && pid != -1)
 			kill(pid, SIGKILL);
 		idx--;

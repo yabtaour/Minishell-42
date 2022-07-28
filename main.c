@@ -6,7 +6,7 @@
 /*   By: yabtaour <yabtaour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 18:29:08 by rsaf              #+#    #+#             */
-/*   Updated: 2022/07/27 18:07:18 by yabtaour         ###   ########.fr       */
+/*   Updated: 2022/07/28 10:33:45 by yabtaour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,5 +77,6 @@ int	main(int argc, char **argv, char **env)
 		}
 		data.general.old_error = data.error;
 	}
+
 	return (0);
 }

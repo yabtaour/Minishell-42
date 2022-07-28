@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: yabtaour <yabtaour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/27 22:13:49 by yabtaour          #+#    #+#             */
-/*   Updated: 2022/07/27 22:13:50 by yabtaour         ###   ########.fr       */
+/*   Created: 2022/07/28 08:46:29 by rsaf              #+#    #+#             */
+/*   Updated: 2022/07/28 10:29:56 by yabtaour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ void	ft_change_env(t_data *data, char *name, char *value)
 int	ft_change_dir(t_data *data, t_cmd *lst_cmd, char *current, char *new)
 {
 	char	*upd_wd;
-	int		direrror;
 
 	upd_wd = NULL;
 	if (!lst_cmd->cmd[1])
@@ -53,9 +52,9 @@ int	ft_change_dir(t_data *data, t_cmd *lst_cmd, char *current, char *new)
 		new = lst_cmd->cmd[1];
 	if (new == NULL)
 		return (printf("cd: Target path not set\n"), 1);
-	direrror = chdir(new);
-	if (direrror != 0)
-		return (1);
+	data->error = chdir(new);
+	if (data->error != 0)
+		return (perror("mshell : "), 1);
 	else
 	{
 		upd_wd = getcwd(upd_wd, 0);
@@ -63,33 +62,29 @@ int	ft_change_dir(t_data *data, t_cmd *lst_cmd, char *current, char *new)
 		ft_change_env(data, "PWD", upd_wd);
 	}
 	free(current);
-	return (0);
+	return (data->error);
 }
 
 int	ft_error(t_data *data, char *new_wd, char *upd_wd)
 {
-	int	direrror;
-
-	direrror = 0;
 	printf("cd: cannot access parent directories: No such file or directory\n");
 	new_wd = ft_get_env(data, "HOME");
 	if (new_wd == NULL)
 		return (printf("cd: Target path not set\n"), 1);
-	direrror = chdir(new_wd);
-	if (direrror != 0)
-		return (1);
+	data->error = chdir(new_wd);
+	if (data->error != 0)
+		return (perror("mshell : "), 1);
 	else
 	{
 		new_wd = getcwd(upd_wd, 0);
 		ft_change_env(data, "OLDPWD", new_wd);
 		ft_change_env(data, "PWD", new_wd);
 	}
-	return (0);
+	return (data->error);
 }
 
 int	cd(t_data *data, t_cmd *lst_cmd)
 {
-	int		direrror;
 	char	*current_wd;
 	char	*new_wd;
 	char	*upd_wd;
@@ -101,9 +96,9 @@ int	cd(t_data *data, t_cmd *lst_cmd)
 	{
 		current_wd = getcwd(current_wd, 0);
 		if (!current_wd)
-			ft_error(data, new_wd, upd_wd);
+			data->error = ft_error(data, new_wd, upd_wd);
 		else
 			return (ft_change_dir(data, lst_cmd, current_wd, new_wd));
 	}
-	return (0);
+	return (data->error);
 }
