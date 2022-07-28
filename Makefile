@@ -14,7 +14,7 @@ LIBRARIESS        = ${LDFLAGS} -lreadline
 
 FLAGS = -Wall -Wextra -Werror
 
-SRC = main.c ft_free.c \
+SRC = main.c ft_free.c ft_main.c \
 
 ENV = ./env/ft_env.c ./env/ft_env_list.c\
 

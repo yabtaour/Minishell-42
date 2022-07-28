@@ -6,18 +6,20 @@
 /*   By: yabtaour <yabtaour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 17:55:52 by yabtaour          #+#    #+#             */
-/*   Updated: 2022/07/27 17:57:19 by yabtaour         ###   ########.fr       */
+/*   Updated: 2022/07/28 10:47:47 by yabtaour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_free_env(t_env *env)
+void	ft_free_env(t_data *data, t_env *env)
 {
 	t_env	*env_current;
 	t_env	*env_next;
 
 	env_current = env;
+	if (data->first_export)
+		free(data->first_export);
 	while (env_current)
 	{
 		env_next = env_current->next;

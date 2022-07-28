@@ -6,15 +6,12 @@
 /*   By: yabtaour <yabtaour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 12:22:29 by rsaf              #+#    #+#             */
-/*   Updated: 2022/07/27 22:40:02 by yabtaour         ###   ########.fr       */
+/*   Updated: 2022/07/28 10:48:02 by yabtaour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
-
-// remark :
-// strcmp is forbidden delete when we finish
 
 # include <stdio.h>
 # include <signal.h>
@@ -98,7 +95,7 @@ typedef struct s_data{
 //-----------------env--------------------------//
 void	ft_create_env_list(t_env **envi, char **env);
 void	ft_env(t_data *data);
-void	ft_free_env(t_env *env);
+void	ft_free_env(t_data *data, t_env *env);
 void	ft_print_env(t_env	*env, int flag, int fd);
 t_env	*ft_add_to_env_back(t_env *envi, char *value);
 void	free_split(char **arguments);
@@ -226,5 +223,8 @@ void	*ft_calloc(int count, int size);
 char	**ft_free_tab(char	**str, int i);
 char	*ft_strchr(char *s, int c);
 char	*ft_strtrim(char *s1, char *set);
+
+
+int	ft_sub_main(t_data *data);
 
 #endif
