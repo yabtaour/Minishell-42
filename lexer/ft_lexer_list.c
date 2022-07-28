@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lexer_list.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yabtaour <yabtaour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rsaf <rsaf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 18:16:46 by yabtaour          #+#    #+#             */
-/*   Updated: 2022/07/26 19:37:48 by yabtaour         ###   ########.fr       */
+/*   Updated: 2022/07/28 11:28:31 by rsaf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ t_lexer	*ft_add_lexer_back(t_lexer *lexer, char *str, int type)
 		return (NULL);
 	node = ft_new_lexer_node(str, type);
 	if (!node)
-		return (NULL);
+		exit (1);
 	if (lexer == NULL)
 		return (node);
 	lexer_clone = lexer;

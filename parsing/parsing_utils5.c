@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils5.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yabtaour <yabtaour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rsaf <rsaf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 18:17:17 by yabtaour          #+#    #+#             */
-/*   Updated: 2022/07/27 22:29:25 by yabtaour         ###   ########.fr       */
+/*   Updated: 2022/07/28 13:09:50 by rsaf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	ft_delete_node_red(t_data *data, int position)
 		if (lexer_clone && lexer_clone->prev)
 			lexer_clone->prev->next = lexer_clone->next;
 		lexer_clone2 = lexer_clone->next;
+		free(lexer_clone->value);
 		free(lexer_clone);
 		lexer_clone = lexer_clone2;
 	}

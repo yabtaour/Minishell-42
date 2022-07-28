@@ -6,7 +6,7 @@
 /*   By: rsaf <rsaf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 12:22:29 by rsaf              #+#    #+#             */
-/*   Updated: 2022/07/28 11:01:39 by rsaf             ###   ########.fr       */
+/*   Updated: 2022/07/28 13:38:37 by rsaf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 # define REDIRECTION 5
 # define AND 6
 # define SEMI 7
-
+# define leaks system("leaks minishell");
 int	g_where_ami;
 
 typedef struct s_gen{
@@ -68,8 +68,6 @@ typedef struct s_cmd{
 	int				her_in;
 	int				fd_out;
 	int				fd_in;
-	int				*ptr_in;
-	int				*ptr_out;
 	struct s_cmd	*next;
 	struct s_cmd	*prev;
 }	t_cmd;

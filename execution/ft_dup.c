@@ -6,7 +6,7 @@
 /*   By: rsaf <rsaf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 12:22:58 by rsaf              #+#    #+#             */
-/*   Updated: 2022/07/26 12:23:00 by rsaf             ###   ########.fr       */
+/*   Updated: 2022/07/28 13:30:37 by rsaf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@ int	close_pipes(int **pip, int lent)
 		close(pip[idx][0]);
 		idx++;
 	}
+	idx = -1;
+	while (++idx < lent)
+		free(pip[idx]);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: rsaf <rsaf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 10:37:19 by yabtaour          #+#    #+#             */
-/*   Updated: 2022/07/28 10:51:56 by rsaf             ###   ########.fr       */
+/*   Updated: 2022/07/28 13:27:13 by rsaf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	ft_start(t_data *data)
 	ft_parsing(data);
 	execution(data);
 	ft_free_norme(data);
+	leaks
 }
 
 int	ft_sub_main(t_data *data)

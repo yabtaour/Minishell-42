@@ -6,7 +6,7 @@
 /*   By: rsaf <rsaf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 12:22:48 by rsaf              #+#    #+#             */
-/*   Updated: 2022/07/28 11:03:52 by rsaf             ###   ########.fr       */
+/*   Updated: 2022/07/28 13:47:44 by rsaf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,6 @@ int	ft_execute_cmd(t_data *data, char *path, t_cmd *lst_cmd)
 		close(lst_cmd->fd_out);
 	execve(path, lst_cmd->cmd, data->env);
 	perror("mshell: ");
-	free_split(data->paths);
-	ft_free_norme(data);
-	ft_free_env(data, data->lst_env);
 	if (errno == EACCES)
 		exit(126);
 	exit (127);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cmd_exist.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yabtaour <yabtaour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rsaf <rsaf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 12:22:51 by rsaf              #+#    #+#             */
-/*   Updated: 2022/07/27 21:21:43 by yabtaour         ###   ########.fr       */
+/*   Updated: 2022/07/28 13:47:27 by rsaf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,7 @@ char	*ft_cmd_exist(t_data *data, t_cmd *lst_cmd, int idx)
 			found = 1;
 			break ;
 		}
-		else
-			free(path);
+		free(path);
 	}
 	if (check_result(found, data) == 1)
 		return (path);

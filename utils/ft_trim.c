@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_trim.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yabtaour <yabtaour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rsaf <rsaf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 18:49:39 by yabtaour          #+#    #+#             */
-/*   Updated: 2022/07/26 21:28:30 by yabtaour         ###   ########.fr       */
+/*   Updated: 2022/07/28 11:25:54 by rsaf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,6 @@ char	*ft_strtrim(char *s1, char *set)
 		if (ptr)
 			ft_strlcpy(ptr, s1 + start, last - start + 1);
 	}
+	free(s1);
 	return (ptr);
 }

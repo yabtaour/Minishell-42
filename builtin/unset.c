@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yabtaour <yabtaour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rsaf <rsaf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 17:56:39 by yabtaour          #+#    #+#             */
-/*   Updated: 2022/07/27 17:56:40 by yabtaour         ###   ########.fr       */
+/*   Updated: 2022/07/28 13:40:18 by rsaf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ int	unset(t_data *data, t_cmd *lst_cmd)
 				env_clone->next->prev = env_clone->prev;
 			if (env_clone->prev)
 				env_clone->prev->next = env_clone->next;
+			free(env_clone->name);
+			free(env_clone->value);
 			free(env_clone);
 			idx++;
 			if (!lst_cmd->cmd[idx])
