@@ -16,7 +16,7 @@
 
 ## This is an overview of the project :
 
-![Group 8.png](Minishell%2034b0ba8b3254438cbe5dc7d1631fb764/Group_8.png)
+![Group 8.png](ReadMe/Group_8.png)
 
 ## → Lexer :
 
@@ -60,7 +60,7 @@
 
 ---
 
-![alwan.png](Minishell%2034b0ba8b3254438cbe5dc7d1631fb764/alwan.png)
+![alwan.png](ReadMe/alwan.png)
 
 ### What is Env or **Environment?**
 
