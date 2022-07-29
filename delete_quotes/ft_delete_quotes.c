@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_delete_quotes.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yabtaour <yabtaour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rsaf <rsaf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 18:16:08 by yabtaour          #+#    #+#             */
-/*   Updated: 2022/07/27 00:26:05 by yabtaour         ###   ########.fr       */
+/*   Updated: 2022/07/29 14:58:27 by rsaf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,13 +100,16 @@ void	ft_delete_quotes(t_data *data)
 void	ft_delete_eof_quotes(char *eof)
 {
 	char	*temp;
+	char	*temp2;
 
 	temp = NULL;
 	if (ft_exist_quotes(eof))
 	{
 		temp = ft_substr(eof, 0, ft_strlen(eof));
 		free(eof);
-		eof = ft_substr(ft_delete(temp), 0, ft_strlen(temp));
+		temp2 = ft_delete(temp);
+		eof = ft_substr(temp2, 0, ft_strlen(temp));
+		free(temp2);
 		free(temp);
 	}
 }

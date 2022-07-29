@@ -6,7 +6,7 @@
 /*   By: rsaf <rsaf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 10:37:19 by yabtaour          #+#    #+#             */
-/*   Updated: 2022/07/28 14:55:40 by rsaf             ###   ########.fr       */
+/*   Updated: 2022/07/29 14:41:56 by rsaf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,17 @@ void	ft_initialize2(t_data *data)
 	data->error = 0;
 	data->her_doc = 0;
 	data->general.index = 0;
-	rl_catch_signals = 0;
+	// rl_catch_signals = 0;
 	signal(SIGINT, handler);
 	signal(SIGQUIT, handler);
 }
 
 void	ft_free_norme(t_data *data)
 {
-	free_split(data->eof);
+	if (data->her_doc)
+		free_split(data->eof);
+	if (data->paths)
+		free_split(data->paths);
 	ft_free_lexer(data->lst_lexer);
 	ft_free_cmd(data->lst_cmd);
 }
@@ -37,12 +40,11 @@ void	ft_start(t_data *data)
 	ft_parsing(data);
 	execution(data);
 	ft_free_norme(data);
-	// leaks
 }
 
 int	ft_sub_main(t_data *data)
 {
-	while (69)
+	while (42)
 	{
 		g_where_ami = 1;
 		ft_initialize2(data);
@@ -63,6 +65,7 @@ int	ft_sub_main(t_data *data)
 		}
 		data->general.old_error = data->error;
 	}
+	rl_clear_history();
 	ft_free_env(data, data->lst_env);
 	return (0);
 }

@@ -6,16 +6,11 @@
 /*   By: rsaf <rsaf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 12:22:51 by rsaf              #+#    #+#             */
-/*   Updated: 2022/07/28 15:14:05 by rsaf             ###   ########.fr       */
+/*   Updated: 2022/07/28 15:21:28 by rsaf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-// this func check if the cmd is exist or not
-// right now for testing if the cmd do 
-// not exist it return a messg with NULL
-// if cmd exist it get exuxte
 
 int	check_result(int found, t_data *data)
 {
@@ -23,9 +18,9 @@ int	check_result(int found, t_data *data)
 		return (1);
 	else
 	{
-		ft_putstr_fd("mshell: command not found\n", 2);
+		ft_putstr_fd("minishell: command not found\n", 2);
 		data->error = 127;
-		return(0);
+		return (0);
 	}
 	return (0);
 }
@@ -38,7 +33,7 @@ char	*if_no_path(t_data *data, t_cmd *cmd_lst)
 	path = ft_strjoin(path, ".");
 	path = ft_strjoin(path, cmd_lst->cmd[0]);
 	if (access(path, F_OK) != 0)
-		return (printf("mshell: command not found.\n"), NULL);
+		return (printf("minishell: command not found.\n"), NULL);
 	return (path);
 }
 

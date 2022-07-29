@@ -6,7 +6,7 @@
 /*   By: rsaf <rsaf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 18:17:19 by yabtaour          #+#    #+#             */
-/*   Updated: 2022/07/28 13:20:41 by rsaf             ###   ########.fr       */
+/*   Updated: 2022/07/29 14:51:18 by rsaf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,4 +93,5 @@ void	ft_parsing(t_data *data)
 	ft_handle_herdoc(data, lexer_clone);
 	ft_add_command_pipe(data);
 	ft_delete_quotes(data);
+
 }

@@ -6,7 +6,7 @@
 /*   By: rsaf <rsaf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 18:17:12 by yabtaour          #+#    #+#             */
-/*   Updated: 2022/07/28 13:24:16 by rsaf             ###   ########.fr       */
+/*   Updated: 2022/07/29 14:53:36 by rsaf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,12 @@ void	ft_handle_herdoc(t_data *data, t_lexer *lexer)
 			data->her_doc++;
 		lexer = lexer->next;
 	}
-	data->eof = malloc(sizeof(char *) * data->her_doc + 1);
-	if (!data->eof)
-		exit (1);
+	if (data->her_doc)
+	{
+		data->eof = malloc(sizeof(char *) * (data->her_doc + 1 ));
+		if (!data->eof)
+			exit (1);
+	}
 	lexer = data->lst_lexer;
 	while (lexer)
 	{
@@ -33,11 +36,13 @@ void	ft_handle_herdoc(t_data *data, t_lexer *lexer)
 		{
 			lexer = lexer->next;
 			data->eof[i] = ft_substr(lexer->value, 0, ft_strlen(lexer->value));
-			ft_delete_eof_quotes(data->eof[i++]);
+			ft_delete_eof_quotes(data->eof[i]);
+			i++;
 		}
 		lexer = lexer->next;
 	}
-	data->eof[i] = NULL;
+	if (data->her_doc)
+		data->eof[i] = NULL;
 }
 
 void	ft_delete_command(t_data *data)

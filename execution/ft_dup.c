@@ -6,7 +6,7 @@
 /*   By: rsaf <rsaf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 12:22:58 by rsaf              #+#    #+#             */
-/*   Updated: 2022/07/28 13:30:37 by rsaf             ###   ########.fr       */
+/*   Updated: 2022/07/29 14:39:00 by rsaf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,16 @@ int	close_pipes(int **pip, int lent)
 	int	idx;
 
 	idx = 0;
-	while (idx < lent)
+	while (idx < lent - 1)
 	{
 		close(pip[idx][1]);
 		close(pip[idx][0]);
 		idx++;
 	}
-	idx = -1;
-	while (++idx < lent)
-		free(pip[idx]);
+	idx = 0;
+	while (idx < lent - 1)
+		free(pip[idx++]);
+	free(pip);
 	return (0);
 }
 

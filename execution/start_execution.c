@@ -6,7 +6,7 @@
 /*   By: rsaf <rsaf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 12:22:38 by rsaf              #+#    #+#             */
-/*   Updated: 2022/07/28 15:09:38 by rsaf             ###   ########.fr       */
+/*   Updated: 2022/07/29 13:49:09 by rsaf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ void	ft_finished_exe(t_data *data, int **pip, int idx)
 {
 	close_pipes(pip, data->general.lent);
 	close_fds(data->lst_cmd);
-	free_split(data->paths);
 	if (idx)
 		data->error = ft_wait_nd_kill(idx);
 }

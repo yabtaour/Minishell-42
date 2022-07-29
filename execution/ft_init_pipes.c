@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_init_pipes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yabtaour <yabtaour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rsaf <rsaf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 12:23:07 by rsaf              #+#    #+#             */
-/*   Updated: 2022/07/26 19:37:10 by yabtaour         ###   ########.fr       */
+/*   Updated: 2022/07/29 14:40:03 by rsaf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,17 @@ int	**ft_allocat_pipes(int lent, int i, int idx)
 {
 	int	**pip;
 
-	pip = malloc((lent) * sizeof(int *));
+	pip = malloc((lent - 1) * sizeof(int *));
 	if (!pip)
 		exit (1);
-	while (i < lent)
+	while (i < lent - 1)
 	{
 		pip[i] = malloc(2 * sizeof(int));
 		if (!pip[i])
 			exit (1);
 		i++;
 	}
-	while (idx < lent)
+	while (idx < lent - 1)
 	{
 		pipe(pip[idx]);
 		idx++;
