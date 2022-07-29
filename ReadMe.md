@@ -1,159 +1,83 @@
-<!-- remark -->
-<!-- del those functions -->
-<!-- strlen -->
-<!---strcpy--->
-<!-- strcmp -->
-<!-- calloc -->
-<!-- strncmp -->
+# Minishell
 
-maybe free in strjoin
+# Minishell Project
 
-1 => alpha / number 
-2 => pipe 
-4 => space 
-5 => " 
-6 => ' 
-7 => +/* 
-8 = {} 
-9 = () 
-10 = <> 
-11 => $ 
-12 => &  
-13 => - 
-14 => = 
-15 => . 
+---
 
+## → As beautiful as a shell
 
-to do:
-        # define THE ID in the Header                   √
-        # jme3 < << > >> fnode w7da                     √
-        # jme3 -options m3a ay haja                     √
-        # jme3 |                                        √
-        # jme3 $ m3a ay haja mn gher space              √
-        # jme3 = m3a koulchi mn gher space              √
-        # jme3 & m3a &                                  
-        -------------------------------------------------
-        # find the shell and increment (tips : init env before the 69 while loop)
+> Minishell is a 42-school project that aims to introduce as the world of shells by recoding out mini bash, a program that can parse, execute, and launch executables along with some built-in commands.
+> 
 
-        # update lexer " '                              √ 
-        # handle redirections errors
+## → Used functions :
 
+> readline, rl_clear_history, rl_on_new_line, rl_replace_line, rl_redisplay, add_history, printf, malloc, free, write, access, open, read, close, fork, waitpid, signal, kill, exit, getcwd, chdir, execve, dup2, pipe, perror.
+> 
 
-# the tree way:
-                cmd | cmd -> split by pip
-                - now we have two cmds lets split them again with espace
-                cmd -ls -> splited by space
-                now the tree looked like this:
-                ------------------------------------------------------------------
-                 *if there is pip:
-                ------------------------------------------------------------------
-                        [cmd]    [|]    [cmd]         -> now we have three ID's CMD and pip amd CMD 
-                          |               |
-                    [cmd] [opt]      [cmd] [opt]      -> now we have two ID in each node CMD and OPTION
-                ------------------------------------------------------------------
-                    *opt -> option
-                ------------------------------------------------------------------
-                 * if theres no pip:
-                ------------------------------------------------------------------
-                        [cmd] [option] -> directly splited by space
-                ------------------------------------------------------------------
+## This is an overview of the project :
 
+![Group 8.png](Minishell%2034b0ba8b3254438cbe5dc7d1631fb764/Group_8.png)
 
+## → Lexer :
 
-# to do next and update:
-                create struct has those members:
-                                                *cmd_value
-                                                *options_tab>[500]
-                                                *std_input
-                                                *std_output
-                                                *type
+- input:  Readline output
+- output: tokenized linked list
+- the objective of this step is to split the readline output using tokens (defined macros)
+- used tokens: WORD, REDIRECTION, PIPE, AND, SEMI, PARENTHESIS
 
-                update the lexer to dected which type of the cmd:
-                                                if it HAS PIPE.  (if no then  next)
-                                                if it HAS && or ||. (if no then next)
-                                                if it HAS nothing. (final step)
+---
 
-                on which type we have we gonna give a specifc ID's and nodes and parsing.
-                if has PIPE then we init the 
+## → Syntax analyzer:
 
-install greper help
+- input: tokenized linked list
+- output:
+    - in case of no syntax error: same tokenized linked list.
+    - in case of a syntax error: printed error type.
+- the objective of this step is to check all possible command syntax errors (if you have a doubt about an error take bash as a reference).
 
-<!-- to do next part 2 in parse-->
-        check if the first is rederct or cmd
-        delete the redrict
-        do not handle simcolone ';'
-        if we did the bonus handle '()'
+---
 
-************ segfault f ft_lexer ******************
+## → Parser :
 
-command node :
-        add input fd
-        output fd
-        red type
-        stop word for heredoc
+- input: tokenized linked list
+- output: commands linked list
+- we can split this step into 2 sub-steps
+    - handling redirections (input, output, append, heredoc).
+    - add command to the linked list with their file descriptors (in and out).
 
+---
 
-<!-- exuce part -->
-        checking if the cmnds is exist
-        find the priority
-        create the files for rederctions
-        if herdoc
-        running the cmds
-        free all
-        removes the forbidden functions
+## → Execution :
 
+- input: commands linked list
+- if everything went okay in the past steps we have 2 different cases to communicate between the commands (processes):
+    - if there are $`N`$ commands we initialize $`N-1`$  pipes to communicate between the processes we create.
+    - In another case, if there’s some kind of redirection, it takes the priority
+- the only step left is to verify if the command is available or not there are two ways to handle it depending on the command itself
+    - ****relative path****
+    - ****absolute path****
+- in this part, the commands are ready to be executed
 
-to do youness
+---
 
-update lexer /
-delete lexer unexpanded node
-export
-redirection
-<!--  -->
-< f lwel
+![alwan.png](Minishell%2034b0ba8b3254438cbe5dc7d1631fb764/alwan.png)
 
->> >  flekher
+### What is Env or **Environment?**
 
-# after redirection always a word a WORD <-------------------------------------------------------------------------->
+- shell maintains an environment that includes a set of variables defined by a name, a user initialization, and system initialization.
+    - sources that can help you like us:
+        - [what is env?](https://docs.oracle.com/cd/E19120-01/open.solaris/819-2379/userconcept-26/index.html)
 
-# handle ( {} ) syntax errors
+### What is Lexer or Tokenization?
 
-bash-3.2$ ls -la < $test
-bash: $test: ambiguous redirect
+- Tokenization is a way of separating a sentence into smaller units called tokens,
+    - Sources that can help you like us:
+        - [what is a lexer?](https://www.guru99.com/compiler-design-lexical-analysis.html)
+        - [what is a lexer and how does it work?](https://www.youtube.com/watch?v=TG0qRDrUPpA&t=1094s)
+        - ****[What is Tokenization?](https://www.guru99.com/compiler-design-lexical-analysis.html)****
 
-<!----
+### What is Syntax ****Analysis:****
 
-> 1
-< 2
->> 3
-<< 4
+- It analyses the syntactical structure and checks if the given input is in the correct syntax of the programming language or not.
 
----->
-
-
-
-### WARNING
-rak 9alb input and output dial > √
-
-
-### SEGFAULT
-whatever HOME
-
-
-
-
-3ndk problem fe argument 3
-
-
-
-
-### DELETE FORBBIDEN FUNC
-### LEAKS
-### UPDATE CD
-### UPDATE ENV
-### NORME
-
-
-I allocate eof in data
-when u r done with herdoc free data->eof with free_split command
-everything is perfect
+---
