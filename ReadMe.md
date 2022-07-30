@@ -80,5 +80,4 @@
 
 - It analyses the syntactical structure and checks if the given input is in the correct syntax of the programming language or not.
 
----> I took care of the Lexer - Parsing - syntax analysis
----> My peer too care of the execution - signals handling
+---> I took care of the Lexer - syntax analysis - expanding - parsing
