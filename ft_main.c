@@ -6,11 +6,12 @@
 /*   By: rsaf <rsaf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 10:37:19 by yabtaour          #+#    #+#             */
-/*   Updated: 2022/07/29 14:41:56 by rsaf             ###   ########.fr       */
+/*   Updated: 2022/08/15 21:55:01 by rsaf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./minishell.h"
+#include "./debug.h"
 
 void	ft_initialize2(t_data *data)
 {

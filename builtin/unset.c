@@ -6,7 +6,7 @@
 /*   By: rsaf <rsaf@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 17:56:39 by yabtaour          #+#    #+#             */
-/*   Updated: 2022/07/28 15:20:31 by rsaf             ###   ########.fr       */
+/*   Updated: 2022/08/15 21:59:11 by rsaf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int	unset(t_data *data, t_cmd *lst_cmd)
 				env_clone->next->prev = env_clone->prev;
 			if (env_clone->prev)
 				env_clone->prev->next = env_clone->next;
+			ft_free_this(env_clone);
 			idx++;
 			if (!lst_cmd->cmd[idx])
 				return (0);
