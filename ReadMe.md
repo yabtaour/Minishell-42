@@ -80,4 +80,3 @@
 
 - It analyses the syntactical structure and checks if the given input is in the correct syntax of the programming language or not.
 
----> I took care of the Lexer - syntax analysis - expanding - parsing
