@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cmd_list.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rsaf <rsaf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ssabbaji <ssabbaji@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 18:17:01 by yabtaour          #+#    #+#             */
-/*   Updated: 2022/07/28 13:53:12 by rsaf             ###   ########.fr       */
+/*   Updated: 2022/09/19 16:35:02 by ssabbaji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ char	*ft_fill_command(t_data *data)
 	lexer_clone = data->lst_lexer;
 	while (lexer_clone && lexer_clone->type != PIPE)
 	{
-		command = ft_strjoin(command, lexer_clone->value);
+		command = ft_strjoin(command, lexer_clone->val);
 		command = ft_strjoin(command, " ");
 		lexer_clone = lexer_clone->next;
 	}
@@ -99,11 +99,12 @@ t_cmd	*ft_add_back_cmd(t_data *data, int *fd, int *red, int red_num)
 
 void	ft_add_command_pipe(t_data *data)
 {
-	t_lexer	*lexer_clone;
 	char	*new;
 	int		*fd;
 	int		*red;
 
+	red = NULL;
+	fd = NULL;
 	while (data->lst_lexer)
 	{
 		new = NULL;

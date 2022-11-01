@@ -1,50 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   ft_strncpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ssabbaji <ssabbaji@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/26 18:17:32 by yabtaour          #+#    #+#             */
-/*   Updated: 2022/09/20 16:28:55 by ssabbaji         ###   ########.fr       */
+/*   Created: 2022/09/15 13:55:59 by ssabbaji          #+#    #+#             */
+/*   Updated: 2022/09/19 18:34:42 by ssabbaji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	*ft_memset(void *b, int c, size_t len)
+char	*ft_strncpy(char *dest, char *src, unsigned int n)
 {
-	size_t			i;
-	unsigned char	*ptr;
+	unsigned int	i;
 
 	i = 0;
-	ptr = b;
-	while (len > 0)
+	dest = (char *)ft_calloc(sizeof(char), n + 1);
+	if (!dest)
+		return (NULL);
+	while ((src[i] != '\0') && (i < n))
 	{
-		ptr[i] = (unsigned char)c;
+		dest[i] = src[i];
 		i++;
-		len--;
 	}
-	return (b);
-}
-
-void	ft_bzero(void	*s, size_t	n)
-{
-	s = ft_memset(s, '\0', n);
-}
-
-void	*ft_calloc(int count, int size)
-{
-	void	*ptr;
-	int		sizee;
-
-	sizee = count * size;
-	ptr = (void *)malloc(sizee);
-	if (!ptr)
-		exit (1);
-	if (ptr != NULL)
-		ft_bzero(ptr, sizee);
-	else
-		exit(1);
-	return (ptr);
+	while (i < n)
+	{
+		dest[i] = '\0';
+		i++;
+	}
+	return (dest);
 }

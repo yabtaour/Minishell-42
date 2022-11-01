@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit_status.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yabtaour <yabtaour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ssabbaji <ssabbaji@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 18:16:59 by yabtaour          #+#    #+#             */
-/*   Updated: 2022/07/26 19:48:20 by yabtaour         ###   ########.fr       */
+/*   Updated: 2022/09/30 14:46:24 by ssabbaji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,46 +18,61 @@ char	*ft_allocate(char *exit, char *value)
 	char	*new;
 
 	len = ft_strlen(exit) + ft_strlen(value) - 2;
-	new = malloc(sizeof(char) * len - 1);
+	new = malloc(sizeof(char) * len + 1);
 	if (!new)
 		return (NULL);
 	return (new);
 }
 
-char	*ft_new_value(t_data *data, char *value)
+void	ft_mamak(t_data *data, t_uwu *uwu)
 {
-	char	*exit_s;
-	char	*new_value;
-	int		i;
-	int		j;
-
-	j = 0;
-	i = 0;
-	new_value = ft_allocate(ft_itoa(data->general.old_error), value);
-	while (value[i])
+	while (uwu->lexer[uwu->i])
 	{
-		if (value[i] == '$' && value[i + 1] == '?')
+		if (uwu->lexer[uwu->i] == '"' && data->flag_s == 0)
+			data->flag_d = ft_change_flag(data->flag_d);
+		if (uwu->lexer[uwu->i] == '\'' && data->flag_d == 0)
+			data->flag_s = ft_change_flag(data->flag_s);
+		if (data->flag_s == 0 && uwu->lexer[uwu->i] == '$'
+			&& uwu->lexer[uwu->i + 1] == '?')
 		{
-			new_value = ft_strjoin(new_value, ft_itoa(data->general.old_error));
-			j += ft_strlen(ft_itoa(data->general.old_error));
-			i += 2;
+			uwu->new[uwu->j] = '\0';
+			uwu->new = ft_strjoin(uwu->new, uwu->temp);
+			uwu->j += ft_strlen(uwu->temp);
+			uwu->i += 2;
 		}
 		else
 		{
-			new_value[j] = value[i];
-			j++;
-			i++;
+			uwu->new[uwu->j] = uwu->lexer[uwu->i];
+			uwu->j++;
+			uwu->i++;
 		}
 	}
-	new_value[j] = '\0';
-	return (new_value);
+}
+
+char	*ft_new_value(t_data *data, char *lexer)
+{
+	t_uwu	uwu;
+
+	uwu.i = 0;
+	uwu.j = 0;
+	uwu.temp = NULL;
+	uwu.new = NULL;
+	uwu.lexer = lexer;
+	data->flag_d = 0;
+	data->flag_s = 0;
+	uwu.temp = ft_itoa(data->general.old_error);
+	uwu.new = ft_allocate(uwu.temp, lexer);
+	ft_mamak(data, &uwu);
+	free(uwu.temp);
+	uwu.new[uwu.j] = '\0';
+	return (uwu.new);
 }
 
 char	*ft_change_value(t_data *data, char *value)
 {
 	char	*temp;
 
-	temp = ft_substr(value, 0, ft_strlen(value));
+	temp = ft_strdup(value);
 	free(value);
 	value = ft_new_value(data, temp);
 	free(temp);
@@ -68,22 +83,24 @@ void	ft_change_exit_status(t_data *data)
 {
 	t_lexer	*lexer_clone;
 	int		i;
+	int		flag_d;
+	int		flag_s;
 
+	flag_d = 0;
+	flag_s = 0;
 	lexer_clone = data->lst_lexer;
 	while (lexer_clone)
 	{
-		data->flag_d = 0;
-		data->flag_s = 0;
 		i = 0;
-		while (lexer_clone->value[i])
+		while (lexer_clone->val[i])
 		{
-			if (lexer_clone->value[i] == '"' && data->flag_s == 0)
-				ft_change_flag(data->flag_d);
-			if (lexer_clone->value[i] == '\'' && data->flag_d == 0)
-				ft_change_flag(data->flag_s);
-			if (data->flag_s == 0 && lexer_clone->value[i] == '$'
-				&& lexer_clone->value[i + 1] == '?')
-				lexer_clone->value = ft_change_value(data, lexer_clone->value);
+			if (lexer_clone->val[i] == '"' && flag_s == 0)
+				flag_d = ft_change_flag(flag_d);
+			if (lexer_clone->val[i] == '\'' && flag_d == 0)
+				flag_s = ft_change_flag(flag_s);
+			if (flag_s == 0 && lexer_clone->val[i] == '$'
+				&& lexer_clone->val[i + 1] == '?')
+				lexer_clone->val = ft_change_value(data, lexer_clone->val);
 			i++;
 		}
 		lexer_clone = lexer_clone->next;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yabtaour <yabtaour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ssabbaji <ssabbaji@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 18:17:10 by yabtaour          #+#    #+#             */
-/*   Updated: 2022/07/26 19:39:04 by yabtaour         ###   ########.fr       */
+/*   Updated: 2022/10/03 14:24:02 by ssabbaji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,11 @@ int	*ft_fill_red(t_data *data, int red_num)
 	lexer_clone = data->lst_lexer;
 	while (lexer_clone && lexer_clone->type != PIPE)
 	{
-		if (ft_strcmp(lexer_clone->value, ">") == 0)
+		if (ft_strcmp(lexer_clone->val, ">") == 0)
 			red[i++] = 1;
-		if (ft_strcmp(lexer_clone->value, ">>") == 0)
+		if (ft_strcmp(lexer_clone->val, ">>") == 0)
 			red[i++] = 2;
-		if (ft_strcmp(lexer_clone->value, "<") == 0)
+		if (ft_strcmp(lexer_clone->val, "<") == 0)
 			red[i++] = 3;
 		lexer_clone = lexer_clone->next;
 	}
@@ -72,17 +72,19 @@ int	ft_fill_fd(t_data *data, char *name, int red)
 {
 	int	fd;
 
+	(void)data;
 	if (red == 1)
-		fd = open(name, O_RDWR | O_CREAT | O_TRUNC, 0664);
+		fd = open(name, O_RDWR | O_CREAT | O_TRUNC | O_CLOEXEC, 0664);
 	if (red == 2)
-		fd = open(name, O_RDWR | O_CREAT | O_APPEND, 0664);
+		fd = open(name, O_RDWR | O_CREAT | O_APPEND | O_CLOEXEC, 0664);
 	if (red == 3)
 	{
-		fd = open(name, O_RDONLY, 0777);
+		fd = open(name, O_RDONLY | O_CLOEXEC, 0777);
 		if (fd == -1)
 		{
 			printf("No such file or directory\n");
-			data->error = 1;
+			data->rerror_f = 1;
+			g_vars.g_exit_stat = 1;
 			fd = -69;
 		}
 	}
@@ -99,7 +101,7 @@ int	ft_red_num(t_data *data)
 	while (lexer_clone && lexer_clone->type != PIPE)
 	{		
 		if (lexer_clone->type == REDIRECTION
-			&& ft_strcmp(lexer_clone->value, "<<"))
+			&& ft_strcmp(lexer_clone->val, "<<"))
 			red_num++;
 		lexer_clone = lexer_clone->next;
 	}

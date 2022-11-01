@@ -3,27 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_main.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rsaf <rsaf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ssabbaji <ssabbaji@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 10:37:19 by yabtaour          #+#    #+#             */
-/*   Updated: 2022/08/15 21:55:01 by rsaf             ###   ########.fr       */
+/*   Updated: 2022/10/07 13:05:05 by ssabbaji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./minishell.h"
-#include "./debug.h"
-
-void	ft_initialize2(t_data *data)
-{
-	data->lst_cmd = NULL;
-	data->lst_lexer = NULL;
-	data->error = 0;
-	data->her_doc = 0;
-	data->general.index = 0;
-	// rl_catch_signals = 0;
-	signal(SIGINT, handler);
-	signal(SIGQUIT, handler);
-}
 
 void	ft_free_norme(t_data *data)
 {
@@ -39,7 +26,7 @@ void	ft_start(t_data *data)
 {
 	ft_expanding(data);
 	ft_parsing(data);
-	execution(data);
+	pre_execution(data);
 	ft_free_norme(data);
 }
 
@@ -47,26 +34,27 @@ int	ft_sub_main(t_data *data)
 {
 	while (42)
 	{
-		g_where_ami = 1;
-		ft_initialize2(data);
+		init_main(data);
 		data->cmd = readline("minishell-1.0> ");
 		if (!data->cmd)
 			break ;
-		if (data->cmd && data->cmd[0] != '\0')
+		else if (!*data->cmd)
+			free(data->cmd);
+		else if (data->cmd && data->cmd[0] != '\0')
 		{
 			ft_lexer(data);
-			data->error = ft_syntax_analyzer(data);
-			if (data->error)
+			g_vars.g_exit_stat = ft_syntax_analyzer(data);
+			if (g_vars.g_exit_stat)
 			{
 				ft_free_lexer(data->lst_lexer);
-				data->general.old_error = data->error;
+				data->general.old_error = g_vars.g_exit_stat;
 				continue ;
 			}
 			ft_start(data);
 		}
-		data->general.old_error = data->error;
+		data->general.old_error = g_vars.g_exit_stat;
 	}
 	rl_clear_history();
-	ft_free_env(data, data->lst_env);
+	ft_free_env(data->lst_env);
 	return (0);
 }

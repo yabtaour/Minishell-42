@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_new_split.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yabtaour <yabtaour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ssabbaji <ssabbaji@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 18:17:06 by yabtaour          #+#    #+#             */
-/*   Updated: 2022/07/26 18:17:07 by yabtaour         ###   ########.fr       */
+/*   Updated: 2022/09/15 18:09:19 by ssabbaji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,47 +101,3 @@ char	**ft_new_split(char *s, char c)
 	}
 	return (split.ptr);
 }
-
-// char	**ft_new_split(char *s, char c)
-// {
-// 	char	**ptr;
-// 	int		j;
-// 	int		i;
-// 	int		flag_d = 0;
-// 	int		flag_s = 0;
-
-// 	ptr = ft_allocation(s, c);
-// 	i = 0;
-// 	while (*s)
-// 	{
-// 		while (*s && *s == c)
-// 			s++;
-// 		j = 0;
-// 		if (*s == '"' && flag_s == 0)
-// 		{
-// 			j++;
-// 			flag_d = ft_change_flag(flag_d);
-// 		}
-// 		if (*s == '\'' && flag_d == 0)
-// 		{
-// 			j++;
-// 			flag_s = ft_change_flag(flag_s);
-// 		}
-// 		while ((s[j] && (flag_d == 1 || flag_s == 1)) 
-// || (s[j] != '\0' && s[j] != c))
-// 		{
-// 			if (s[j] == '"' && flag_s == 0)
-// 				flag_d = ft_change_flag(flag_d);
-// 			if (s[j] == '\'' && flag_d == 0)
-// 				flag_s = ft_change_flag(flag_s);
-// 			j++;
-// 		}
-// 		if (j)
-// 		{
-// 			ptr[i] = ft_substr(s, 0, j);
-// 			i++;
-// 		}	
-// 		s = s + j;
-// 	}
-// 	return (ptr);
-// }

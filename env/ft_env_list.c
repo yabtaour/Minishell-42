@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env_list.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yabtaour <yabtaour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ssabbaji <ssabbaji@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 18:16:13 by yabtaour          #+#    #+#             */
-/*   Updated: 2022/07/26 19:33:03 by yabtaour         ###   ########.fr       */
+/*   Updated: 2022/09/21 16:00:21 by ssabbaji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,9 @@ t_env	*ft_new_env_node(char *value)
 	while (value[i] != '=')
 		i++;
 	node->name = ft_substr(value, 0, i);
-	node->value = ft_substr(value, i + 1, ft_strlen(value) - i);
+	i++;
+	if (value[i])
+		node->value = ft_substr(value, i, ft_strlen(value) - i);
 	node->next = NULL;
 	node->prev = NULL;
 	return (node);

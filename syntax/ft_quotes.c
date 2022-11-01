@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_quotes.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yabtaour <yabtaour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ssabbaji <ssabbaji@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 18:17:25 by yabtaour          #+#    #+#             */
-/*   Updated: 2022/07/26 18:17:26 by yabtaour         ###   ########.fr       */
+/*   Updated: 2022/09/29 11:02:57 by ssabbaji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,10 @@ int	ft_check_the_quotes(t_data *data)
 		if (lexer_clone->type == WORD)
 		{
 			i = 0;
-			while (lexer_clone->value[i])
+			while (lexer_clone->val[i])
 			{
-				do_num = ft_change_double(data, lexer_clone->value[i], do_num);
-				si_num = ft_change_single(data, lexer_clone->value[i], si_num);
+				do_num = ft_change_double(data, lexer_clone->val[i], do_num);
+				si_num = ft_change_single(data, lexer_clone->val[i], si_num);
 				i++;
 			}
 		}
@@ -78,6 +78,8 @@ int	ft_check_the_quotes(t_data *data)
 
 int	ft_check_quotes(t_data *data)
 {
-	data->error = ft_check_the_quotes(data);
-	return (data->error);
+	int	quotes_f;
+
+	quotes_f = ft_check_the_quotes(data);
+	return (quotes_f);
 }

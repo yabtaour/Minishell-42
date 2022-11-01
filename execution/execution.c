@@ -3,57 +3,73 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rsaf <rsaf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ssabbaji <ssabbaji@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/26 12:22:48 by rsaf              #+#    #+#             */
-/*   Updated: 2022/07/29 14:37:55 by rsaf             ###   ########.fr       */
+/*   Created: 2022/09/03 18:53:10 by ssabbaji          #+#    #+#             */
+/*   Updated: 2022/10/07 13:18:48 by ssabbaji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	ft_execute_cmd(t_data *data, char *path, t_cmd *lst_cmd)
+int	dup_and_close(t_data *data, t_cmd *cmd)
 {
-	if (lst_cmd->fd_in != 0)
-		close(lst_cmd->fd_in);
-	if (lst_cmd->fd_out != 1)
-		close(lst_cmd->fd_out);
-	execve(path, lst_cmd->cmd, data->env);
-	perror("mshell: ");
-	if (errno == EACCES)
-		exit(126);
-	exit (127);
+	dup2(cmd->fd_in, 0);
+	dup2(cmd->fd_out, 1);
+	if (cmd->fd_in != 0)
+		close(cmd->fd_in);
+	if (cmd->fd_out != 1)
+		close(cmd->fd_out);
+	close_fds(cmd);
+	close_pipes(data->pipes, data->general.count);
+	g_vars.g_exit_stat = check_builtins(data, cmd);
+	if (g_vars.g_exit_stat == NO_BUILT)
+		g_vars.g_exit_stat = execution_2(data, cmd);
+	return (g_vars.g_exit_stat);
 }
 
-int	cmds_lent(t_data *data)
+int	execution(t_data *data, t_cmd *cmd)
 {
-	int		lent;
-	t_cmd	*cmd_clone;
+	int		pid;
+	int		fork_c;
 
-	lent = 0;
-	cmd_clone = data->lst_cmd;
-	while (cmd_clone)
+	fork_c = 0;
+	pid = 1;
+	while (cmd)
 	{
-		lent++;
-		cmd_clone = cmd_clone->next;
+		g_vars.g_exit_stat = check_nonfork(data, cmd);
+		if (g_vars.g_heredoc == 0)
+			return (HEREDOC_EXE);
+		fork_c += check_fork(&pid, data);
+		signal(SIGINT, SIG_IGN);
+		if (pid == 0 && cmd->fd_in != -69)
+		{
+			signal(SIGINT, SIG_DFL);
+			g_vars.g_where_ami = 0;
+			g_vars.g_exit_stat = dup_and_close(data, cmd);
+			exit(g_vars.g_exit_stat);
+		}
+		cmd = cmd->next;
 	}
-	return (lent);
+	close_all(cmd, data->pipes, data->general.count);
+	if (fork_c)
+		g_vars.g_exit_stat = terminate_pid(pid);
+	return (g_vars.g_exit_stat);
 }
 
-int	execution(t_data *data)
+int	pre_execution(t_data *data)
 {
-	int	idx;
-	int	**pip;
-	int	lent;
-	int	pid;
+	t_cmd	*cmd;
+	int		pid;
 
-	idx = 0;
 	pid = 0;
-	data->general.pid = -42;
-	data->general.lent = cmds_lent(data);
-	pip = ft_init_pipes(data, 0, 0, 0);
-	ft_get_paths(data);
+	data->general.count = c_lstcmd(data);
 	if (data->lst_cmd)
-		start_execution(data, pip, 0);
+	{
+		cmd = data->lst_cmd;
+		data->pipes = initialize_pipes(data);
+		if (execution(data, cmd) == HEREDOC_EXE)
+			g_vars.g_exit_stat = 1;
+	}
 	return (0);
 }

@@ -3,38 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils3.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rsaf <rsaf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ssabbaji <ssabbaji@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 18:17:12 by yabtaour          #+#    #+#             */
-/*   Updated: 2022/07/29 15:02:43 by rsaf             ###   ########.fr       */
+/*   Updated: 2022/09/19 16:29:08 by ssabbaji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_handle_herdoc(t_data *data, t_lexer *lexer)
+void	ft_handle_herdoc(t_data *data, t_lexer *lexer, int i)
 {
-	int		i;
-
-	i = 0;
 	while (lexer)
 	{
-		if (ft_strcmp(lexer->value, "<<") == 0)
+		if (ft_strcmp(lexer->val, "<<") == 0)
 			data->her_doc++;
 		lexer = lexer->next;
 	}
 	if (data->her_doc)
 	{
-		data->eof = malloc(sizeof(char *) * (data->her_doc + 1 ));
+		data->eof = malloc(sizeof(char *) * (data->her_doc + 1));
 		if (!data->eof)
 			exit (1);
 		lexer = data->lst_lexer;
 		while (lexer)
 		{
-			if (ft_strcmp(lexer->value, "<<") == 0)
+			if (ft_strcmp(lexer->val, "<<") == 0)
 			{
 				lexer = lexer->next;
-				data->eof[i] = ft_substr(lexer->value, 0, ft_strlen(lexer->value));
+				data->eof[i] = ft_substr(lexer->val, 0, ft_strlen(lexer->val));
 				ft_delete_eof_quotes(data->eof[i++]);
 			}
 			lexer = lexer->next;
@@ -55,7 +52,7 @@ void	ft_delete_command(t_data *data)
 		if (lexer_clone->prev)
 			lexer_clone->prev->next = lexer_clone->next;
 		data->lst_lexer = lexer_clone->next;
-		free(lexer_clone->value);
+		free(lexer_clone->val);
 		free(lexer_clone);
 		lexer_clone = data->lst_lexer;
 	}
@@ -66,13 +63,13 @@ void	ft_delete_command(t_data *data)
 		if (lexer_clone->prev)
 			lexer_clone->prev->next = lexer_clone->next;
 		data->lst_lexer = lexer_clone->next;
-		free(lexer_clone->value);
+		free(lexer_clone->val);
 		free(lexer_clone);
 		lexer_clone = data->lst_lexer;
 	}
 }
 
-char	**ft_get_new(t_data *data, t_cmd *cmd)
+char	**ft_get_new(t_cmd *cmd)
 {
 	int		i;
 	char	**new_cmd;
@@ -119,7 +116,6 @@ void	ft_delete_herdoc(t_data *data)
 {
 	t_cmd	*cmd_clone;
 	char	**new_cmd;
-	int		len;
 	int		i;
 
 	cmd_clone = data->lst_cmd;
@@ -127,7 +123,7 @@ void	ft_delete_herdoc(t_data *data)
 		cmd_clone = cmd_clone->next;
 	if (cmd_clone && cmd_clone->her_doc_num)
 	{
-		new_cmd = ft_get_new(data, cmd_clone);
+		new_cmd = ft_get_new(cmd_clone);
 		free_split(cmd_clone->cmd);
 		i = 0;
 		while (new_cmd && new_cmd[i])

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rsaf <rsaf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ssabbaji <ssabbaji@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 18:17:08 by yabtaour          #+#    #+#             */
-/*   Updated: 2022/07/29 14:16:47 by rsaf             ###   ########.fr       */
+/*   Updated: 2022/09/29 17:31:59 by ssabbaji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ char	*ft_strjoin(char *s1, char *s2)
 		exit (1);
 	i = -1;
 	j = 0;
-	while (s1[++i])
+	while (s1 && s1[++i])
 		str[i] = s1[i];
 	while (s2[j])
 		str[i++] = s2[j++];

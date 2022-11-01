@@ -30,7 +30,7 @@ int	ft_is_redirection(char c)
 int	ft_is_word(char c)
 {
 	if (c != '|' && c != '&' && !ft_is_redirection(c)
-		&& c != ' ' && c != ';' && !ft_is_parenth(c))
+		&& !ft_isspace(c) && c != ';' && !ft_is_parenth(c))
 		return (1);
 	return (0);
 }

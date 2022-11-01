@@ -1,50 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ssabbaji <ssabbaji@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/26 18:17:32 by yabtaour          #+#    #+#             */
-/*   Updated: 2022/09/20 16:28:55 by ssabbaji         ###   ########.fr       */
+/*   Created: 2022/09/14 14:01:52 by ssabbaji          #+#    #+#             */
+/*   Updated: 2022/09/19 17:49:30 by ssabbaji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	*ft_memset(void *b, int c, size_t len)
+char	*ft_strdup(char *s1)
 {
-	size_t			i;
-	unsigned char	*ptr;
+	size_t	i;
+	char	*str;
 
 	i = 0;
-	ptr = b;
-	while (len > 0)
+	str = (char *)malloc((ft_strlen(s1) + 1) * sizeof(char));
+	if (str == NULL)
+		return (NULL);
+	while (s1[i] != '\0')
 	{
-		ptr[i] = (unsigned char)c;
+		str[i] = s1[i];
 		i++;
-		len--;
 	}
-	return (b);
-}
-
-void	ft_bzero(void	*s, size_t	n)
-{
-	s = ft_memset(s, '\0', n);
-}
-
-void	*ft_calloc(int count, int size)
-{
-	void	*ptr;
-	int		sizee;
-
-	sizee = count * size;
-	ptr = (void *)malloc(sizee);
-	if (!ptr)
-		exit (1);
-	if (ptr != NULL)
-		ft_bzero(ptr, sizee);
-	else
-		exit(1);
-	return (ptr);
+	str[i] = '\0';
+	return (str);
 }

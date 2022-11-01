@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_len.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yabtaour <yabtaour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ssabbaji <ssabbaji@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 18:16:28 by yabtaour          #+#    #+#             */
-/*   Updated: 2022/07/26 18:16:29 by yabtaour         ###   ########.fr       */
+/*   Updated: 2022/09/23 18:43:26 by ssabbaji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,14 @@ int	ft_len_before(char *var)
 int	ft_skip(char *value, int i)
 {
 	i++;
-	while (value[i] && value[i] != ' ' && value[i] != '$'
+	while (value[i] && !ft_isspace(value[i]) && value[i] != '$'
 		&& value[i] != '\\' && value[i] != '\''
 		&& value[i] != '"' && value[i] != '=')
+	{
 		i++;
+		if (value[i] >= '0' && value[i] <= '9')
+			break ;
+	}
 	return (i);
 }
 
@@ -76,12 +80,18 @@ int	ft_calculate_len(char *value, int i)
 
 	len = 0;
 	i++;
-	while (value[i] && value[i] != ' ' && value[i] != '$'
+	while (value[i] && !ft_isspace(value[i]) && value[i] != '$'
 		&& value[i] != '\\' && value[i] != '\''
-		&& value[i] != '"' && value[i] != '=')
+		&& value[i] != '"' && value[i] != '='
+		&& value[i] != '+'
+		&& value[i] != '-'
+		&& value[i] != '/'
+		&& value[i] != '%')
 	{
 		i++;
 		len++;
+		if (value[i] >= '0' && value[i] <= '9')
+			break ;
 	}
 	return (len);
 }

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yabtaour <yabtaour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ssabbaji <ssabbaji@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 17:56:21 by yabtaour          #+#    #+#             */
-/*   Updated: 2022/07/27 17:56:22 by yabtaour         ###   ########.fr       */
+/*   Updated: 2022/09/19 16:30:06 by ssabbaji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-int	ft_change_env_value(t_data *data, char *name, char *value, int size)
+int	ft_change_env_value(t_data *data, char *name, char *value)
 {
 	t_env	*env_clone;
 
@@ -21,17 +21,23 @@ int	ft_change_env_value(t_data *data, char *name, char *value, int size)
 	{
 		if (ft_strcmp(name, env_clone->name) == 0)
 		{
-			free(env_clone->value);
-			if (!value || !ft_strlen(value))
+			if (value)
 			{
-				env_clone->value = malloc (1);
-				env_clone->value[0] = '\0';
+				free(env_clone->value);
+				if (value[0] == '\0')
+				{
+					env_clone->value = malloc (1);
+					env_clone->value[0] = '\0';
+				}
+				else
+					env_clone->value = ft_substr(value, 0, ft_strlen(value));
 			}
-			else
-				env_clone->value = ft_substr(value, 0, ft_strlen(value));
 		}
 		env_clone = env_clone->next;
 	}
+	free(name);
+	if (value)
+		free(value);
 	return (0);
 }
 
@@ -66,6 +72,19 @@ char	*ft_get_name_exp(char *name)
 	return (new_name);
 }
 
+char	*export_no_value(char *value, int idx)
+{
+	char	*new;
+
+	if (value[idx] == '\0')
+	{
+		new = malloc(sizeof(char) * 1);
+		new[0] = '\0';
+		return (new);
+	}
+	return (NULL);
+}
+
 char	*ft_get_value_exp(char *value)
 {
 	int		i;
@@ -83,6 +102,9 @@ char	*ft_get_value_exp(char *value)
 	if (value[i])
 	{
 		origin = i + 1;
+		new_value = export_no_value(value, origin);
+		if (new_value)
+			return (new_value);
 		while (value[++i])
 			j++;
 		new_value = ft_substr(value, origin, j);

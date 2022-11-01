@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lexer_list.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rsaf <rsaf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ssabbaji <ssabbaji@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 18:16:46 by yabtaour          #+#    #+#             */
-/*   Updated: 2022/07/28 11:28:31 by rsaf             ###   ########.fr       */
+/*   Updated: 2022/09/15 18:08:50 by ssabbaji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,13 @@ t_lexer	*ft_new_lexer_node(char *str, int type)
 	node = malloc(sizeof(t_lexer));
 	if (!node)
 		exit (1);
-	node->value = malloc(i + 1);
-	if (!node->value)
+	node->val = malloc(i + 1);
+	if (!node->val)
 		exit (1);
 	i = -1;
 	while (str[++i])
-		node->value[i] = str[i];
-	node->value[i] = '\0';
+		node->val[i] = str[i];
+	node->val[i] = '\0';
 	node->type = type;
 	node->next = NULL;
 	node->prev = NULL;

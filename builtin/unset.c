@@ -3,47 +3,71 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rsaf <rsaf@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ssabbaji <ssabbaji@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 17:56:39 by yabtaour          #+#    #+#             */
-/*   Updated: 2022/08/15 21:59:11 by rsaf             ###   ########.fr       */
+/*   Updated: 2022/09/30 17:00:37 by ssabbaji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_free_this(t_env *env_clone)
+void	free_env_node(t_env *env)
 {
-	free(env_clone->name);
-	free(env_clone->value);
-	free(env_clone);
+	if (env)
+	{
+		if (env->name)
+			free(env->name);
+		if (env->value)
+			free(env->value);
+		free(env);
+	}
 }
 
-int	unset(t_data *data, t_cmd *lst_cmd)
+void	ft_my_unset(t_data *data, char *cmd)
 {
-	int		idx;
-	t_env	*env_clone;
-	t_env	*tmp;
+	t_env	*env;
+
+	if (!data->lst_env)
+		return ;
+	if (!ft_strcmp(cmd, data->lst_env->name))
+	{
+		env = data->lst_env;
+		data->lst_env = data->lst_env->next;
+		free_env_node(env);
+		return ;
+	}
+	env = data->lst_env;
+	while (env)
+	{
+		if (!ft_strcmp(cmd, env->name))
+			break ;
+		env = env->next;
+	}
+	if (!env)
+		return ;
+	env->prev->next = env->next;
+	if (env->next)
+		env->next->prev = env->prev;
+	free_env_node(env);
+}
+
+void	ft_pre_unset(t_data *data, char **cmd)
+{
+	int	idx;
 
 	idx = 1;
-	env_clone = data->lst_env;
-	if (!lst_cmd->cmd[1])
-		return (1);
-	while (env_clone)
+	while (cmd[idx])
 	{
-		if (ft_strcmp(lst_cmd->cmd[idx], env_clone->name) == 0)
-		{
-			if (env_clone->next)
-				env_clone->next->prev = env_clone->prev;
-			if (env_clone->prev)
-				env_clone->prev->next = env_clone->next;
-			ft_free_this(env_clone);
-			idx++;
-			if (!lst_cmd->cmd[idx])
-				return (0);
-		}
-		if (env_clone)
-			env_clone = env_clone->next;
+		ft_my_unset(data, cmd[idx]);
+		idx++;
 	}
+}
+
+int	unset(t_data *data, t_cmd *cmd)
+{
+	if (!cmd->cmd[1])
+		return (1);
+	ft_pre_unset(data, cmd->cmd);
 	return (0);
 }

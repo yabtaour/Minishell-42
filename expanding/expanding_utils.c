@@ -49,6 +49,25 @@ int	ft_check_var_env(t_data *data, char *var)
 	return (0);
 }
 
+char	*ft_delete_variable(char *var, int i)
+{
+	char	*new;
+
+	i++;
+	new = NULL;
+	while (var[i] && !ft_isspace(var[i]) && var[i] != '$'
+		&& var[i] != '\\' && var[i] != '"' && var[i] != '='
+		&& var[i] != '\'')
+	{
+		i++;
+		if (var[i] >= '0' && var[i] <= '9')
+			break ;
+	}
+	if (var[i])
+		new = ft_substr(var, i, ft_len_after(var));
+	return (new);
+}
+
 char	*ft_delete_var(t_data *data, char *var)
 {
 	char	*new_var;
@@ -67,13 +86,6 @@ char	*ft_delete_var(t_data *data, char *var)
 		i++;
 	}
 	if (data->flag_s == 0 && var[i] && var[i] == '$')
-	{
-		i++;
-		while (var[i] && var[i] != ' ' && var[i] != '$'
-			&& var[i] != '\\' && var[i] != '"' && var[i] != '=')
-			i++;
-		if (var[i])
-			new_var = ft_substr(var, i, ft_len_after(var));
-	}
+		new_var = ft_delete_variable(var, i);
 	return (new_var);
 }
