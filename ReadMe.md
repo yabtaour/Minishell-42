@@ -6,7 +6,7 @@
 
 ## → As beautiful as a shell
 
-> Minishell is a 42-school project that aims to introduce as the world of shells by recoding out mini bash, a program that can parse, execute, and launch executables along with some built-in commands.
+> Minishell is a 42-school project that aims to introduce us to the world of shells by recoding our mini-bash, a program that can parse, execute, and launch executables along with some built-in commands.
 > 
 
 ## → Used functions :
